@@ -29,8 +29,6 @@ use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntitySpawnEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageByChildEntityEvent;
-use pocketmine\event\entity\EntityDamageByBlockEvent;
 use pocketmine\network\protocol\AddPlayerPacket;
 use slapper\entities\SlapperHuman;
 use slapper\entities\HumanNPC;
@@ -206,28 +204,22 @@ if(!($typeToUse == "Nothing")){
 
 	public function onEntityInteract(EntityDamageEvent $ev) {
 		if ($ev->isCancelled()) return;
-		$taker = $ev->getEntity();
-		$didItWork = "No";
-		$isInvalid = "No";
-		$doNotCheck = "No";
-		$wasAnArrow = "No";
-		$noCommand = "No";
-		$takerName = "FallbackCommand";
-		$giverName = "Default";
-		if(($ev instanceof EntityDamageByEntityEvent) && !($ev instanceof EntityDamageByChildEntityEvent)){ $giver = $ev->getDamager(); if($giver instanceof Player){ if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman){
-		$takerName = $taker->getName();
-		$giverName = $giver->getName();
-		$this->getServer()->dispatchCommand(new ConsoleCommandSender(), "say "."Lollies");
-		if($giver->hasPermission("slapper.hit")){ $didItWork = "Yes"; }
-		if($isInvalid == "No" && $didItWork == "No"){ $ev->setCancelled(); } }
-		$configPart = $this->getConfig()->get($takerName);
-		if($configPart == null){ $configPart = $this->getConfig()->get("FallbackCommand"); }
-		foreach($configPart as $commandNew){
-		$this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $giverName, $commandNew));
-}
-}
-}
-}
+		if($event instanceof EntityDamageByEntityEvent){
+			$taker = $event->getEntity();
+			$hiter = $event->getDamager();
+			if($hiter instanceof Player){
+				if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman){
+					$configPart = $this->getConfig()->get($takerName);
+					if($configPart == null){ 
+						$configPart = $this->getConfig()->get("FallbackCommand"); 
+					}
+					foreach($configPart as $commandNew){
+						$this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $giverName, $commandNew));
+					}
+				}
+			}
+		}
+	}
 
 	public function onEntitySpawn(EntitySpawnEvent $ev) {
 		$entity = $ev->getEntity();
