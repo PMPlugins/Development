@@ -1,0 +1,32 @@
+name: Slapper
+author: jojoe77777
+version: 1.2.0DEV
+description: Adds entities into your world that you can slap to run commands!
+main: slapper\main
+api: [1.10.0]
+commands:
+  slapper:
+    description: Create a slappable player!
+    usage: "/slapper <name>"
+    permission: slapper.create
+  rca:
+    description: Run command as another player!
+    usage: "/rca <player> <command>"
+    permission: slapper.rca
+  nothing:
+    description: Do nothing!
+    usage: "/nothing"
+    permission: slapper.nothing
+permissions:
+  slapper.create:
+    description: Allow using command /slapper
+    default: op
+  slapper.nothing:
+    description: Allow doing nothing
+    default: op
+  slapper.hit:
+    description: Allow harming human NPCs
+    default: false
+  slapper.rca:
+    description: Allow running commands as other players
+    default: op

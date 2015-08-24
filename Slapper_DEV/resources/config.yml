@@ -1,0 +1,16 @@
+# Slapper commands:
+
+# {player} will be replace with the name of the player who hit the human NPC.
+# You can also use "rca <player> <command>" to run the command AS the player.
+# Use "nothing" to not run any command.
+
+#FallbackCommand will be used if no command was found for the human NPC.
+
+FallbackCommand: 
+- nothing
+
+ExampleAsPlayer: 
+- rca {player} me is cool
+
+ExampleAsConsole: 
+- me thinks {player} is cool
