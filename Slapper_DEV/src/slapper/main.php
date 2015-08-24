@@ -94,15 +94,14 @@ class main extends PluginBase implements Listener{
 
     public function onCommand(CommandSender $sender, Command $command, $label, array $args){
 		switch($command->getName()){
-
 			case 'nothing':
-            return true;
-            break;
-
+            			return true;
+            			break;
 			case 'rca':
-            if (count($args) < 2){
-			$sender->sendMessage("Please enter a player and a command.");
-			return false; }
+            			if (count($args) < 2){
+					$sender->sendMessage("Please enter a player and a command.");
+					return false; 
+            			}
 
 		    $player = $this->getServer()->getPlayer($tuv = array_shift($args));
             if(!($player == null)){
