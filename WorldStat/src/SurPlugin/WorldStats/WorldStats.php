@@ -13,6 +13,8 @@ use pocketmine\math\Vector3;
 use pocketmine\event\block\SignChangeEvent;
 use pocketmine\event\block\BlockBreakEvent;
 
+use SurPlugin\WorldStats\task\SignUpdateTask;
+
 class WorldStats extends PluginBase implements Listener{
 
 		public function onEnable(){
@@ -23,7 +25,7 @@ class WorldStats extends PluginBase implements Listener{
 				$this->sign = new Config($this->getDataFolder() . "settings.yml", Config::YAML, array
 				(
 					"sign_trigger" => "worldstats",
-					"sign_final_change" => "[World Status]",
+					"sign_final_change" => "[WorldStatus]",
 				)
 			);
 			$this->getLogger()->info(TextFormat::BLUE . "WorldStats has been enabled!");
