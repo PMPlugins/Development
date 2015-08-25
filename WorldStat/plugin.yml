@@ -1,1 +1,15 @@
-
+name: WorldStats
+description: WorldStats lets you view stats of worlds easily!
+author: Legoboy
+main: SurPlugin\WorldStats\Main
+version: 1.0.0
+api: [1.12.0]
+permissions:
+ worldstats:
+  default: op
+  description: Master permission
+  children:
+    worldstats.place:
+      default: op
+    worldstats.break:
+      default: op
