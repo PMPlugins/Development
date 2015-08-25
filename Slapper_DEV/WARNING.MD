@@ -1,1 +1,1 @@
-THIS SLAPPER IS NOT READY TO USE!!! IT WILL BLOW THE SERVER OF YOURS UP!!!
+This version of Slapper is only for testing! I am not responsible for anything that may happen to your server while using this version.
