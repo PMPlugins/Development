@@ -100,7 +100,7 @@ class main extends PluginBase implements Listener{
 			case 'rca':
             	if (count($args) < 2){
 					$sender->sendMessage("Please enter a player and a command.");
-					return false; 
+					return false;
             	}
 				$player = $this->getServer()->getPlayer($tuv = array_shift($args));
 				if(!($player == null)){
@@ -140,9 +140,9 @@ class main extends PluginBase implements Listener{
 							foreach([
 								"Chicken", "Pig", "Sheep","Cow", "Mooshroom", "Wolf", "Enderman", "Spider", " Skeleton", "PigZombie", "Creeper", "Slime", "Silverfish", "Villager", "Zombie", "Human", "Player", "Squid", /*"Ghast"*/"Bat", "CaveSpider", "LavaSlime"
 							] as $entityType){
-								if($type == $entityType){ 
-									$didMatch = "Yes"; 
-									$theOne = $entityType; 
+								if($type == $entityType){
+									$didMatch = "Yes";
+									$theOne = $entityType;
 								}
 							}
 							$typeToUse = "Nothing";
@@ -171,7 +171,7 @@ class main extends PluginBase implements Listener{
 									$pChes = $humanInv->getChestplate();
 									$pLegg = $humanInv->getLeggings();
 									$pBoot = $humanInv->getBoots();
-							
+
 									$Inv->setHelmet($pHelm);
 									$Inv->setChestplate($pChes);
 									$Inv->setLeggings($pLegg);
@@ -197,8 +197,8 @@ class main extends PluginBase implements Listener{
 			if($hiter instanceof Player){
 				if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman){
 					$configPart = $this->getConfig()->get($takerName);
-					if($configPart == null){ 
-						$configPart = $this->getConfig()->get("FallbackCommand"); 
+					if($configPart == null){
+						$configPart = $this->getConfig()->get("FallbackCommand");
 					}
 					foreach($configPart as $commandNew){
 						$this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $giverName, $commandNew));
@@ -208,12 +208,6 @@ class main extends PluginBase implements Listener{
 		}
 	}
 
-	public function onEntitySpawn(EntitySpawnEvent $ev) {
-		$entity = $ev->getEntity();
-		if($entity instanceof SlapperCaveSpider /*or $entity instanceof SlapperSpider or $entity instanceof SlapperZombie or $entity instanceof SlapperVillager or $entity instanceof SlapperHuman or $entity instanceof SlapperCreeper or $entity instanceof SlapperBat or $entity instanceof SlapperSkeleton or $entity instanceof SlapperEnderman*/){
-		$this->getServer()->broadcastMessage("Test");
-		}
-	}
 
   private function getNBT($subHeight,$senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ){
   $nbt = new Compound;
