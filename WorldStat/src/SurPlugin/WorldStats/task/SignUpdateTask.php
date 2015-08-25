@@ -22,8 +22,11 @@ class SignUpdateTask extends PluginTask{
 			foreach($levels->getTiles() as $tiles){
 				if($tiles instanceof Sign){
 					$text = $tiles->getText();
-					if(TextFormat::clean($text[0]) === "[HG Players]"){
-						$tiles->setText($text[0] = TextFormat::GREEN . "[HG Players]", $text[1] = TextFormat::YELLOW . "TPS: " . $this->plugin->getServer()->getTicksPerSecond());
+					if(TextFormat::clean(strtolower(trim($text[0]))) === strtolower(trim($this->plugin->sign->get("sign_final_change")))){
+						$world = $text[1];
+						$level = $this->plugin->getServer()->getLevelByName($world);
+						$players = count($level->getPlayers());
+						$tiles->setText($text[0] = TextFormat::GREEN . $this->plugin->sign->get("sign_final_change"), $text[1] = TextFormat::YELLOW . $players . " players");
 					}
 				}
 			}
