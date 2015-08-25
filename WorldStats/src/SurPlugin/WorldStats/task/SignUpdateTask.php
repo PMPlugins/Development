@@ -1,5 +1,7 @@
 <?php
+
 namespace SurPlugin/WorldStats;
+
 use pocketmine\scheduler\PluginTask;
 use pocketmine\utils\TextFormat;
 use pocketmine\tile\Tile;
@@ -8,10 +10,12 @@ use pocketmine\math\Vector3;
 use pocketmine\level\Level;
 use pocketmine\level\Position;
 class SignUpdateTask extends PluginTask{
+	
     public function __construct(WorldStats $plugin){
         $this->plugin = $plugin;
 	    parent::__construct($plugin);
     }
+    
     public function onRun($currentTick){
 		foreach($this->plugin->getServer()->getLevels() as $levels){
 			foreach($levels->getTiles() as $tiles){
