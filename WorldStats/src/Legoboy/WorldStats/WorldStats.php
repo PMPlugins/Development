@@ -79,6 +79,13 @@ class WorldStats extends PluginBase implements Listener{
 			}
 		}
 		
+		
+		/*************************
+		*========================*
+		*====[ Plugin APIs ]=====*
+		*========================*
+		*************************/
+		
 		public function updateSigns(){
 			foreach($this->getServer()->getLevels() as $levels){
 				foreach($levels->getTiles() as $tiles){
@@ -93,5 +100,10 @@ class WorldStats extends PluginBase implements Listener{
 					}
 				}
 			}
+		}
+		
+		public function killUpdateTask(){
+			$result = $this->getServer()->getScheduler()->cancelTask($this->taskid);
+			return $result;
 		}
 }
