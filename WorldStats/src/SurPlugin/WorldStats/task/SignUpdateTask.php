@@ -10,6 +10,8 @@ use pocketmine\math\Vector3;
 use pocketmine\level\Level;
 use pocketmine\level\Position;
 
+use SurPlugin\WorldStats\WorldStats;
+
 class SignUpdateTask extends PluginTask{
 	
     public function __construct(WorldStats $plugin){
