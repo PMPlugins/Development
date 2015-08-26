@@ -14,6 +14,7 @@ use pocketmine\event\block\SignChangeEvent;
 use pocketmine\event\block\BlockBreakEvent;
 
 use SurPlugin\WorldStats\task\SignUpdateTask;
+use SurPlugin\WorldStats\commands\WorldStatsCommand;
 
 class WorldStats extends PluginBase implements Listener{
 
@@ -32,6 +33,11 @@ class WorldStats extends PluginBase implements Listener{
 			$this->getServer()->getScheduler()->scheduleRepeatingTask($task = new SignUpdateTask($this), 40);
 			$this->taskid = $task->getTaskId();
 		}
+		
+		private function registerAll(){
+			$commandmap = $this->getServer()->getCommandMap();
+    			$commandmap->register("ws", new WorldStatsCommand($this));
+    		}
 		
 		public function onSignChange(SignChangeEvent $event){
 			$player = $event->getPlayer();
