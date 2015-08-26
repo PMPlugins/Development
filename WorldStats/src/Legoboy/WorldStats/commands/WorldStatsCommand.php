@@ -37,11 +37,11 @@ class WorldStatsCommand extends Command implements PluginIdentifiableCommand{
                 if($tiles instanceof Sign){
                     $text = $tiles->getText();
                     if(TextFormat::clean(strtolower(trim($text[0]))) === strtolower(trim($this->plugin->sign->get("sign_final_change")))){
-						$world = $text[1];
-						$level = $this->plugin->getServer()->getLevelByName($world);
-						$players = count($level->getPlayers());
-						$tiles->setText($text[0] = TextFormat::GREEN . $this->plugin->sign->get("sign_final_change"), $text[2] = TextFormat::YELLOW . $players . " players");
-					}
+		        $world = $text[1];
+			$level = $this->plugin->getServer()->getLevelByName($world);
+			$players = count($level->getPlayers());
+			$tiles->setText($text[0] = TextFormat::GREEN . $this->plugin->sign->get("sign_final_change"), $text[2] = TextFormat::YELLOW . $players . " players");
+		    }
                 }
             }
         }
