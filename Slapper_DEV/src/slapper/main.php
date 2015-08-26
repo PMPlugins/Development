@@ -189,16 +189,17 @@ class main extends PluginBase implements Listener{
 		}
 	}
 
-	public function onEntityInteract(EntityDamageEvent $ev) {
-		if ($ev->isCancelled()) return;
+	public function onEntityInteract(EntityDamageEvent $event) {
+		if ($event->isCancelled()) return;
 		if($event instanceof EntityDamageByEntityEvent){
 			$taker = $event->getEntity();
+			$hitter = $event->getDamager();
 			$takerName = $taker->getName();
-			$giverName = $giver->getName();
-			$hiter = $event->getDamager();
-			if($hiter instanceof Player){
+			$giverName = $hitter->getName();
+			if($hitter instanceof Player){
 				if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman || $taker instanceof SlapperBat){
 					$configPart = $this->getConfig()->get($takerName);
+					if(!($hitter->hasPermission("slapper.hit"))){ $event->setCancelled(true); }
 					if($configPart == null){
 						$configPart = $this->getConfig()->get("FallbackCommand");
 					}
