@@ -33,7 +33,7 @@ use pocketmine\network\protocol\AddPlayerPacket;
 use slapper\entities\SlapperHuman;
 use slapper\entities\HumanNPC;
 
-//use slapper\entities\SlapperBat;
+use slapper\entities\SlapperBat;
 use slapper\entities\SlapperZombie;
 //use slapper\entities\SlapperSkeleton;
 //use slapper\entities\SlapperCreeper;
@@ -66,7 +66,7 @@ class main extends PluginBase implements Listener{
     public function onEnable()
     {
 
-		//Entity::registerEntity(SlapperBat::class,true);
+		Entity::registerEntity(SlapperBat::class,true);
 		//Entity::registerEntity(SlapperSheep::class,true);
 		//Entity::registerEntity(SlapperPigZombie::class,true);
 		//Entity::registerEntity(SlapperGhast::class,true);
@@ -193,9 +193,11 @@ class main extends PluginBase implements Listener{
 		if ($ev->isCancelled()) return;
 		if($event instanceof EntityDamageByEntityEvent){
 			$taker = $event->getEntity();
+			$takerName = $taker->getName();
+			$giverName = $giver->getName();
 			$hiter = $event->getDamager();
 			if($hiter instanceof Player){
-				if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman){
+				if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman || $taker instanceof SlapperBat){
 					$configPart = $this->getConfig()->get($takerName);
 					if($configPart == null){
 						$configPart = $this->getConfig()->get("FallbackCommand");
@@ -211,7 +213,7 @@ class main extends PluginBase implements Listener{
 
   private function getNBT($subHeight,$senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ){
   $nbt = new Compound;
-        $motion = new Vector3(0,-0.5,0);
+        $motion = new Vector3(0,0,0);
         $playerY -= $subHeight;
         $nbt->Pos = new Enum("Pos", [
            new Double("", $playerX),
