@@ -9,3 +9,12 @@
 |Slapper|1.2.0|Yes|No|No|
 |WorldStats|1.0.0|Yes|No|Yes|
 |CouponCode|1.0.0|Yes|No|Yes|
+
+
+<form>
+  First name:<br>
+  <input type="text" name="firstname">
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname">
+</form>
