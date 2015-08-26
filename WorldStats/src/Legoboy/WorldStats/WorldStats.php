@@ -78,4 +78,20 @@ class WorldStats extends PluginBase implements Listener{
 				}
 			}
 		}
+		
+		public function updateSigns(){
+			foreach($this->getServer()->getLevels() as $levels){
+				foreach($levels->getTiles() as $tiles){
+					if($tiles instanceof Sign){
+						$text = $tiles->getText();
+						if(TextFormat::clean(strtolower(trim($text[0]))) === strtolower(trim($this->sign->get("sign_final_change")))){
+							$world = $text[1];
+							$level = $this->getServer()->getLevelByName($world);
+							$players = count($level->getPlayers());
+							$tiles->setText($text[0] = TextFormat::GREEN . $this->sign->get("sign_final_change"), $text[2] = TextFormat::YELLOW . $players . " players");
+						}
+					}
+				}
+			}
+		}
 }
