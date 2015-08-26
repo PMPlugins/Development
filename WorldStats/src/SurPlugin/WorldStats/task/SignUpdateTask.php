@@ -28,7 +28,7 @@ class SignUpdateTask extends PluginTask{
 						$world = $text[1];
 						$level = $this->plugin->getServer()->getLevelByName($world);
 						$players = count($level->getPlayers());
-						$tiles->setText($text[0] = TextFormat::GREEN . $this->plugin->sign->get("sign_final_change"), $text[1] = TextFormat::YELLOW . $players . " players");
+						$tiles->setText($text[0] = TextFormat::GREEN . $this->plugin->sign->get("sign_final_change"), $text[2] = TextFormat::YELLOW . $players . " players");
 					}
 				}
 			}
