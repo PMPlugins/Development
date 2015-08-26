@@ -39,7 +39,7 @@ class WorldStatsCommand extends Command implements PluginIdentifiableCommand{
                     break;
                 case "update":
                     $sender->sendMessage("All signs are updated!");
-                    $this->updateSigns();
+                    $this->plugin->updateSigns();
                     break;                                               
             }
         }else{
