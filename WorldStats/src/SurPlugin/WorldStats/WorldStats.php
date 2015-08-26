@@ -1,6 +1,6 @@
 <?php
 
-namespace SurPlugins\WorldStats;
+namespace Legoboy\WorldStats;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
