@@ -1,6 +1,6 @@
 <?php
 
-namespace SurPlugin\WorldStats\task;
+namespace Legoboy\WorldStats\task;
 
 use pocketmine\scheduler\PluginTask;
 use pocketmine\utils\TextFormat;
@@ -10,7 +10,7 @@ use pocketmine\math\Vector3;
 use pocketmine\level\Level;
 use pocketmine\level\Position;
 
-use SurPlugin\WorldStats\WorldStats;
+use Legoboy\WorldStats\WorldStats;
 
 class SignUpdateTask extends PluginTask{
 	
