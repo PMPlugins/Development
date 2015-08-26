@@ -1,6 +1,6 @@
 <?php
 
-namespace SurPlugin\WorldStats;
+namespace SurPlugin\WorldStats\task;
 
 use pocketmine\scheduler\PluginTask;
 use pocketmine\utils\TextFormat;
