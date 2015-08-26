@@ -13,8 +13,8 @@ use pocketmine\math\Vector3;
 use pocketmine\event\block\SignChangeEvent;
 use pocketmine\event\block\BlockBreakEvent;
 
-use SurPlugin\WorldStats\task\SignUpdateTask;
-use SurPlugin\WorldStats\commands\WorldStatsCommand;
+use Legoboy\WorldStats\task\SignUpdateTask;
+use Legoboy\WorldStats\commands\WorldStatsCommand;
 
 class WorldStats extends PluginBase implements Listener{
 
