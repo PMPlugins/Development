@@ -54,15 +54,8 @@ use slapper\entities\SlapperChicken;
 //use slapper\entities\SlapperWolf;
 //use slapper\entities\SlapperSheep;
 
-
-
-
-
 class main extends PluginBase implements Listener{
-    public function onLoad()
-    {
-        $this->getLogger()->info("Slapper is loaded!");
-    }
+
     public function onEnable()
     {
 
@@ -89,14 +82,14 @@ class main extends PluginBase implements Listener{
 
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->saveDefaultConfig();
-        $this->getLogger()->info("Slapper is enabled! Time to slap!");
+        $this->getLogger()->info(TextFormat::DARK_GREEN . "Slapper is enabled! Time to slap!");
    }
 
     public function onCommand(CommandSender $sender, Command $command, $label, array $args){
 		switch($command->getName()){
 			case 'nothing':
-            		return true;
-            		break;
+            	return true;
+            	break;
 			case 'rca':
             	if (count($args) < 2){
 					$sender->sendMessage("Please enter a player and a command.");
@@ -109,9 +102,9 @@ class main extends PluginBase implements Listener{
 					return true;
 					break;
 				}
-            $sender->sendMessage(TextFormat::RED."Player not found.");
-            return true;
-            break;
+				$sender->sendMessage(TextFormat::RED."Player not found.");
+				return true;
+				break;
 			case "slapper":
           		if($sender instanceof Player){
 					$type = array_shift($args);
@@ -195,11 +188,16 @@ class main extends PluginBase implements Listener{
 			$taker = $event->getEntity();
 			$hitter = $event->getDamager();
 			$takerName = $taker->getName();
-			$giverName = $hitter->getName();
+			$hitterName = $hitter->getName();
 			if($hitter instanceof Player){
 				if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman || $taker instanceof SlapperBat){
 					$configPart = $this->getConfig()->get($takerName);
-					if(!($hitter->hasPermission("slapper.hit"))){ $event->setCancelled(true); }
+					if(!($hitter->hasPermission("slapper.hit"))){ 
+						$event->setCancelled(true); 
+					}else{
+						$taker->kill();
+						$hitter->sendMessage(TextFormat::RED . "You killed the Slapper!");
+					}
 					if($configPart == null){
 						$configPart = $this->getConfig()->get("FallbackCommand");
 					}
@@ -212,8 +210,8 @@ class main extends PluginBase implements Listener{
 	}
 
 
-  private function getNBT($subHeight,$senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ){
-  $nbt = new Compound;
+	private function getNBT($subHeight, $senderSkin, $isSlim, $name, $pHealth, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ){
+		$nbt = new Compound;
         $motion = new Vector3(0,0,0);
         $playerY -= $subHeight;
         $nbt->Pos = new Enum("Pos", [
