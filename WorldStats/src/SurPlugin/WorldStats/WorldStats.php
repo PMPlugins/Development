@@ -48,9 +48,12 @@ class WorldStats extends PluginBase implements Listener{
 					if($level instanceof Level){
 						$players = count($level->getPlayers());
 						$event->setLine(0, TextFormat::GREEN . $this->sign->get("sign_final_change"));
-						$event->setLine(1, TextFormat::YELLOW . $players . TextFormat::RED . " players");
+						$event->setLine(2, TextFormat::YELLOW . $players . TextFormat::RED . " players");
 					}else{
 						$event->setLine(0, TextFormat::DARK_RED . "ERROR: WORLDNAME");
+						$event->setLine(1, TextFormat::DARK_RED . "*****");
+						$event->setLine(2, TextFormat::DARK_RED . "ERROR: WORLDNAME");
+						$event->setLine(3, TextFormat::DARK_RED . "******");
 					}
 				}
 			}else{
