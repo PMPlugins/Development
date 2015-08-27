@@ -35,10 +35,10 @@ use slapper\entities\HumanNPC;
 
 use slapper\entities\SlapperBat;
 use slapper\entities\SlapperZombie;
-//use slapper\entities\SlapperSkeleton;
-//use slapper\entities\SlapperCreeper;
-//use slapper\entities\SlapperEnderman;
-//use slapper\entities\SlapperLavaSlime;
+use slapper\entities\SlapperSkeleton;
+use slapper\entities\SlapperCreeper;
+use slapper\entities\SlapperEnderman;
+use slapper\entities\SlapperLavaSlime;
 //use slapper\entities\SlapperSilverfish;
 use slapper\entities\SlapperSpider;
 use slapper\entities\SlapperVillager;
@@ -47,9 +47,9 @@ use slapper\entities\SlapperCaveSpider;
 //use slapper\entities\SlapperGhast;
 //use slapper\entities\SlapperPigZombie;
 //use slapper\entities\SlapperSlime;
-//use slapper\entities\SlapperMushroomCow;
+use slapper\entities\SlapperMushroomCow;
 use slapper\entities\SlapperChicken;
-//use slapper\entities\SlapperCow;
+use slapper\entities\SlapperCow;
 //use slapper\entities\SlapperPig;
 //use slapper\entities\SlapperWolf;
 //use slapper\entities\SlapperSheep;
@@ -66,6 +66,8 @@ class main extends PluginBase implements Listener{
     public function onEnable()
     {
 
+
+		Entity::registerEntity(SlapperCreeper::class,true);
 		Entity::registerEntity(SlapperBat::class,true);
 		//Entity::registerEntity(SlapperSheep::class,true);
 		//Entity::registerEntity(SlapperPigZombie::class,true);
@@ -74,17 +76,17 @@ class main extends PluginBase implements Listener{
 		Entity::registerEntity(SlapperVillager::class,true);
 		Entity::registerEntity(SlapperZombie::class,true);
 		//Entity::registerEntity(SlapperSquid::class,true);
-		//Entity::registerEntity(SlapperCow::class,true);
+		Entity::registerEntity(SlapperCow::class,true);
 		Entity::registerEntity(SlapperSpider::class,true);
 		//Entity::registerEntity(SlapperPig::class,true);
-		//Entity::registerEntity(SlapperMushroomCow::class,true);
+		Entity::registerEntity(SlapperMushroomCow::class,true);
 		//Entity::registerEntity(SlapperWolf::class,true);
-		//Entity::registerEntity(SlapperLavaSlime::class,true);
+		Entity::registerEntity(SlapperLavaSlime::class,true);
 		//Entity::registerEntity(SlapperSilverFish::class,true);
 		//Entity::registerEntity(SlapperSkeleton::class,true);
 		//Entity::registerEntity(SlapperSlime::class,true);
 		Entity::registerEntity(SlapperChicken::class,true);
-		//Entity::registerEntity(SlapperEnderman::class,true);
+		Entity::registerEntity(SlapperEnderman::class,true);
 		Entity::registerEntity(SlapperCaveSpider::class,true);
 
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -150,9 +152,11 @@ class main extends PluginBase implements Listener{
 							if($theOne == "Player"){ $typeToUse = "SlapperHuman"; $subHeight = 0;}
 							if($theOne == "Pig"){ $typeToUse = "SlapperPig"; $subHeight = 1;}
 							if($theOne == "Bat"){ $typeToUse = "SlapperBat"; $subHeight = 0;}
+							if($theOne == "MushroomCow"){ $typeToUse = "SlapperMushroomCow"; $subHeight = 0;}
 							if($theOne == "LavaSlime"){ $typeToUse = "SlapperLavaSlime"; $subHeight = 1;}
 							if($theOne == "Enderman"){ $typeToUse = "SlapperEnderman"; $subHeight = 0;}
 							if($theOne == "Zombie"){ $typeToUse = "SlapperZombie"; $subHeight = 1;}
+							if($theOne == "Creeper"){ $typeToUse = "SlapperCreeper"; $subHeight = 0;}
 							if($theOne == "Skeleton"){ $typeToUse = "SlapperSkeleton"; $subHeight = 0;}
 							if($theOne == "Creeper"){ $typeToUse = "SlapperCreeper"; $subHeight = 0;}
 							if($theOne == "Silverfish"){ $typeToUse = "SlapperSilverfish"; $subHeight = 1;}
@@ -194,7 +198,7 @@ class main extends PluginBase implements Listener{
 		$perm = "yeah";
 		if ($event->isCancelled()) return;
 		$taker = $event->getEntity();
-		if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman || $taker instanceof SlapperBat){
+		if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman || $taker instanceof SlapperMushroomCow || $taker instanceof SlapperBat || $taker instanceof SlapperCreeper || $taker instanceof SlapperSkeleton){
 		if(!($event instanceof EntityDamageByEntityEvent)){ $event->setCancelled(); }
 		if($event instanceof EntityDamageByEntityEvent){
 			$hitter = $event->getDamager();
@@ -248,6 +252,7 @@ class main extends PluginBase implements Listener{
         $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
         $nbt->Invulnerable = new Byte("Invulnerable", 1);
         $nbt->CustomTestTag = new Byte("CustomTestTag", 1);
+        $nbt->BatFlags = new Short("BatFlags", 0);
         $nbt->Skin = new Compound("Skin", [
           "Data" => new String("Data", $senderSkin),
           "Slim" => new Byte("Slim", $isSlim)
