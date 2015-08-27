@@ -70,7 +70,7 @@ class WorldStats extends PluginBase implements Listener{
 			$player = $event->getPlayer();
 			$block = $event->getBlock();
 			if($block instanceof Sign){
-				$sign = $sign->getLevel()->getTile($block);
+				$sign = $block->getLevel()->getTile($block);
 				$text = $sign->getText();
 				if(TextFormat::clean(strtolower(trim($text[0]))) === strtolower(trim($this->sign->get("sign_final_change")))){
 					if(!$player->hasPermission("worldstats.break")){
@@ -109,5 +109,15 @@ class WorldStats extends PluginBase implements Listener{
 		public function killUpdateTask(){
 			$result = $this->getServer()->getScheduler()->cancelTask($this->taskid);
 			return $result;
+		}
+		
+		public function resetSign(Sign $sign){
+			$text = $sign->getText();
+			if(TextFormat::clean(strtolower(trim($text[0]))) === strtolower(trim($this->sign->get("sign_final_change")))){
+				$sign->setText($text[0] = "Sign Has been", $text[1] = "deleted from", $text[2] = "SignStatus", $text[3] = "updates.");
+				return true;
+			}else{
+				return false;
+			}
 		}
 }
