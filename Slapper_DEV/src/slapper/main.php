@@ -40,7 +40,7 @@ use slapper\entities\SlapperZombie;
 //use slapper\entities\SlapperEnderman;
 //use slapper\entities\SlapperLavaSlime;
 //use slapper\entities\SlapperSilverfish;
-//use slapper\entities\SlapperSpider;
+use slapper\entities\SlapperSpider;
 use slapper\entities\SlapperVillager;
 //use slapper\entities\SlapperSquid;
 use slapper\entities\SlapperCaveSpider;
@@ -54,8 +54,15 @@ use slapper\entities\SlapperChicken;
 //use slapper\entities\SlapperWolf;
 //use slapper\entities\SlapperSheep;
 
-class main extends PluginBase implements Listener{
 
+
+
+
+class main extends PluginBase implements Listener{
+    public function onLoad()
+    {
+        $this->getLogger()->info("Slapper is loaded!");
+    }
     public function onEnable()
     {
 
@@ -68,7 +75,7 @@ class main extends PluginBase implements Listener{
 		Entity::registerEntity(SlapperZombie::class,true);
 		//Entity::registerEntity(SlapperSquid::class,true);
 		//Entity::registerEntity(SlapperCow::class,true);
-		//Entity::registerEntity(SlapperSpider::class,true);
+		Entity::registerEntity(SlapperSpider::class,true);
 		//Entity::registerEntity(SlapperPig::class,true);
 		//Entity::registerEntity(SlapperMushroomCow::class,true);
 		//Entity::registerEntity(SlapperWolf::class,true);
@@ -82,14 +89,14 @@ class main extends PluginBase implements Listener{
 
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->saveDefaultConfig();
-        $this->getLogger()->info(TextFormat::DARK_GREEN . "Slapper is enabled! Time to slap!");
+        $this->getLogger()->info("Slapper is enabled! Time to slap!");
    }
 
     public function onCommand(CommandSender $sender, Command $command, $label, array $args){
 		switch($command->getName()){
 			case 'nothing':
-            	return true;
-            	break;
+            		return true;
+            		break;
 			case 'rca':
             	if (count($args) < 2){
 					$sender->sendMessage("Please enter a player and a command.");
@@ -102,9 +109,9 @@ class main extends PluginBase implements Listener{
 					return true;
 					break;
 				}
-				$sender->sendMessage(TextFormat::RED."Player not found.");
-				return true;
-				break;
+            $sender->sendMessage(TextFormat::RED."Player not found.");
+            return true;
+            break;
 			case "slapper":
           		if($sender instanceof Player){
 					$type = array_shift($args);
@@ -142,19 +149,20 @@ class main extends PluginBase implements Listener{
 							if($theOne == "Human"){ $typeToUse = "SlapperHuman"; $subHeight = 0;}
 							if($theOne == "Player"){ $typeToUse = "SlapperHuman"; $subHeight = 0;}
 							if($theOne == "Pig"){ $typeToUse = "SlapperPig"; $subHeight = 1;}
-							if($theOne == "Bat"){ $typeToUse = "SlapperBat"; $subHeight = 1;}
+							if($theOne == "Bat"){ $typeToUse = "SlapperBat"; $subHeight = 0;}
 							if($theOne == "LavaSlime"){ $typeToUse = "SlapperLavaSlime"; $subHeight = 1;}
 							if($theOne == "Enderman"){ $typeToUse = "SlapperEnderman"; $subHeight = 0;}
-							if($theOne == "Zombie"){ $typeToUse = "SlapperZombie"; $subHeight = 0;}
+							if($theOne == "Zombie"){ $typeToUse = "SlapperZombie"; $subHeight = 1;}
 							if($theOne == "Skeleton"){ $typeToUse = "SlapperSkeleton"; $subHeight = 0;}
 							if($theOne == "Creeper"){ $typeToUse = "SlapperCreeper"; $subHeight = 0;}
 							if($theOne == "Silverfish"){ $typeToUse = "SlapperSilverfish"; $subHeight = 1;}
 							if($theOne == "Chicken"){ $typeToUse = "SlapperChicken"; $subHeight = 0.85;}
 							if($theOne == "Villager"){ $typeToUse = "SlapperVillager"; $subHeight = 0;}
-							if($theOne == "CaveSpider"){ $typeToUse = "SlapperCaveSpider"; $subHeight = 1;}
+							if($theOne == "CaveSpider"){ $typeToUse = "SlapperCaveSpider"; $subHeight = 0;}
+							if($theOne == "Spider"){ $typeToUse = "SlapperSpider"; $subHeight = 0;}
 								$this->getServer()->dispatchCommand(new ConsoleCommandSender(), "say ".$didMatch.", ".$entityType.", ".$typeToUse.", ".$theOne.", ".$type);
 							if(!($typeToUse == "Nothing")){
-								$nbt = $this->getNBT($subHeight,$senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ);
+								$nbt = $this->makeNBT($subHeight,$senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ,$type);
 								$clonedHuman = Entity::createEntity($typeToUse, $sender->getLevel()->getChunk($playerX>>4, $playerZ>>4),$nbt);
 							}
 							$sender->sendMessage(TextFormat::GREEN."[". TextFormat::YELLOW . "Slapper" . TextFormat::GREEN . "] ".$theOne." entity spawned with name ".TextFormat::WHITE."\"".TextFormat::BLUE.$name.TextFormat::WHITE."\"");
@@ -183,35 +191,34 @@ class main extends PluginBase implements Listener{
 	}
 
 	public function onEntityInteract(EntityDamageEvent $event) {
+		$perm = "yeah";
 		if ($event->isCancelled()) return;
+		$taker = $event->getEntity();
+		if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman || $taker instanceof SlapperBat){
+		if(!($event instanceof EntityDamageByEntityEvent)){ $event->setCancelled(); }
 		if($event instanceof EntityDamageByEntityEvent){
-			$taker = $event->getEntity();
 			$hitter = $event->getDamager();
 			$takerName = $taker->getName();
-			$hitterName = $hitter->getName();
+			$giverName = $hitter->getName();
 			if($hitter instanceof Player){
-				if($taker instanceof SlapperHuman || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman || $taker instanceof SlapperBat){
 					$configPart = $this->getConfig()->get($takerName);
-					if(!($hitter->hasPermission("slapper.hit"))){ 
-						$event->setCancelled(true); 
-					}else{
-						$taker->kill();
-						$hitter->sendMessage(TextFormat::RED . "You killed the Slapper!");
-					}
-					if($configPart == null){
+					if(!($hitter->hasPermission("slapper.hit"))){ $event->setCancelled(true); $perm = "nah";}
+					if($configPart == null && $perm == "nah"){
 						$configPart = $this->getConfig()->get("FallbackCommand");
 					}
 					foreach($configPart as $commandNew){
+					if($perm == "nah")
 						$this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $giverName, $commandNew));
 					}
 				}
+
 			}
 		}
 	}
 
 
-	private function getNBT($subHeight, $senderSkin, $isSlim, $name, $pHealth, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ){
-		$nbt = new Compound;
+  private function makeNBT($subHeight,$senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ,$type){
+  $nbt = new Compound;
         $motion = new Vector3(0,0,0);
         $playerY -= $subHeight;
         $nbt->Pos = new Enum("Pos", [
@@ -227,7 +234,13 @@ class main extends PluginBase implements Listener{
         $nbt->Rotation = new Enum("Rotation", [
             new Float("", $playerYaw),
             new Float("", $playerPitch)
+     ]);
+
+        $nbt->Rotation = new Enum("Rotation", [
+            new Float("", $playerYaw),
+            new Float("", $playerPitch)
         ]);
+
         $nbt->Health = new Short("Health", $pHealth);
         $nbt->Inventory = new Enum("Inventory", $humanInv);
         $nbt->NameTag = new String("name",$name);
