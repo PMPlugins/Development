@@ -39,6 +39,10 @@ class WorldStats extends PluginBase implements Listener{
     			$commandmap->register("ws", new WorldStatsCommand($this));
     		}
 		
+		
+		// Line one: The sign trigger secret name...
+		// Line two: The world name...
+		// Line three: The final change...
 		public function onSignChange(SignChangeEvent $event){
 			$player = $event->getPlayer();
 			if($player->hasPermission("worldstats.place")){
@@ -50,9 +54,9 @@ class WorldStats extends PluginBase implements Listener{
 						$event->setLine(0, TextFormat::GREEN . $this->sign->get("sign_final_change"));
 						$event->setLine(2, TextFormat::YELLOW . $players . TextFormat::RED . " players");
 					}else{
-						$event->setLine(0, TextFormat::DARK_RED . "ERROR: WORLDNAME");
+						$event->setLine(0, TextFormat::DARK_RED . "()()()()()()");
 						$event->setLine(1, TextFormat::DARK_RED . "*****");
-						$event->setLine(2, TextFormat::DARK_RED . "ERROR: WORLDNAME");
+						$event->setLine(2, TextFormat::RED . "World Name Error");
 						$event->setLine(3, TextFormat::DARK_RED . "******");
 					}
 				}
