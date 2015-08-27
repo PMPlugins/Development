@@ -13,11 +13,21 @@ use pocketmine\math\Vector3;
 
 class SAPI extends PluginBase{
 
-        public function onEnable(){
-                $this->getLogger()->info(TextFormat::DARK_GREEN . "SuperAPI has been enabled!");
-        }
+        	public function onEnable(){
+        	 	$this->getLogger()->info(TextFormat::DARK_GREEN . "SuperAPI has been enabled!");
+        	}
 		
-		
+		public function onLoad(){
+			self::$instance = $this;
+		}
+	
+		/**
+	 	* @return SuperAPI
+	 	*/
+		public static function getInstance(){
+			return self::$instance;
+		}
+	
 		/////////////////////Trolling.... BTW, op trolling is NOT enabled. :)\\\\\\\\\\\\\\\\\\\\\
 		
 		/**
