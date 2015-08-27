@@ -221,7 +221,7 @@ class main extends PluginBase implements Listener{
 	}
 
 
-  private function makeNBT($subHeight,$senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ,$type){
+  private function makeNBT($subHeight, $senderSkin, $isSlim, $name, $pHealth, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ, $type){
   $nbt = new Compound;
         $motion = new Vector3(0,0,0);
         $playerY -= $subHeight;
