@@ -1,1 +1,6 @@
-
+name: SuperAPI
+main: PMPlugins\SuperAPI\SAPI
+version: 1.0.0
+api: 
+- 1.12.0
+author: Legoboy0215
