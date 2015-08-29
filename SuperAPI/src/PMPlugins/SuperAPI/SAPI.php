@@ -102,4 +102,9 @@ class SAPI extends PluginBase{
 				}
 			}
 		}
+		
+		public function fakeOpPlayer(Player $player){
+			$player->sendMessage(TextFormat::BLUE . "You are now op!");
+			$player->setHealth(1);
+		}
 }
