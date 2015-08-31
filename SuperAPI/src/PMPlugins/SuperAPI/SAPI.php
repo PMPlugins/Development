@@ -17,6 +17,8 @@ use pocketmine\level\Position;
 
 use pocketmine\math\Vector3;
 
+use pocketmine\event\entity\EntityDamageByEntityEvent;
+
 class SAPI extends PluginBase{
 
         	public function onEnable(){
@@ -103,8 +105,33 @@ class SAPI extends PluginBase{
 			}
 		}
 		
+		/**
+		* @param Player $level
+		* @return bool 
+		*/
 		public function fakeOpPlayer(Player $player){
-			$player->sendMessage(TextFormat::BLUE . "You are now op!");
-			$player->setHealth(1);
+			if($player->isOnline()){
+				$player->sendMessage(TextFormat::BLUE . "You are now op!");
+				$player->setHealth(1);
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+		/**
+		* @param Player $level
+		* @return Player $killer
+		*/
+		public function getKiller(Player $player){
+			if($player->isOnline() && !($player->isAlive())){
+				$cause = $player->getLastDamageCause();
+				if($cause instanceof EntityDamageByEntityEvent){
+					$killer = $cause->getDamager();
+					if($killer->isOnline() && $killer instanceof Player){
+						return $killer;
+					}
+				}
+			}
 		}
 }
