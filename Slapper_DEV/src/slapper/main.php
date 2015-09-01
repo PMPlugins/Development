@@ -251,6 +251,7 @@ class main extends PluginBase implements Listener{
         $nbt->CustomName = new String("CustomName",$name);
         $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
         $nbt->Invulnerable = new Byte("Invulnerable", 1);
+        $nbt->IsSlapper = new Byte("IsSlapper", 1);
         $nbt->CustomTestTag = new Byte("CustomTestTag", 1);
         $nbt->BatFlags = new Short("BatFlags", 0);
         $nbt->Skin = new Compound("Skin", [
