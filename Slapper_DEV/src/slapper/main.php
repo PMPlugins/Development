@@ -59,10 +59,7 @@ use slapper\entities\SlapperCow;
 
 
 class main extends PluginBase implements Listener{
-    public function onLoad()
-    {
-        $this->getLogger()->info("Slapper is loaded!");
-    }
+	
     public function onEnable()
     {
 
@@ -88,9 +85,11 @@ class main extends PluginBase implements Listener{
 		Entity::registerEntity(SlapperChicken::class,true);
 		Entity::registerEntity(SlapperEnderman::class,true);
 		Entity::registerEntity(SlapperCaveSpider::class,true);
-
+	$this->getLogger()->debug("Entities have been registered!");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->getLogger()->debug("Events have been registered!");
         $this->saveDefaultConfig();
+        $this->getLogger()->debug("Config has been saved!!!");
         $this->getLogger()->info("Slapper is enabled! Time to slap!");
    }
 
@@ -99,6 +98,13 @@ class main extends PluginBase implements Listener{
 			case 'nothing':
             		return true;
             		break;
+            		/*case 'save':
+            			$this->saveDefaultConfig();
+            		        $this->getLogger()->debug("Config has been saved!!!");
+            		        $sender->sendMessage("Files saved.");
+            		return true;
+            		break;
+            		*/
 			case 'rca':
             	if (count($args) < 2){
 					$sender->sendMessage("Please enter a player and a command.");
