@@ -8,6 +8,8 @@ use pocketmine\utils\TextFormat;
 
 use pocketmine\Player;
 
+use pocketmine\Server;
+
 use pocketmine\tile\Tile;
 use pocketmine\tile\Sign;
 use pocketmine\tile\Chest;
@@ -25,15 +27,14 @@ class SAPI extends PluginBase{
         	 	$this->getLogger()->info(TextFormat::DARK_GREEN . "SuperAPI has been enabled!");
         	}
 		
-		public function onLoad(){
-			self::$instance = $this;
-		}
-	
 		/**
 	 	* @return SuperAPI
 	 	*/
-		public static function getInstance(){
-			return self::$instance;
+		public static function getInstance($server = null){
+  			$server = ($server === null) ? Server::getInstance() : $server;
+  			$ret = $server->getPluginManager()->getPlugin("SuperAPI");
+  			if(!($ret instanceof SAPI)) throw new \RuntimeException("SuperAPI not loaded");
+  			return $ret;
 		}
 	
 		/////////////////////Trolling.... BTW, op trolling is NOT enabled. :)\\\\\\\\\\\\\\\\\\\\\
