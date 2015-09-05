@@ -32,7 +32,7 @@ class Main extends PluginBase implements Listener{
             	$playerInput = array_shift($args);
 				$player = $this->getServer()->getPlayer($playerInput);
 				$toAll = false;
-				if($playerInput = "@a"){ $toAll = true; }
+				if($playerInput == "@a"){ $toAll = true; }
 				if(!($player == null)){
 					$playerName = $player->getName();
 					$msg = str_replace("{player}", $playerName, trim(implode(" ", $args)));
