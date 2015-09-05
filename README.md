@@ -8,7 +8,7 @@
 |----|:-------:|:------:|:-------:|:----------:|:------:|
 |Slapper|1.2.0|jojoe77777|Yes|No|No|
 |WorldStats|1.0.0|Legoboy0215|Yes|No|Yes|
-|CouponCode|1.0.0|Legoboy0215|Yes|No|No|
+|CouponCode|1.0.0|Legoboy0215|Yes|No|Yes|
 |SignTools|1.0.0|Legoboy0215|Yes|No|No|
 |SuperAPI|1.0.0|Legoboy0215 & jojoe77777|Yes|No|Yes|
 |TellRaw|1.0.0|jojoe77777|Yes|No|Yes|
