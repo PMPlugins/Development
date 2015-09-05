@@ -1,1 +1,20 @@
-
+name: CouponCode 
+description: Discounts and free stuff!
+author: Legoboy
+main: Legoboy\CouponCode\Main
+version: 1.0.0
+api: [1.12.0]
+softdepend:
+- PurePerms
+- EconomyAPI
+commands:
+    coupon:
+        usage: /coupon <code>
+        description: Change code to things!
+permissions:
+    coupon.use:
+        default: true
+        description: Allows user to use /coupon
+    coupon.reset:
+        default: op
+        description: Allows user to use /coupon reset
