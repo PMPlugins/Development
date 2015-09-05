@@ -1,6 +1,6 @@
 name: CouponCode 
 description: Discounts and free stuff!
-author: Legoboy
+author: Legoboy0215
 main: Legoboy\CouponCode\Main
 version: 1.0.0
 api: [1.12.0]
