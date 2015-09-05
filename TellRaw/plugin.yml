@@ -1,0 +1,25 @@
+name: TellRaw
+main: jojoe77777\tellraw\Main
+version: 1.0.0
+api: [1.12.0]
+author: jojoe77777
+description: Send players messages with no prefix!
+
+commands:
+ silenttellraw:
+  aliases: [stellraw]
+  description: Send someone a message, but get no feedback.
+  permission: tellraw.silent
+ tellraw:
+  aliases: [traw]
+  description: Send someone a message.
+  permission: tellraw
+
+permissions:
+ tellraw:
+  default: op
+  description: Use the /tellraw command!
+  children:
+   tellraw.silent:
+    default: op
+    description: Use the /slienttelltaw command!
