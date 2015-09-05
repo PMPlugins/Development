@@ -135,4 +135,20 @@ class SAPI extends PluginBase{
 				}
 			}
 		}
+		
+		/**
+		* @param Level $level
+		* @return bool
+		*/
+		public function tpPlayers(Level $level){
+			if($player->isOnline() && !($player->isAlive())){
+				$cause = $player->getLastDamageCause();
+				if($cause instanceof EntityDamageByEntityEvent){
+					$killer = $cause->getDamager();
+					if($killer->isOnline() && $killer instanceof Player){
+						return $killer;
+					}
+				}
+			}
+		}
 }
