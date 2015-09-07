@@ -23,7 +23,7 @@ class SlapperEnderman extends Monster{
 
 	public $width = 0;
 	public $length = 0;
-	public $height = 3;
+	public $height = 0;
 	public $motionY = 1.5;
 
 

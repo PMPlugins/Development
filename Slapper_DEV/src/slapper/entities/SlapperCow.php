@@ -20,9 +20,9 @@ class SlapperCow extends Animal{
 	}
 
 	public $width = 1;
-	public $length = 1.5;
-	public $height = 1.5;
-	public $motionY = 1.5;
+	public $length = 1;
+	public $height = 0;
+	public $motionY = 1;
 
 
 	public function spawnTo(Player $player){

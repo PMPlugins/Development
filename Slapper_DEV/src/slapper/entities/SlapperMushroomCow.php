@@ -20,7 +20,7 @@ class SlapperMushroomCow extends Creature{
 
 	public $width = 0;
 	public $length = 0;
-	public $height = 1;
+	public $height = 0;
 	public $motionY = 1.5;
 
 

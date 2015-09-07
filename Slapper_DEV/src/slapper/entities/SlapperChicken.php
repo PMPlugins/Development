@@ -23,7 +23,7 @@ class SlapperChicken extends Animal{
 
 	public $width = 1;
 	public $length = 1.5;
-	public $height = 1.5;
+	public $height = 0;
 	public $motionY = 1.5;
 
 

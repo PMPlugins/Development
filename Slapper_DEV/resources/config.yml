@@ -1,10 +1,10 @@
 # Slapper commands:
 
-# {player} will be replaced with the name of the player who hit the Slapper.
+# {player} will be replaced with the name of the player who hit the Slapper entity.
 # You can also use "rca {player} <command>" to run the command AS the player.
 # Use "nothing" to not run any command.
 
-#FallbackCommand will be used if no command was found for the Slapper.
+#FallbackCommand will be used if no command was found for the Slapper entity.
 
 FallbackCommand: 
 - nothing

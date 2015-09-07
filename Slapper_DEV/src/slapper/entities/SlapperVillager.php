@@ -22,7 +22,7 @@ class SlapperVillager extends Creature implements NPC, Ageable{
 
 	public $width = 0.6;
 	public $length = 0.6;
-	public $height = 1.8;
+	public $height = 0;
 
 	public function getName(){
 		return "SlapperVillager";
@@ -50,7 +50,11 @@ class SlapperVillager extends Creature implements NPC, Ageable{
 		$pk->speedZ = $this->motionZ;
 		$pk->yaw = $this->yaw;
 		$pk->pitch = $this->pitch;
-		$pk->metadata = $this->dataProperties;
+		$pk->metadata = [
+				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $this->getDataProperty(2)],
+				Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
+				Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
+        ];
 		$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
 		parent::spawnTo($player);
 	}

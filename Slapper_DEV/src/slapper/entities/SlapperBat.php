@@ -12,6 +12,7 @@ use pocketmine\entity\Entity;
 
 class SlapperBat extends Creature{
 	const NETWORK_ID = 19;
+	const DATA_BAT_FLAGS = 2;
 
 
 	public function getName(){
@@ -43,7 +44,8 @@ class SlapperBat extends Creature{
 		$pk->metadata = [
 				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $this->getDataProperty(2)],
 				Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
-				Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1]
+				Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
+//				$this::DATA_BAT_FLAGS => [Entity::DATA_TYPE_BYTE, 2],
         ];
 
 		$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));

@@ -12,7 +12,7 @@ use pocketmine\entity\Entity;
 
 class SlapperLavaSlime extends Monster{
 	const NETWORK_ID = 42;
-
+	const DATA_SIZE = 1;
 
 	public function getName(){
 		$name = $this->getDataProperty(2);
@@ -23,7 +23,7 @@ class SlapperLavaSlime extends Monster{
 
 	public $width = 0;
 	public $length = 0;
-	public $height = 2;
+	public $height = 0;
 	public $motionY = 1.5;
 
 
@@ -43,7 +43,8 @@ class SlapperLavaSlime extends Monster{
 		$pk->metadata = [
 				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $this->getDataProperty(2)],
 				Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
-				Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1]
+				Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
+				self::DATA_SIZE => [Entity::DATA_TYPE_BYTE, 1],
         ];
 
 		$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
