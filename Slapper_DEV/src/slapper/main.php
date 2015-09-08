@@ -58,14 +58,9 @@ use slapper\entities\SlapperWolf;
 use slapper\entities\SlapperSheep;
 
 
-
-
-
 class main extends PluginBase implements Listener{
 
-    public function onEnable()
-    {
-
+    public function onEnable(){
 
 		Entity::registerEntity(SlapperCreeper::class,true);
 		Entity::registerEntity(SlapperBat::class,true);
@@ -91,12 +86,15 @@ class main extends PluginBase implements Listener{
 		Entity::registerEntity(SlapperChicken::class,true);
 		Entity::registerEntity(SlapperEnderman::class,true);
 		Entity::registerEntity(SlapperCaveSpider::class,true);
-	$this->getLogger()->debug("Entities have been registered!");
+	    $this->getLogger()->debug("Entities have been registered!");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getLogger()->debug("Events have been registered!");
         $this->saveDefaultConfig();
         $this->getLogger()->debug("Config has been saved!!!");
         $this->getLogger()->info("Slapper is enabled! Time to slap!");
+   }
+   public function onDisable(){
+        $this->getConfig()->save(true);
    }
 
     public function onCommand(CommandSender $sender, Command $command, $label, array $args){
@@ -104,22 +102,14 @@ class main extends PluginBase implements Listener{
 			case 'nothing':
             		return true;
             		break;
-            		/*case 'save':
-            			$this->saveDefaultConfig();
-            		        $this->getLogger()->debug("Config has been saved!!!");
-            		        $sender->sendMessage("Files saved.");
-            		return true;
-            		break;
-            		*/
 			case 'rca':
             	if (count($args) < 2){
 					$sender->sendMessage("Please enter a player and a command.");
-					return false;
+					return true;
             	}
-				$player = $this->getServer()->getPlayer($tuv = array_shift($args));
+				$player = $this->getServer()->getPlayer(array_shift($args));
 				if(!($player == null)){
-					$commandForSudo = trim(implode(" ", $args));
-					$this->getServer()->dispatchCommand($player, $commandForSudo);
+					$this->getServer()->dispatchCommand($player, trim(implode(" ", $args)));
 					return true;
 					break;
 				}
@@ -130,7 +120,6 @@ class main extends PluginBase implements Listener{
           		if($sender instanceof Player){
 					$type = array_shift($args);
 					$name = str_replace("{color}","§",str_replace("{line}", "\n", trim(implode(" ", $args))));
-					$number = count($args);
 					if(($type === null || $type === "" || $type === " ")){ return false; }
 						$defaultName = $sender->getDisplayName();
 						if($name == null) $name = $defaultName;
@@ -148,7 +137,7 @@ class main extends PluginBase implements Listener{
 							$nameToSay = "Human";
 							$didMatch = "No";
 							foreach([
-								"Chicken", "Pig", "Sheep","Cow", "Mooshroom", "MushroomCow", "Wolf", "Enderman", "Spider", "Skeleton", "PigZombie", "Creeper", "Slime", "Silverfish", "Villager", "Zombie", "Human", "Player", "Squid", /*"Ghast"*/"Bat", "CaveSpider", "LavaSlime"
+								"Chicken", "ZombiePigman", "Pig", "Sheep","Cow", "Mooshroom", "MushroomCow", "Wolf", "Enderman", "Spider", "Skeleton", "PigZombie", "Creeper", "Slime", "Silverfish", "Villager", "Zombie", "Human", "Player", "Squid", /*"Ghast"*/"Bat", "CaveSpider", "LavaSlime"
 							] as $entityType){
 								if(strtolower($type) == strtolower($entityType)){
 									$didMatch = "Yes";

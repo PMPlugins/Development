@@ -1,9 +1,9 @@
 name: Slapper
 author: jojoe77777
-version: 1.2.2DEV
+version: 1.2.3
 description: Adds entities into your world that you can slap to run commands!
 main: slapper\main
-api: [1.10.0]
+api: [1.12.0]
 commands:
   slapper:
     description: Create a slappable player!
