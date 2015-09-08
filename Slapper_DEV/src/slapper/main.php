@@ -131,9 +131,6 @@ class main extends PluginBase implements Listener{
 					$type = array_shift($args);
 					$name = str_replace("{color}","§",str_replace("{line}", "\n", trim(implode(" ", $args))));
 					$number = count($args);
-/* DEBUG CODE */
-					$sender->sendMessage($type." And ".$number);
-/* DEBUG CODE */
 					if(($type === null || $type === "" || $type === " ")){ return false; }
 						$defaultName = $sender->getDisplayName();
 						if($name == null) $name = $defaultName;
@@ -159,30 +156,32 @@ class main extends PluginBase implements Listener{
 								}
 							}
 							$typeToUse = "Nothing";
-							if($theOne == "Human"){ $typeToUse = "SlapperHuman"; $subHeight = 0;}
-							if($theOne == "Player"){ $typeToUse = "SlapperHuman"; $subHeight = 0;}
-							if($theOne == "Pig"){ $typeToUse = "SlapperPig"; $subHeight = 0.05;}
-							if($theOne == "Bat"){ $typeToUse = "SlapperBat"; $subHeight = 0;}
-							if($theOne == "Cow"){ $typeToUse = "SlapperCow"; $subHeight = 0;}
-							if($theOne == "Sheep"){ $typeToUse = "SlapperSheep"; $subHeight = 0;}
-							if($theOne == "MushroomCow"){ $typeToUse = "SlapperMushroomCow"; $subHeight = 0;}
-							if($theOne == "Mooshroom"){ $typeToUse = "SlapperMushroomCow"; $subHeight = 0;}
-							if($theOne == "LavaSlime"){ $typeToUse = "SlapperLavaSlime"; $subHeight = 0;}
-							if($theOne == "Enderman"){ $typeToUse = "SlapperEnderman"; $subHeight = 0;}
-							if($theOne == "Zombie"){ $typeToUse = "SlapperZombie"; $subHeight = 0;}
-							if($theOne == "Creeper"){ $typeToUse = "SlapperCreeper"; $subHeight = 0;}
-							if($theOne == "Skeleton"){ $typeToUse = "SlapperSkeleton"; $subHeight = 0;}
-							if($theOne == "Silverfish"){ $typeToUse = "SlapperSilverfish"; $subHeight = 0;}
-							if($theOne == "Chicken"){ $typeToUse = "SlapperChicken"; $subHeight = 0;}
-							if($theOne == "Villager"){ $typeToUse = "SlapperVillager"; $subHeight = 0;}
-							if($theOne == "CaveSpider"){ $typeToUse = "SlapperCaveSpider"; $subHeight = 0;}
-							if($theOne == "Spider"){ $typeToUse = "SlapperSpider"; $subHeight = 0;}
-							if($theOne == "Squid"){ $typeToUse = "SlapperSquid"; $subHeight = 0;}
-							if($theOne == "Wolf"){ $typeToUse = "SlapperWolf"; $subHeight = 0;}
-							if($theOne == "Slime"){ $typeToUse = "SlapperSlime"; $subHeight = 0;}
-							if($theOne == "PigZombie"){ $typeToUse = "SlapperPigZombie"; $subHeight = 0;}
-							if($theOne == "ZombiePigman"){ $typeToUse = "SlapperPigZombie"; $subHeight = 0;}
-								$this->getServer()->dispatchCommand(new ConsoleCommandSender(), "say ".$didMatch.", ".$entityType.", ".$typeToUse.", ".$theOne.", ".$type);
+							$subHeight = 0;
+							if($theOne == "Human"){ $typeToUse = "SlapperHuman";}
+							if($theOne == "Player"){ $typeToUse = "SlapperHuman";}
+							if($theOne == "Pig"){ $typeToUse = "SlapperPig";}
+							if($theOne == "Bat"){ $typeToUse = "SlapperBat";}
+							if($theOne == "Cow"){ $typeToUse = "SlapperCow"; }
+							if($theOne == "Sheep"){ $typeToUse = "SlapperSheep"; }
+							if($theOne == "MushroomCow"){ $typeToUse = "SlapperMushroomCow"; }
+							if($theOne == "Mooshroom"){ $typeToUse = "SlapperMushroomCow";}
+							if($theOne == "LavaSlime"){ $typeToUse = "SlapperLavaSlime"; }
+							if($theOne == "Enderman"){ $typeToUse = "SlapperEnderman"; }
+							if($theOne == "Zombie"){ $typeToUse = "SlapperZombie"; }
+							if($theOne == "Creeper"){ $typeToUse = "SlapperCreeper"; }
+							if($theOne == "Skeleton"){ $typeToUse = "SlapperSkeleton"; }
+							if($theOne == "Silverfish"){ $typeToUse = "SlapperSilverfish"; }
+							if($theOne == "Chicken"){ $typeToUse = "SlapperChicken"; }
+							if($theOne == "Villager"){ $typeToUse = "SlapperVillager"; }
+							if($theOne == "CaveSpider"){ $typeToUse = "SlapperCaveSpider"; }
+							if($theOne == "Spider"){ $typeToUse = "SlapperSpider"; }
+							if($theOne == "Squid"){ $typeToUse = "SlapperSquid"; }
+							if($theOne == "Wolf"){ $typeToUse = "SlapperWolf"; }
+							if($theOne == "Slime"){ $typeToUse = "SlapperSlime"; }
+							if($theOne == "PigZombie"){ $typeToUse = "SlapperPigZombie"; }
+							if($theOne == "MagmaCube"){ $typeToUse = "SlapperLavaSlime"; }
+							if($theOne == "ZombiePigman"){ $typeToUse = "SlapperPigZombie"; }
+							if($theOne == "PigZombie"){ $typeToUse = "SlapperPigZombie"; }
 							if(!($typeToUse == "Nothing") && !($theOne == "Blank")){
 								$nbt = $this->makeNBT($subHeight,$senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ,$type);
 								$clonedHuman = Entity::createEntity($typeToUse, $sender->getLevel()->getChunk($playerX>>4, $playerZ>>4),$nbt);
@@ -222,7 +221,7 @@ class main extends PluginBase implements Listener{
 		if(!($event instanceof EntityDamageByEntityEvent)){ $event->setCancelled(); }
 		if($event instanceof EntityDamageByEntityEvent){
 			$hitter = $event->getDamager();
-			$takerName = str_replace("\n", "", $taker->getName());
+			$takerName = str_replace("\n", "", TextFormat::CLEAN($taker->getName()));
 			$giverName = $hitter->getName();
 			if($hitter instanceof Player){
 					$configPart = $this->getConfig()->get($takerName);
@@ -230,9 +229,10 @@ class main extends PluginBase implements Listener{
 					if($configPart == null && $perm == "nah"){
 						$configPart = $this->getConfig()->get("FallbackCommand");
 					}
+					if($perm == "nah"){
 					foreach($configPart as $commandNew){
-					if($perm == "nah")
 						$this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $giverName, $commandNew));
+					}
 					}
 				}
 
@@ -264,8 +264,7 @@ class main extends PluginBase implements Listener{
         $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
         $nbt->Invulnerable = new Byte("Invulnerable", 1);
         $nbt->IsSlapper = new Byte("IsSlapper", 1);
-        $nbt->CustomTestTag = new Byte("CustomTestTag", 1);
-        $nbt->BatFlags = new Byte("BatFlags", 0);
+        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.2");
         $nbt->Skin = new Compound("Skin", [
           "Data" => new String("Data", $senderSkin),
           "Slim" => new Byte("Slim", $isSlim)
