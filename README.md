@@ -12,4 +12,4 @@
 |CouponCode|1.0.0|Legoboy0215|Yes|No|Yes|
 |SignTools|1.0.0|Legoboy0215|Yes|No|No|
 |SuperAPI|1.0.0|Legoboy0215 & jojoe77777|Yes|No|Yes|
-|TellRaw|1.0.1|jojoe77777|Yes|No|Yes|
+|TellRaw|1.0.1|jojoe77777|Yes|I think so|Yes|
