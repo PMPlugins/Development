@@ -210,6 +210,10 @@ class main extends PluginBase implements Listener{
 		if(!($event instanceof EntityDamageByEntityEvent)){ $event->setCancelled(); }
 		if($event instanceof EntityDamageByEntityEvent){
 			$hitter = $event->getDamager();
+			if(!$hitter instanceof Player){
+			$event->setCancelled();
+			}
+			if($hitter instanceof Player){
 			$takerName = str_replace("\n", "", TextFormat::CLEAN($taker->getName()));
 			$giverName = $hitter->getName();
 			if($hitter instanceof Player){
@@ -226,7 +230,9 @@ class main extends PluginBase implements Listener{
 				}
 
 			}
+			}
 		}
+
 	}
 
 
