@@ -4,7 +4,7 @@ namespace jojoe77777\tellraw;
 
 use pocketmine\Server;
 use pocketmine\event\Listener;
-use pocketmine\utils\TextFormat as Colours;
+use pocketmine\utils\TextFormat as Colours; //I learn US English... :P http://grammarist.com/spelling/color-colour/
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
