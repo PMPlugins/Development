@@ -1,4 +1,4 @@
-# <b>Slapper 1.2 needs testing!</b>
+# <b><i>Slapper 1.2 needs testing!</i></b>
 # Development
 
 > This is where we upload code under development!
