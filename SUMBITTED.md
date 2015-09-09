@@ -1,5 +1,6 @@
-# Plugins that have been submitted to the PocketMine forums but not approved
+# Plugins/updates that have been submitted to the PocketMine forums but not approved
 
----------
-|-------|
-|Slapper|
+
+|Plugin name|Version|
+|--------------------|
+|Slapper|1.2.4|
