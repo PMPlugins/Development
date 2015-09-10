@@ -1,16 +1,16 @@
 <h1> Network IDs for mobs: </h1>
 (From Minecraft Wiki)
-64	Dropped item
-65	Primed TNT
-66	Falling block
-77	Fishing Rod hook
-80	Shot arrow
-81	Thrown snowball
-82	Thrown egg
-83	Painting
-84	Minecart
-85	Ghast fireball
-90	Boat
+64	Dropped item  
+65	Primed TNT  
+66	Falling block  
+77	Fishing Rod hook  
+80	Shot arrow  
+81	Thrown snowball  
+82	Thrown egg  
+83	Painting  
+84	Minecart  
+85	Ghast fireball  
+90	Boat  
 
 
 32	Zombie
