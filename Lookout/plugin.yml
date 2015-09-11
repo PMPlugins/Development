@@ -1,0 +1,30 @@
+name: Lookout
+main: Legoboy\Lookout\Loader
+version: "1.0.0"
+api: [1.12.0]
+author: Legoboy0215
+description: A random little minigame...
+
+commands:
+ lookout:
+  aliases: [la]
+  description: Lookout command...
+  usage: /lookout <start|end|help|time>
+
+permissions:
+ lookout:
+  default: op
+  description: Master Lookout Permission
+  children:
+   lookout.cmd:
+    default: op
+    description: Lookout command permission.
+    children:
+     lookout.cmd.start:
+     default: op
+     lookout.cmd.end:
+     default: op
+     lookout.cmd.help:
+     default: op
+     lookout.cmd.time:
+     default: true

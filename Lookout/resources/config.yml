@@ -1,0 +1,10 @@
+autostart_game: true
+total_game_seconds: 60
+time_to_last_countdown: 5
+game_sign_text: "[Lookout]"
+item_id: 200
+tapped_block_id: 5
+match_world_name: "game"
+x_axis_for_generation: 20
+y_axis_for_generation: 20
+z_axis_for_generation: 20
