@@ -50,8 +50,13 @@ class Loader extends PluginBase implements Listener{
 				$this->getServer()->loadLevel($this->setting->get("match_world_name"));
 				$this->getLogger()->info(TextFormat::YELLOW . "Level was loaded automaticly.");
 			}
-			$this->getLogger()->info(TextFormat::GREEN . self::PREFIX . "Lookout version " . self::VERSION . " by " . self::AUTHOR . " has started!");
-			$this->startGame();
+			$this->getLogger()->info(TextFormat::GREEN . self::PREFIX . " Lookout version " . self::VERSION . " by " . self::AUTHOR . " has started!");
+			if(!$this->getServer()->isLevelGenerated($this->setting->get("match_world_name"))){
+				$this->getLogger()->critical("Level " . $this->setting->get("match_world_name") . " does NOT exist!");
+				$this->getServer()->getPluginManager()->disablePlugin($this);
+			}else{
+				$this->startGame();
+			}
 		}
     
 		public function onDisable(){
@@ -61,19 +66,30 @@ class Loader extends PluginBase implements Listener{
 		public function startGame(){
 			if($this->gamestatus === 0){
 				$this->starttime = time();
-				$totaltime = (int) $this->setting->get("total_game_seconds");
-				$this->timer = new TimerTask($this, $totaltime);
-				$handler = $this->getServer()->getScheduler()->scheduleRepeatingTask($this->timer, 10);
+				$gametime = (int) $this->setting->get("game_seconds");
+				$waittime = (int) $this->setting->get("waiting_seconds");
+				$this->timer = new TimerTask($this, $gametime, $waittime);
+				$handler = $this->getServer()->getScheduler()->scheduleRepeatingTask($this->timer, 20);
 				$this->timer->setHandler($handler);
 				$itemid = $this->setting->get("item_id");
 				$this->generateItem($itemid);
-				$this->gamestatus = 1;
 			}
 		}
 		
 		public function endGame(){
 			$this->getServer()->getScheduler()->cancelTask($this->timer->getTaskId());
 			$this->gamestatus = 0;
+		}
+		
+		public function restartGame(){
+			$this->getServer()->getScheduler()->cancelTask($this->timer->getTaskId());
+			$this->gamestatus = 0;
+			$this->starttime = time();
+			$gametime = (int) $this->setting->get("game_seconds");
+			$waittime = (int) $this->setting->get("waiting_seconds");
+			$this->timer = new TimerTask($this, $gametime, $waittime);
+			$handler = $this->getServer()->getScheduler()->scheduleRepeatingTask($this->timer, 20);
+			$this->timer->setHandler($handler);
 		}
 		
 		public function forceEndGame(){
@@ -92,13 +108,15 @@ class Loader extends PluginBase implements Listener{
 			$z = $this->setting->get("z_axis_for_generation");
 			$level = $this->getServer()->getLevelByName($this->setting->get("match_world_name"));
 			$pos = new Vector3($x, $y, $z);
-			$level->dropItem($item, $pos);
+			$level->dropItem($pos, $item);
 		}
 		
 		public function sendGameMessage($message){
 			foreach($this->players as $p){
-				$p->sendMessage(self::PREFIX . $message);
+				$player = $this->getServer()->getPlayer($p);
+				$player->sendMessage(self::PREFIX . $message);
 			}
+			$this->getLogger()->info($message);
 		}
 		
 		public function onTapBlock(PlayerInteractEvent $event){
@@ -107,7 +125,7 @@ class Loader extends PluginBase implements Listener{
 			$level = strtolower($player->getLevel()->getName());
 			$gamelevel = strtolower($this->setting->get("match_world_name"));
 			$item = $event->getItem();
-			if($this->gamestatus === 1 && $level === $gamelevel &&$block instanceof Block && in_array($player->getName(), $this->players) && $item->getId() === $this->setting->get("item_id") && $block->getId() === $this->setting->get("tapped_block_id")){
+			if($this->gamestatus === 1 && $level === $gamelevel && $block instanceof Block && in_array($player->getName(), $this->players) && $item->getId() === $this->setting->get("item_id") && $block->getId() === $this->setting->get("tapped_block_id")){
 				$this->sendGameMessage($player->getName() . " won the game!");
 				$this->endGame();
 			}

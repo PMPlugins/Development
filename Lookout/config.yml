@@ -1,11 +1,13 @@
-game_seconds: 60
-waiting_seconds: 60
+---
+game_seconds: 20
+waiting_seconds: 20
 time_to_last_countdown: 5
-game_sign_text: "[Lookout]"
+game_sign_text: '[Lookout]'
 item_id: 200
 tapped_block_id: 5
 min_players: 4
-match_world_name: "game"
+match_world_name: spawn
 x_axis_for_generation: 20
 y_axis_for_generation: 20
 z_axis_for_generation: 20
+...
