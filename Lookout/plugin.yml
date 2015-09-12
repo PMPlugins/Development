@@ -7,9 +7,9 @@ description: A random little minigame...
 
 commands:
  lookout:
-  aliases: [la]
+  aliases: [lo]
   description: Lookout command...
-  usage: /lookout <start|end|help|time>
+  usage: /lookout <end|help|time|setpos|setspawns>
 
 permissions:
  lookout:
@@ -20,11 +20,15 @@ permissions:
     default: op
     description: Lookout command permission.
     children:
-     lookout.cmd.start:
-     default: op
      lookout.cmd.end:
      default: op
      lookout.cmd.help:
      default: op
      lookout.cmd.time:
      default: true
+     lookout.cmd.setpos:
+     default: op
+     description: Set the position for the item
+     lookout.cmd.setspawns:
+     default: op
+     description: Set the spawns for players.

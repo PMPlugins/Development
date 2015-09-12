@@ -1,13 +1,27 @@
 ---
-game_seconds: 20
-waiting_seconds: 20
+game_seconds: 60
+waiting_seconds: 60
 time_to_last_countdown: 5
 game_sign_text: '[Lookout]'
 item_id: 200
 tapped_block_id: 5
 min_players: 4
-match_world_name: spawn
-x_axis_for_generation: 20
-y_axis_for_generation: 20
-z_axis_for_generation: 20
+match_world_name: cool
+x_axis_for_generation: 117.575172
+y_axis_for_generation: 4.000000
+z_axis_for_generation: 133.899033
+pos1x: 20
+pos1y: 20
+pos1z: 20
+pos2x: 20
+pos2y: 20
+pos3z: 20
+pos3x: 20
+pos3y: 20
+pos4z: 20
+pos4x: 20
+pos4y: 20
+pos5z: 20
+pos5x: 20
+pos5y: 20
 ...
