@@ -9,6 +9,7 @@ use pocketmine\Player;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\player\PlayerMoveEvent;
 
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
@@ -176,6 +177,20 @@ class Loader extends PluginBase implements Listener{
 				if(TextFormat::clean(strtolower(trim($text[0]))) === strtolower(trim($this->setting->get("game_sign_text")))){
 					$this->joinGame($player);
 				}
+			}
+		}
+		
+		public function onMove(PlayerMoveEvent $event){
+			$player = $event->getPlayer();
+			if(in_array($this->players, $player->getName()) && $this->gamestatus === 0){
+				$event->setCancelled(true);
+			}
+		}
+		
+		public function onQuit(PlayerQuitEvent $event){
+			$player = $event->getPlayer();
+			if(in_array($this->players, $player->getName())){
+				unset($this->players[$player->getName()]);
 			}
 		}
 		
