@@ -1,4 +1,4 @@
-######<b> LegoBroadcast </b>
+#<b> LegoBroadcast </b>
 A simple and extremely configurable broadcasting plugin! 
 Actually, nothing else to say. Read the documentation tab for more info about the config!
 Hope you enjoy my plugin.
