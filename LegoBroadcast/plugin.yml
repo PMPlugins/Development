@@ -1,0 +1,8 @@
+---
+name: LegoBroadcast
+main: Legoboy\LegoBroadcast\Loader
+version: "1.001"
+author: Legoboy
+api:
+- 1.12.0
+...
