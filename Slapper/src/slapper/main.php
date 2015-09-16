@@ -2,7 +2,7 @@
 
 namespace slapper;
 
-use pocketmine\Server;
+
 use pocketmine\utils\TextFormat;
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\Command;
@@ -24,8 +24,6 @@ use pocketmine\nbt\tag\Byte;
 use pocketmine\Player;
 use pocketmine\math\Vector3;
 use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerQuitEvent;
-use pocketmine\event\player\PlayerItemHeldEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntitySpawnEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
@@ -65,7 +63,6 @@ use slapper\entities\SlapperSheep;
 class main extends PluginBase implements Listener{
 
     public function onEnable(){
-
 		Entity::registerEntity(SlapperCreeper::class,true);
 		Entity::registerEntity(SlapperBat::class,true);
 		Entity::registerEntity(SlapperSheep::class,true);
@@ -105,7 +102,7 @@ class main extends PluginBase implements Listener{
    }
 
     public function onCommand(CommandSender $sender, Command $command, $label, array $args){
-		switch($command->getName()){
+		switch(strtolower($command->getName())){
 			case 'nothing':
             		return true;
             		break;
@@ -215,17 +212,17 @@ class main extends PluginBase implements Listener{
 		if ($event->isCancelled()) return;
 		$taker = $event->getEntity();
 		if($taker instanceof SlapperHuman || $taker instanceof SlapperSheep || $taker instanceof SlapperPigZombie || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman || $taker instanceof SlapperMushroomCow || $taker instanceof SlapperBat || $taker instanceof SlapperCreeper || $taker instanceof SlapperSkeleton || $taker instanceof SlapperSquid || $taker instanceof SlapperWolf){
-		if(!($event instanceof EntityDamageByEntityEvent)){ $event->setCancelled(); }
+		if(!($event instanceof EntityDamageByEntityEvent)){ $event->setCancelled(true); }
 		if($event instanceof EntityDamageByEntityEvent){
 			$hitter = $event->getDamager();
 			if(!$hitter instanceof Player){
-			$event->setCancelled();
+			$event->setCancelled(true);
 			}
 			if($hitter instanceof Player){
-			$takerName = str_replace("\n", "", TextFormat::CLEAN($taker->getName()));
+			$takerName = str_replace("\n", "", TextFormat::clean(strtolower($taker->getName())));
 			$giverName = $hitter->getName();
 			if($hitter instanceof Player){
-					$configPart = $this->getConfig()->get($takerName);
+					$configPart = strtolower($this->getConfig()->get($takerName));
 					if(!($hitter->hasPermission("slapper.hit"))){ $event->setCancelled(true); $perm = "nah";}
 					if($configPart == null && $perm == "nah"){
 						$configPart = $this->getConfig()->get("FallbackCommand");
@@ -244,8 +241,8 @@ class main extends PluginBase implements Listener{
 	}
 
 
-  private function makeNBT($subHeight, $senderSkin, $isSlim, $name, $pHealth, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ, $type){
-  $nbt = new Compound;
+	private function makeNBT($subHeight, $senderSkin, $isSlim, $name, $pHealth, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ, $type){
+	$nbt = new Compound;
         $playerY -= $subHeight;
         $nbt->Pos = new Enum("Pos", [
            new Double("", $playerX),
@@ -272,7 +269,6 @@ class main extends PluginBase implements Listener{
           "Data" => new String("Data", $senderSkin),
           "Slim" => new Byte("Slim", $isSlim)
         ]);
-    return $nbt;
+		return $nbt;
     }
-
 }
