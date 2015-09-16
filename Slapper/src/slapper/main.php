@@ -44,10 +44,14 @@ use slapper\entities\SlapperSpider;
 use slapper\entities\SlapperVillager;
 use slapper\entities\SlapperSquid;
 use slapper\entities\SlapperCaveSpider;
-//use slapper\entities\SlapperGhast;
-//use slapper\entities\SlapperIronGolem;
-//use slapper\entities\SlapperSnowman;
-//use slapper\entities\SlapperOcelot;
+
+/*
+use slapper\entities\SlapperGhast;
+use slapper\entities\SlapperIronGolem;
+use slapper\entities\SlapperSnowman;
+use slapper\entities\SlapperOcelot;
+*/
+
 use slapper\entities\SlapperPigZombie;
 use slapper\entities\SlapperSlime;
 use slapper\entities\SlapperMushroomCow;
@@ -66,10 +70,13 @@ class main extends PluginBase implements Listener{
 		Entity::registerEntity(SlapperBat::class,true);
 		Entity::registerEntity(SlapperSheep::class,true);
 		Entity::registerEntity(SlapperPigZombie::class,true);
-		//Entity::registerEntity(SlapperGhast::class,true);
-		//Entity::registerEntity(SlapperIronGolem::class,true);
-		//Entity::registerEntity(SlapperSnowman::class,true);
-		//Entity::registerEntity(SlapperOcelot::class,true);
+
+		/*Entity::registerEntity(SlapperGhast::class,true);
+		Entity::registerEntity(SlapperIronGolem::class,true);
+		Entity::registerEntity(SlapperSnowman::class,true);
+		Entity::registerEntity(SlapperOcelot::class,true);
+		*/
+
 		Entity::registerEntity(SlapperHuman::class,true);
 		Entity::registerEntity(SlapperVillager::class,true);
 		Entity::registerEntity(SlapperZombie::class,true);
@@ -177,7 +184,7 @@ class main extends PluginBase implements Listener{
 
 							$sender->sendMessage(TextFormat::GREEN."[". TextFormat::YELLOW . "Slapper" . TextFormat::GREEN . "] ".$theOne." entity spawned with name ".TextFormat::WHITE."\"".TextFormat::BLUE.$name.TextFormat::WHITE."\"");
 							}
-								if($typeToUse == "Human" || $typeToUse == "Player"){
+								if($typeToUse == "SlapperHuman"){
 									$Inv = $clonedHuman->getInventory();
 									$pHelm = $humanInv->getHelmet();
 									$pChes = $humanInv->getChestplate();
@@ -191,8 +198,9 @@ class main extends PluginBase implements Listener{
 									$clonedHuman->getInventory()->setHeldItemSlot($sender->getInventory()->getHeldItemSlot());
 									$clonedHuman->getInventory()->setItemInHand($sender->getInventory()->getItemInHand());
 								}
-							if(!($theOne == "Blank"))
-							$clonedHuman->spawnToAll();
+							if(!($theOne == "Blank")) {
+                                $clonedHuman->spawnToAll();
+                            }
 							if($typeToUse == "Nothing" || $theOne == "Blank"){ $sender->sendMessage("Invalid entity."); }
 							return true;
 				}else{
@@ -211,7 +219,7 @@ class main extends PluginBase implements Listener{
 		if($event instanceof EntityDamageByEntityEvent){
 			$hitter = $event->getDamager();
 			if(!$hitter instanceof Player){
-			$event->setCancelled(true);
+			$event->setCancelled();
 			}
 			if($hitter instanceof Player){
 			$takerName = str_replace("\n", "", TextFormat::CLEAN($taker->getName()));
@@ -259,7 +267,7 @@ class main extends PluginBase implements Listener{
         $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
         $nbt->Invulnerable = new Byte("Invulnerable", 1);
         $nbt->IsSlapper = new Byte("IsSlapper", 1);
-        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.2");
+        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.5");
         $nbt->Skin = new Compound("Skin", [
           "Data" => new String("Data", $senderSkin),
           "Slim" => new Byte("Slim", $isSlim)
