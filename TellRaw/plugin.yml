@@ -1,6 +1,6 @@
 name: TellRaw
 main: jojoe77777\tellraw\Main
-version: 1.0.2
+version: 1.0.3
 api: [1.12.0]
 author: jojoe77777
 description: Send players messages with no prefix!
