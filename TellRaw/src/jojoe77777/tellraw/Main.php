@@ -39,13 +39,12 @@ class Main extends PluginBase implements Listener{
 					$msg = str_replace("{line}", "\n", $msg);
     				$msg = $this->genColours("&", $msg);
     				$msg = $this->genColours("§", $msg);
-    				$message = $msg;
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	$pmsg = $placeholders->Placeholders($message, $player);
+			    	$msg = $placeholders->Placeholders($msg, $player);
 			    	}
-    				$player->sendMessage($pmsg);
-    				$sender->sendMessage(Colours::GREEN."\"".$pmsg."\" was sent to ".$playerName);
+    				$player->sendMessage($msg);
+    				$sender->sendMessage(Colours::GREEN."\"".$msg."\" was sent to ".$playerName);
 					return true;
 				}
 				if($toAll){
@@ -55,14 +54,13 @@ class Main extends PluginBase implements Listener{
 					$msg = str_replace("{line}", "\n", $msg);
     				$msg = $this->genColours("&", $msg);
     				$msg = $this->genColours("§", $msg);
-    				$message = $msg;
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	$pmsg = $placeholders->Placeholders($message, $player);
+			    	$msg = $placeholders->Placeholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
     				}
-    				$sender->sendMessage(Colours::GREEN."\"".$pmsg."\" was sent to everyone");
+    				$sender->sendMessage(Colours::GREEN."\"".$msg."\" was sent to everyone");
 					return true;
 
 
@@ -84,10 +82,9 @@ class Main extends PluginBase implements Listener{
 					$msg = str_replace("{line}", "\n", $msg);
     				$msg = $this->genColours("&", $msg);
     				$msg = $this->genColours("§", $msg);
-    				$message = $msg;
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	$pmsg = $placeholders->Placeholders($message, $player);
+			    	$msg = $placeholders->Placeholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
 					return true;
@@ -99,10 +96,9 @@ class Main extends PluginBase implements Listener{
 					$msg = str_replace("{line}", "\n", $msg);
     				$msg = $this->genColours("&", $msg);
     				$msg = $this->genColours("§", $msg);
-    				$message = $msg;
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	$pmsg = $placeholders->Placeholders($message, $player);
+			    	$msg = $placeholders->Placeholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
 					}
