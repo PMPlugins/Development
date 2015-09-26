@@ -32,7 +32,9 @@ class Main extends PluginBase implements Listener{
             	$playerInput = array_shift($args);
 				$player = $this->getServer()->getPlayer($playerInput);
 				$toAll = false;
-				if($playerInput == "*"){ $toAll = true; }
+				if($playerInput == "*"){
+				    $toAll = true;
+				}
 				if(!($player == null)){
 					$playerName = $player->getName();
 					$msg = str_replace("{player}", $playerName, trim(implode(" ", $args)));
@@ -44,11 +46,18 @@ class Main extends PluginBase implements Listener{
 			    	$msg = $placeholders->Placeholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
-    				$sender->sendMessage(Colours::GREEN."\"".$msg."\" was sent to ".$playerName);
+    				$sender->sendMessage(Colours::GREEN."Message was sent to ".$playerName);
 					return true;
 				}
+				    if($toAll == false){
+				        $sender->sendMessage(Colours::RED."Player not found.");
+				    return true;
+				    }
+
 				if($toAll){
-				    foreach($this->getServer()->getOnlinePlayers() as $player){
+				    $players = $this->getServer()->getOnlinePlayers();
+				    if(!(empty($players))){
+				    foreach($players as $player){
                     $playerName = $player->getName();
 					$msg = str_replace("{player}", $playerName, trim(implode(" ", $args)));
 					$msg = str_replace("{line}", "\n", $msg);
@@ -60,21 +69,21 @@ class Main extends PluginBase implements Listener{
 			    	}
     				$player->sendMessage($msg);
     				}
-    				$sender->sendMessage(Colours::GREEN."\"".$msg."\" was sent to everyone");
-					return true;
-
-
-
+    				$sender->sendMessage(Colours::GREEN."Message sent to everyone");
+				} else {
+				    $sender->sendMessage(Colours::RED."No players online.");
 				}
-				    $sender->sendMessage(Colours::RED."Player not found.");
-            	    return true;
+				}
+
+
+				return true;
 			case 'silenttellraw':
 			    if (count($args) < 2){
-					$sender->sendMessage(Colours::RED."Please enter a player and a message.");
 					return true;
             	}
 				$playerInput = array_shift($args);
 				$player = $this->getServer()->getPlayer($playerInput);
+				$toAll = false;
 				if($playerInput == "*"){ $toAll = true; }
 				if(!($player == null)){
 					$playerName = $player->getName();
@@ -84,13 +93,15 @@ class Main extends PluginBase implements Listener{
     				$msg = $this->genColours("§", $msg);
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	$msg = $placeholders->Placeholders($msg, $player);
+			    	    $msg = $placeholders->Placeholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
 					return true;
 				}
 				if($toAll){
-				    foreach($this->getServer()->getOnlinePlayers() as $player){
+				    $players = $this->getServer()->getOnlinePlayers();
+				    if(!(empty($players))){
+				    foreach($players as $player){
                     $playerName = $player->getName();
 					$msg = str_replace("{player}", $playerName, trim(implode(" ", $args)));
 					$msg = str_replace("{line}", "\n", $msg);
@@ -98,17 +109,15 @@ class Main extends PluginBase implements Listener{
     				$msg = $this->genColours("§", $msg);
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	$msg = $placeholders->Placeholders($msg, $player);
+			    	    $msg = $placeholders->Placeholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
 					}
 					return true;
 
-
+}
 				}
-				    $sender->sendMessage(Colours::RED."Player not found.");
-				    return true;
-				}
+		}
     }
     public function genColours($colourSign, $msg){
 
