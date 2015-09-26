@@ -86,6 +86,7 @@ class Main extends PluginBase implements Listener{
 		$message = str_ireplace("{serverflight}", $this->getServer()->getAllowFlight(), $message);
 		$message = str_ireplace("{codename}", $this->getServer()->getCodename(), $message);
 		$message = str_ireplace("{apiversion}", $this->getServer()->getApiVersion(), $message);
+        $message = str_ireplace("{line}", "\n", $message);
         $message = str_ireplace("{BLACK}", TextFormat::BLACK, $message);
         $message = str_ireplace("{DARK_BLUE}", TextFormat::DARK_BLUE, $message);
         $message = str_ireplace("{DARK_GREEN}", TextFormat::DARK_GREEN, $message);
