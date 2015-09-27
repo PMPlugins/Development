@@ -1,8 +1,6 @@
 <?php
 
 namespace slapper;
-
-
 use pocketmine\utils\TextFormat;
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\Command;
@@ -25,10 +23,7 @@ use pocketmine\Player;
 use pocketmine\math\Vector3;
 use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntitySpawnEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\network\protocol\AddPlayerPacket;
-
 use slapper\entities\SlapperHuman;
 use slapper\entities\HumanNPC;
 use slapper\entities\SlapperBat;
@@ -42,14 +37,12 @@ use slapper\entities\SlapperSpider;
 use slapper\entities\SlapperVillager;
 use slapper\entities\SlapperSquid;
 use slapper\entities\SlapperCaveSpider;
-
 /*
 use slapper\entities\SlapperGhast;
 use slapper\entities\SlapperIronGolem;
 use slapper\entities\SlapperSnowman;
 use slapper\entities\SlapperOcelot;
 */
-
 use slapper\entities\SlapperPigZombie;
 use slapper\entities\SlapperSlime;
 use slapper\entities\SlapperMushroomCow;
@@ -97,9 +90,6 @@ class main extends PluginBase implements Listener{
         $this->getLogger()->debug("Config has been saved!!!");
         $this->getLogger()->info("Slapper is enabled! Time to slap!");
    }
-   public function onDisable(){
-        $this->getConfig()->save(true);
-   }
 
     public function onCommand(CommandSender $sender, Command $command, $label, array $args){
 		switch(strtolower($command->getName())){
@@ -112,7 +102,7 @@ class main extends PluginBase implements Listener{
 					return true;
             	}
 				$player = $this->getServer()->getPlayer(array_shift($args));
-				if(!($player == null)){
+				if(!($player === null)){
 					$this->getServer()->dispatchCommand($player, trim(implode(" ", $args)));
 					return true;
 					break;
@@ -143,45 +133,45 @@ class main extends PluginBase implements Listener{
 							foreach([
 								"Chicken", "ZombiePigman", "Pig", "Sheep","Cow", "Mooshroom", "MushroomCow", "Wolf", "Enderman", "Spider", "Skeleton", "PigZombie", "Creeper", "Slime", "Silverfish", "Villager", "Zombie", "Human", "Player", "Squid", /*"Ghast"*/"Bat", "CaveSpider", "LavaSlime"
 							] as $entityType){
-								if(strtolower($type) == strtolower($entityType)){
+								if(strtolower($type) === strtolower($entityType)){
 									$didMatch = "Yes";
 									$theOne = $entityType;
 								}
 							}
 							$typeToUse = "Nothing";
 							$subHeight = 0;
-							if($theOne == "Human"){ $typeToUse = "SlapperHuman";}
-							if($theOne == "Player"){ $typeToUse = "SlapperHuman";}
-							if($theOne == "Pig"){ $typeToUse = "SlapperPig";}
-							if($theOne == "Bat"){ $typeToUse = "SlapperBat";}
-							if($theOne == "Cow"){ $typeToUse = "SlapperCow"; }
-							if($theOne == "Sheep"){ $typeToUse = "SlapperSheep"; }
-							if($theOne == "MushroomCow"){ $typeToUse = "SlapperMushroomCow"; }
-							if($theOne == "Mooshroom"){ $typeToUse = "SlapperMushroomCow";}
-							if($theOne == "LavaSlime"){ $typeToUse = "SlapperLavaSlime"; }
-							if($theOne == "Enderman"){ $typeToUse = "SlapperEnderman"; }
-							if($theOne == "Zombie"){ $typeToUse = "SlapperZombie"; }
-							if($theOne == "Creeper"){ $typeToUse = "SlapperCreeper"; }
-							if($theOne == "Skeleton"){ $typeToUse = "SlapperSkeleton"; }
-							if($theOne == "Silverfish"){ $typeToUse = "SlapperSilverfish"; }
-							if($theOne == "Chicken"){ $typeToUse = "SlapperChicken"; }
-							if($theOne == "Villager"){ $typeToUse = "SlapperVillager"; }
-							if($theOne == "CaveSpider"){ $typeToUse = "SlapperCaveSpider"; }
-							if($theOne == "Spider"){ $typeToUse = "SlapperSpider"; }
-							if($theOne == "Squid"){ $typeToUse = "SlapperSquid"; }
-							if($theOne == "Wolf"){ $typeToUse = "SlapperWolf"; }
-							if($theOne == "Slime"){ $typeToUse = "SlapperSlime"; }
-							if($theOne == "PigZombie"){ $typeToUse = "SlapperPigZombie"; }
-							if($theOne == "MagmaCube"){ $typeToUse = "SlapperLavaSlime"; }
-							if($theOne == "ZombiePigman"){ $typeToUse = "SlapperPigZombie"; }
-							if($theOne == "PigZombie"){ $typeToUse = "SlapperPigZombie"; }
-							if(!($typeToUse == "Nothing") && !($theOne == "Blank")){
-								$nbt = $this->makeNBT($subHeight,$senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ,$type);
+							if($theOne === "Human"){ $typeToUse = "SlapperHuman";}
+							if($theOne === "Player"){ $typeToUse = "SlapperHuman";}
+							if($theOne === "Pig"){ $typeToUse = "SlapperPig";}
+							if($theOne === "Bat"){ $typeToUse = "SlapperBat";}
+							if($theOne === "Cow"){ $typeToUse = "SlapperCow"; }
+							if($theOne === "Sheep"){ $typeToUse = "SlapperSheep"; }
+							if($theOne === "MushroomCow"){ $typeToUse = "SlapperMushroomCow"; }
+							if($theOne === "Mooshroom"){ $typeToUse = "SlapperMushroomCow";}
+							if($theOne === "LavaSlime"){ $typeToUse = "SlapperLavaSlime"; }
+							if($theOne === "Enderman"){ $typeToUse = "SlapperEnderman"; }
+							if($theOne === "Zombie"){ $typeToUse = "SlapperZombie"; }
+							if($theOne === "Creeper"){ $typeToUse = "SlapperCreeper"; }
+							if($theOne === "Skeleton"){ $typeToUse = "SlapperSkeleton"; }
+							if($theOne === "Silverfish"){ $typeToUse = "SlapperSilverfish"; }
+							if($theOne === "Chicken"){ $typeToUse = "SlapperChicken"; }
+							if($theOne === "Villager"){ $typeToUse = "SlapperVillager"; }
+							if($theOne === "CaveSpider"){ $typeToUse = "SlapperCaveSpider"; }
+							if($theOne === "Spider"){ $typeToUse = "SlapperSpider"; }
+							if($theOne === "Squid"){ $typeToUse = "SlapperSquid"; }
+							if($theOne === "Wolf"){ $typeToUse = "SlapperWolf"; }
+							if($theOne === "Slime"){ $typeToUse = "SlapperSlime"; }
+							if($theOne === "PigZombie"){ $typeToUse = "SlapperPigZombie"; }
+							if($theOne === "MagmaCube"){ $typeToUse = "SlapperLavaSlime"; }
+							if($theOne === "ZombiePigman"){ $typeToUse = "SlapperPigZombie"; }
+							if($theOne === "PigZombie"){ $typeToUse = "SlapperPigZombie"; }
+							if(!($typeToUse === "Nothing") && !($theOne === "Blank")){
+								$nbt = $this->makeNBT($senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ,$type);
 								$clonedHuman = Entity::createEntity($typeToUse, $sender->getLevel()->getChunk($playerX>>4, $playerZ>>4),$nbt);
 
 							$sender->sendMessage(TextFormat::GREEN."[". TextFormat::YELLOW . "Slapper" . TextFormat::GREEN . "] ".$theOne." entity spawned with name ".TextFormat::WHITE."\"".TextFormat::BLUE.$name.TextFormat::WHITE."\"");
 							}
-								if($typeToUse == "SlapperHuman"){
+								if($typeToUse === "SlapperHuman"){
 									$Inv = $clonedHuman->getInventory();
 									$pHelm = $humanInv->getHelmet();
 									$pChes = $humanInv->getChestplate();
@@ -198,7 +188,7 @@ class main extends PluginBase implements Listener{
 							if(!($theOne == "Blank")) {
                                 $clonedHuman->spawnToAll();
                             }
-							if($typeToUse == "Nothing" || $theOne == "Blank"){ $sender->sendMessage("Invalid entity."); }
+							if($typeToUse === "Nothing" || $theOne === "Blank"){ $sender->sendMessage("Invalid entity."); }
 							return true;
 				}else{
 					$sender->sendMessage("This command only works in game.");
@@ -224,7 +214,7 @@ class main extends PluginBase implements Listener{
 			if($hitter instanceof Player){
 					$configPart = strtolower($this->getConfig()->get($takerName));
 					if(!($hitter->hasPermission("slapper.hit"))){ $event->setCancelled(true); $perm = "nah";}
-					if($configPart == null && $perm == "nah"){
+					if($configPart === null && $perm === "nah"){
 						$configPart = $this->getConfig()->get("FallbackCommand");
 					}
 					if($perm == "nah"){
@@ -241,9 +231,8 @@ class main extends PluginBase implements Listener{
 	}
 
 
-	private function makeNBT($subHeight, $senderSkin, $isSlim, $name, $pHealth, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ, $type){
+	private function makeNBT($senderSkin, $isSlim, $name, $pHealth, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ, $type){
 	$nbt = new Compound;
-        $playerY -= $subHeight;
         $nbt->Pos = new Enum("Pos", [
            new Double("", $playerX),
            new Double("", $playerY),
@@ -257,7 +246,7 @@ class main extends PluginBase implements Listener{
             new Float("", $playerYaw),
             new Float("", $playerPitch)
         ]);
-        $nbt->Health = new Short("Health", $pHealth);
+        $nbt->Health = new Short("Health", 1);
         $nbt->Inventory = new Enum("Inventory", $humanInv);
         $nbt->NameTag = new String("name",$name);
         $nbt->CustomName = new String("CustomName",$name);
