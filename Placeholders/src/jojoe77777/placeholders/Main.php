@@ -64,7 +64,7 @@ class Main extends PluginBase implements Listener{
                 $svars["{score}"] = $kr->getScore($player);
             }
          }
-        foreach($gvars as $key => $value){
+        foreach($svars as $key => $value){
             str_ireplace($key, $value, $message);
         }
         return $message;
