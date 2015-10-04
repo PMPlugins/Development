@@ -107,7 +107,7 @@ class Main extends PluginBase implements Listener{
         $message = str_ireplace("{UNDERLINE}", TextFormat::UNDERLINE, $message);
         $message = str_ireplace("{ITALIC}", TextFormat::ITALIC, $message);
         $message = str_ireplace("{RESET}", TextFormat::RESET, $message);
-        $message = str_ireplace("{time}", time($this->getConfig()->get("time_format")), $message);
+        $message = str_ireplace("{time}", date($this->getConfig()->get("time_format")), $message);
         if(($kr = $manager->getPlugin("KillRate")) !== null){
             if(version_compare($kr->getDescription()->getVersion(),"1.1") >= 0){
                 $ranks = $kr->getRankings(3);
