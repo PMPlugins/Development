@@ -1,6 +1,5 @@
 # Placeholder settings
 
-# Time format; "H:i:s" = Hour:minute:second
-# More time info at http://php.net/manual/en/function.date.php
-time_format: "H:i:s"
-time_corrector: -1
+# Time settings
+# Example: If the time is 9:30, but the plugin shows it as 8:30, set the time corrector to 1
+time_corrector: 0
