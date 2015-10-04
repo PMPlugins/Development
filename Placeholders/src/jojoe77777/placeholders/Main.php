@@ -29,39 +29,42 @@ class Main extends PluginBase implements Listener{
     /* "singlePlaceholders" means placeholders that are player specific, like {name} */
     public function singlePlaceholders($message, $player){
         $manager = $this->getServer()->getPluginManager();
-		$message = str_ireplace("{x}", $player->getX(), $message);
-		$message = str_ireplace("{y}", $player->getY(), $message);
-		$message = str_ireplace("{z}", $player->getZ(), $message);
-		$message = str_ireplace("{name}", $player->getName(), $message);
-		$message = str_ireplace("{displayname}", $player->getDisplayName(), $message);
-		$message = str_ireplace("{gamemode}", $player->getGamemode(), $message);
-		$message = str_ireplace("{health}", $player->getHealth(), $message);
-		$message = str_ireplace("{ip}", $player->getAddress(), $message);
-		$message = str_ireplace("{port}", $player->getPort(), $message);
-		$message = str_ireplace("{nametag}", $player->getNameTag(), $message);
-		$message = str_ireplace("{yaw}", $player->getYaw(), $message);
-		$message = str_ireplace("{pitch}", $player->getPitch(), $message);
-		$message = str_ireplace("{world}", $player->getZ(), $message);
+		$svars = [
+        "{x}" => $player->getX(),
+		"{y}" => $player->getY(),
+		"{z}" => $player->getZ(),
+		"{name}" => $player->getName(),
+		"{displayname}" => $player->getDisplayName(),
+		"{gamemode}" => $player->getGamemode(),
+		"{health}" => $player->getHealth(),
+		"{ip}" => $player->getAddress(),
+		"{port}" => $player->getPort(),
+		"{nametag}" => $player->getNameTag(),
+		"{yaw}" => $player->getYaw(),
+		"{pitch}" => $player->getPitch(),
+		"{world}" => $player->getZ()];
         /* PurePerms, money, and KillRate placeholders by aliuly */
 		if (($pmoney = $manager->getPlugin("PocketMoney")) !== null) {
-		    $message = str_ireplace("{money}", $manager->getMoney($player->getName()), $message);
+		    $svars["{money}"] = $manager->getMoney($player->getName();
 		} elseif (($mecon = $manager->getPlugin("MassiveEconomy")) !== null) {
-		    $message = str_ireplace("{money}", $mecon->getMoney($player->getName()), $message);
+            $svars["{money}"] = $mecon->getMoney($player->getName();
 		} elseif (($econapi = $manager->getPlugin("EconomyAPI")) !== null) {
-		    $message = str_ireplace("{money}", $econapi->mymoney($player->getName()), $message);
+		    $svars["{money}"] = $econapi->mymoney($player->getName();
 		} elseif (($goldstd = $manager->getPlugin("GoldStd")) !== null) {
-		    $message = str_ireplace("{money}", $goldstd->getMoney($player), $message);
+		    $svars["{money}"] = $goldstd->getMoney($player);
 		}
 
 		if(($pperms = $manager->getPlugin("PurePerms")) !== null){
-		    $message = str_ireplace("{group}", $pperms->getUser($player)->getGroup()->getName(), $message);
+		    $svars["{group}"] = $pperms->getUser($player)->getGroup()->getName();
 		}
 		if(($kr = $manager->getPlugin("KillRate")) !== null){
             if(version_compare($kr->getDescription()->getVersion(),"1.1") >= 0){
-                $message = str_ireplace("{score}", $kr->getScore($player), $message);
+                $svars["{score}"] = $kr->getScore($player);
             }
          }
-
+        foreach($gvars as $key => $value){
+            str_ireplace($key, $value, $message);
+        }
         return $message;
 
     }
