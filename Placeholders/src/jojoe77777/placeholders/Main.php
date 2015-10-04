@@ -47,11 +47,11 @@ class Main extends PluginBase implements Listener{
         ];
         /* PurePerms, money, and KillRate placeholders by aliuly */
 		if (($pmoney = $manager->getPlugin("PocketMoney")) !== null) {
-		    $svars["{money}"] = $manager->getMoney($player->getName();
+		    $svars["{money}"] = $manager->getMoney($player->getName());
 		} elseif (($mecon = $manager->getPlugin("MassiveEconomy")) !== null) {
-            $svars["{money}"] = $mecon->getMoney($player->getName();
+            $svars["{money}"] = $mecon->getMoney($player->getName());
 		} elseif (($econapi = $manager->getPlugin("EconomyAPI")) !== null) {
-		    $svars["{money}"] = $econapi->mymoney($player->getName();
+		    $svars["{money}"] = $econapi->mymoney($player->getName());
 		} elseif (($goldstd = $manager->getPlugin("GoldStd")) !== null) {
 		    $svars["{money}"] = $goldstd->getMoney($player);
 		}
