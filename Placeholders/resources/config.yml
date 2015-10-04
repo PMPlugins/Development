@@ -1,4 +1,5 @@
 # Placeholder settings
 
 # Time format; "H:i:s" = Hour:minute:second
+# More time info at http://php.net/manual/en/function.date.php
 time_format: "H:i:s"

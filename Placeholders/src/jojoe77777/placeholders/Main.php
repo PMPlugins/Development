@@ -68,60 +68,63 @@ class Main extends PluginBase implements Listener{
     /* "globalPlaceholders" can be used anywhere */
     public function globalPlaceholders($message){
         $manager = $this->getServer()->getPluginManager();
-        $message = str_ireplace("{difficulty}", $this->getServer()->getDifficulty(), $message);
-		$message = str_ireplace("{motd}", $this->getServer()->getMotd(), $message);
-		$message = str_ireplace("{tps}", $this->getServer()->getTicksPerSecond(), $message);
-		$message = str_ireplace("{maxplayers}", $this->getServer()->getMaxPlayers(), $message);
-		$message = str_ireplace("{serverip}", $this->getServer()->getIp(), $message);
-		$message = str_ireplace("{playercount}", count($this->getServer()->getOnlinePlayers()), $message);
-		$message = str_ireplace("{serverport}", $this->getServer()->getPort(), $message);
-		$message = str_ireplace("{pmversion}", $this->getServer()->getPocketMineVersion(), $message);
-		$message = str_ireplace("{version}", $this->getServer()->getVersion(), $message);
-		$message = str_ireplace("{viewdistance}", $this->getServer()->getViewDistance(), $message);
-		$message = str_ireplace("{servername}", $this->getServer()->getServerName(), $message);
-		$message = str_ireplace("{defaultgamemode}", $this->getServer()->getDefaultGamemode(), $message);
-		$message = str_ireplace("{defaultlevel}", $this->getServer()->getDefaultLevel()->getName(), $message);
-		$message = str_ireplace("{serverflight}", $this->getServer()->getAllowFlight(), $message);
-		$message = str_ireplace("{codename}", $this->getServer()->getCodename(), $message);
-		$message = str_ireplace("{apiversion}", $this->getServer()->getApiVersion(), $message);
-		$message = str_ireplace("{line}", "\n", $message);
-        $message = str_ireplace("{BLACK}", TextFormat::BLACK, $message);
-        $message = str_ireplace("{DARK_BLUE}", TextFormat::DARK_BLUE, $message);
-        $message = str_ireplace("{DARK_GREEN}", TextFormat::DARK_GREEN, $message);
-        $message = str_ireplace("{DARK_AQUA}", TextFormat::DARK_AQUA, $message);
-        $message = str_ireplace("{DARK_RED}", TextFormat::DARK_RED, $message);
-        $message = str_ireplace("{DARK_PURPLE}", TextFormat::DARK_PURPLE, $message);
-        $message = str_ireplace("{GOLD}", TextFormat::GOLD, $message);
-        $message = str_ireplace("{GRAY}", TextFormat::GRAY, $message);
-        $message = str_ireplace("{DARK_GRAY}", TextFormat::DARK_GRAY, $message);
-        $message = str_ireplace("{BLUE}", TextFormat::BLUE, $message);
-        $message = str_ireplace("{GREEN}", TextFormat::GREEN, $message);
-        $message = str_ireplace("{AQUA}", TextFormat::AQUA, $message);
-        $message = str_ireplace("{RED}", TextFormat::RED, $message);
-        $message = str_ireplace("{LIGHT_PURPLE}", TextFormat::LIGHT_PURPLE, $message);
-        $message = str_ireplace("{YELLOW}", TextFormat::YELLOW, $message);
-        $message = str_ireplace("{WHITE}", TextFormat::WHITE, $message);
-        $message = str_ireplace("{OBFUSCATED}", TextFormat::OBFUSCATED, $message);
-        $message = str_ireplace("{BOLD}", TextFormat::BOLD, $message);
-        $message = str_ireplace("{STRIKETHROUGH}", TextFormat::STRIKETHROUGH, $message);
-        $message = str_ireplace("{UNDERLINE}", TextFormat::UNDERLINE, $message);
-        $message = str_ireplace("{ITALIC}", TextFormat::ITALIC, $message);
-        $message = str_ireplace("{RESET}", TextFormat::RESET, $message);
-        $message = str_ireplace("{time}", date($this->getConfig()->get("time_format")), $message);
+        $gvars = ["{difficulty}" => $this->getServer()->getDifficulty(),
+		"{motd}" => $this->getServer()->getMotd(),
+		"{tps}" => $this->getServer()->getTicksPerSecond(),
+		"{maxplayers}" => $this->getServer()->getMaxPlayers(),
+		"{serverip}" => $this->getServer()->getIp(),
+		"{playercount}" => count($this->getServer()->getOnlinePlayers()),
+		"{serverport}" => $this->getServer()->getPort(),
+		"{pmversion}" => $this->getServer()->getPocketMineVersion(),
+		"{version}" => $this->getServer()->getVersion(),
+		"{viewdistance}" => $this->getServer()->getViewDistance(),
+		"{servername}" => $this->getServer()->getServerName(),
+		"{defaultgamemode}" => $this->getServer()->getDefaultGamemode(),
+		"{defaultlevel}" => $this->getServer()->getDefaultLevel()->getName(),
+		"{serverflight}" => $this->getServer()->getAllowFlight(),
+		"{codename}" => $this->getServer()->getCodename(),
+		"{apiversion}" => $this->getServer()->getApiVersion(),
+		"{line}" => "\n",
+        "{BLACK}" => TextFormat::BLACK,
+        "{DARK_BLUE}" => TextFormat::DARK_BLUE,
+        "{DARK_GREEN}" => TextFormat::DARK_GREEN,
+        "{DARK_AQUA}" => TextFormat::DARK_AQUA,
+        "{DARK_RED}" => TextFormat::DARK_RED,
+        "{DARK_PURPLE}" => TextFormat::DARK_PURPLE,
+        "{GOLD}" => TextFormat::GOLD,
+        "{GRAY}" => TextFormat::GRAY,
+        "{DARK_GRAY}" => TextFormat::DARK_GRAY,
+        "{BLUE}" => TextFormat::BLUE,
+        "{GREEN}" => TextFormat::GREEN,
+        "{AQUA}" => TextFormat::AQUA,
+        "{RED}" => TextFormat::RED,
+        "{LIGHT_PURPLE}" => TextFormat::LIGHT_PURPLE,
+        "{YELLOW}" => TextFormat::YELLOW,
+        "{WHITE}" => TextFormat::WHITE,
+        "{OBFUSCATED}" => TextFormat::OBFUSCATED,
+        "{BOLD}" => TextFormat::BOLD,
+        "{STRIKETHROUGH}" => TextFormat::STRIKETHROUGH,
+        "{UNDERLINE}" => TextFormat::UNDERLINE,
+        "{ITALIC}" => TextFormat::ITALIC,
+        "{RESET}" => TextFormat::RESET,
+        "{time}" => date($this->getConfig()->get("time_format"))]
         if(($kr = $manager->getPlugin("KillRate")) !== null){
             if(version_compare($kr->getDescription()->getVersion(),"1.1") >= 0){
                 $ranks = $kr->getRankings(3);
                     if ($ranks == null){
-                        $message = str_ireplace("{tops}", "N/A", $message);
+                        $gvars["{tops}"] = "N/A";
                     } else {
-                        $message = str_ireplace("{tops}", "", $message);
+                        $gvars["{tops}" = "";
                         $i = 1; $q = "";
                         foreach ($ranks as $r){
-                            $message = str_ireplace("{tops}", $q.($i++).". ".substr($r["player"],0,8)." ".$r["count"], $message);
+                            $gvars["{tops}"] = $q.($i++).". ".substr($r["player"],0,8)." ".$r["count"];
                             $q = "   ";
                         }
                     }
             }
+        }
+        foreach($gvars as $key => $value){
+            str_ireplace($key, $value, $message);
         }
         return $message;
     }
