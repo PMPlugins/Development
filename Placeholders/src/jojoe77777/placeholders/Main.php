@@ -38,7 +38,6 @@ class Main extends PluginBase implements Listener{
                     "{gamemode}" => $player->getGamemode(),
                     "{health}" => $player->getHealth(),
                     "{ip}" => $player->getAddress(),
-                    "{port}" => $player->getPort(),
                     "{nametag}" => $player->getNameTag(),
                     "{yaw}" => $player->getYaw(),
                     "{pitch}" => $player->getPitch(),
