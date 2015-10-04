@@ -1,0 +1,4 @@
+# Placeholder settings
+
+# Time format; "H:i:s" = Hour:minute:second
+time_format: "H:i:s"

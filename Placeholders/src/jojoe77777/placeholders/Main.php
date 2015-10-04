@@ -13,13 +13,14 @@ class Main extends PluginBase implements Listener{
     public function onEnable(){
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getLogger()->info(TextFormat::GREEN . "Placeholders enabled!");
+        $this->saveDefaultConfig();
     }
 
     public function onDisable(){
         $this->getLogger()->info(TextFormat::GREEN . "Placeholders disabled!");
     }
 
-    public function Placeholders($message, $player){
+    public function allPlaceholders($message, $player){
         $msg = $this->singlePlaceholders($message, $player);
         $msg = $this->globalPlaceholders($msg);
         return $msg;
@@ -106,6 +107,7 @@ class Main extends PluginBase implements Listener{
         $message = str_ireplace("{UNDERLINE}", TextFormat::UNDERLINE, $message);
         $message = str_ireplace("{ITALIC}", TextFormat::ITALIC, $message);
         $message = str_ireplace("{RESET}", TextFormat::RESET, $message);
+        $message = str_ireplace("{time}", time($this->getConfig()->get("time_format")), $message);
         if(($kr = $manager->getPlugin("KillRate")) !== null){
             if(version_compare($kr->getDescription()->getVersion(),"1.1") >= 0){
                 $ranks = $kr->getRankings(3);

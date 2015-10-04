@@ -43,7 +43,7 @@ class Main extends PluginBase implements Listener{
     				$msg = $this->genColours("§", $msg);
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	$msg = $placeholders->Placeholders($msg, $player);
+			    	$msg = $placeholders->allPlaceholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
     				$sender->sendMessage(Colours::GREEN."Message was sent to ".$playerName);
@@ -65,7 +65,7 @@ class Main extends PluginBase implements Listener{
     				$msg = $this->genColours("§", $msg);
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	$msg = $placeholders->Placeholders($msg, $player);
+			    	$msg = $placeholders->allPlaceholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
     				}
@@ -93,7 +93,7 @@ class Main extends PluginBase implements Listener{
     				$msg = $this->genColours("§", $msg);
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	    $msg = $placeholders->Placeholders($msg, $player);
+			    	    $msg = $placeholders->allPlaceholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
 					return true;
@@ -109,7 +109,7 @@ class Main extends PluginBase implements Listener{
     				$msg = $this->genColours("§", $msg);
     				$manager = $this->getServer()->getPluginManager();
     				if (($placeholders = $manager->getPlugin("Placeholders")) !== null) {
-			    	    $msg = $placeholders->Placeholders($msg, $player);
+			    	    $msg = $placeholders->allPlaceholders($msg, $player);
 			    	}
     				$player->sendMessage($msg);
 					}
