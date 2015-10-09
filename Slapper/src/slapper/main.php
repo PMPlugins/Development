@@ -214,7 +214,7 @@ class main extends PluginBase implements Listener{
 			if($hitter instanceof Player){
 					$configPart = strtolower($this->getConfig()->get($takerName));
 					if(!($hitter->hasPermission("slapper.hit"))){ $event->setCancelled(true); $perm = "nah";}
-					if($configPart === null && $perm === "nah"){
+					if($configPart == null && $perm === "nah"){
 						$configPart = $this->getConfig()->get("FallbackCommand");
 					}
 					if($perm == "nah"){
