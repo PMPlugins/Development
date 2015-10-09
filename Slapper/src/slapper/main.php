@@ -232,7 +232,7 @@ class main extends PluginBase implements Listener{
 
 
 	private function makeNBT($senderSkin, $isSlim, $name, $pHealth, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ, $type){
-	$nbt = new Compound;
+	    $nbt = new Compound;
         $nbt->Pos = new Enum("Pos", [
            new Double("", $playerX),
            new Double("", $playerY),
@@ -241,7 +241,7 @@ class main extends PluginBase implements Listener{
         $nbt->Rotation = new Enum("Rotation", [
             new Float("", $playerYaw),
             new Float("", $playerPitch)
-     ]);
+		]);
         $nbt->Rotation = new Enum("Rotation", [
             new Float("", $playerYaw),
             new Float("", $playerPitch)

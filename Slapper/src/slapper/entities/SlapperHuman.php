@@ -1,24 +1,17 @@
 <?php
 namespace slapper\entities;
+
 use pocketmine\Player;
-use pocketmine\item\Item;
 use pocketmine\network\protocol\AddPlayerPacket;
 use pocketmine\network\Network;
-use pocketmine\entity\Entity;
-use slapper\main;
-use pocketmine\Server;
-use pocketmine\utils\Config;
+
 class SlapperHuman extends HumanNPC{
 
 	public function spawnTo(Player $player){
 		if($player !== $this and !isset($this->hasSpawned[$player->getLoaderId()])){
 			$this->hasSpawned[$player->getLoaderId()] = $player;
 
-			if(strlen($this->skin) < 64 * 32 * 4){
-				throw new \InvalidStateException((new \ReflectionClass($this))->getShortName() . " must have a valid skin set");
-			}
-
-			$pk = new AddPlayerPacket();
+            $pk = new AddPlayerPacket();
 			$pk->uuid = $this->getUniqueId();
 			$pk->username = $this->getName();
 			$pk->eid = $this->getId();
@@ -32,12 +25,13 @@ class SlapperHuman extends HumanNPC{
 			$pk->pitch = $this->pitch;
 			$item = $this->getInventory()->getItemInHand();
 			$pk->item = $item;
-			//$pk->skin = $this->skin;
-			//$pk->slim = $this->isSlim;
-			// Help wanted!!! (To make this work) if($this->getConfig()->get("PlayerSkin")){
-			    $pk->skin = $player->getSkinData();
+            if($player->hasPermission("slapper.seeownskin")){
+                $pk->skin = $player->getSkinData();
 			    $pk->slim = $player->isSkinSlim();
-			//}
+			} else {
+			    $pk->skin = $this->skin;
+                $pk->slim = $this->isSlim;
+			}
 			$pk->metadata = $this->dataProperties;
 			$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
 
