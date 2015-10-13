@@ -50,7 +50,8 @@ class Main extends PluginBase implements Listener
                      "{world}" => $player->getLevel()->getName(),
                      "{world_seed}" => $player->getLevel()->getSeed(),
                  ] as $first => $second) {
-            $svars[$first] = $second;
+                     $svars[$first] = $second;
+
         }
         /* PurePerms, money, and KillRate scores placeholders by aliuly */
         if (($pmoney = $manager->getPlugin("PocketMoney")) !== null) {
@@ -131,10 +132,6 @@ class Main extends PluginBase implements Listener
                      "{UNDERLINE}" => TextFormat::UNDERLINE,
                      "{ITALIC}" => TextFormat::ITALIC,
                      "{RESET}" => TextFormat::RESET,
-                     "{12hour_0}" => date("g"),
-                     "{24hour_0}" => date("G"),
-                     "{12hour}" => date("h"),
-                     "{24hour}" => date("H"),
                      "{month_number}" => date("n"),
                      "{month_number_0}" => date("m"),
                      "{month_name_short}" => date("M"),
@@ -148,7 +145,6 @@ class Main extends PluginBase implements Listener
                      "{day_number_0}" => date("d"),
                      "{day_number}" => date("j"),
                      "{time_unix}" => time(),
-
 
                  ] as $first => $second) {
             $gvars[$first] = $second;
