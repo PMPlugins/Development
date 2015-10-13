@@ -33,3 +33,6 @@ permissions:
   slapper.seeownskin:
     description: Allow seeing your own skin on Slapper humans
     default: false
+  slapper.remove:
+    description: Allow removing Slapper entities with /slapper remove
+    default: op

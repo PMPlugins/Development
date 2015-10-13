@@ -32,7 +32,7 @@ class SlapperHuman extends HumanNPC{
 			    $pk->skin = $this->skin;
                 $pk->slim = $this->isSlim;
 			}
-			$pk->metadata = $this->dataProperties;
+            $pk->metadata = $this->dataProperties;
 			$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
 
 			$this->inventory->sendArmorContents($player);

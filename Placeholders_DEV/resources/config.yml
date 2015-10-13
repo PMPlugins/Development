@@ -2,4 +2,5 @@
 
 # Time settings
 # Example: If the time is 9:30, but the plugin shows it as 8:30, set the time corrector to 1
+
 time_corrector: 0

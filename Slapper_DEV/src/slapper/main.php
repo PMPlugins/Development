@@ -54,8 +54,9 @@ use slapper\entities\SlapperSheep;
 
 
 class main extends PluginBase implements Listener{
-
+    public $hitSessions;
     public function onEnable(){
+		$this->hitSessions = [];
 		Entity::registerEntity(SlapperCreeper::class,true);
 		Entity::registerEntity(SlapperBat::class,true);
 		Entity::registerEntity(SlapperSheep::class,true);
@@ -122,12 +123,10 @@ class main extends PluginBase implements Listener{
 							$playerX = $sender->getX();
 							$playerY = $sender->getY();
 							$playerZ = $sender->getZ();
-							$playerLevel = $sender->getLevel()->getName();
-							$playerYaw = $sender->getYaw();
+						    $playerYaw = $sender->getYaw();
 							$playerPitch = $sender->getPitch();
 							$humanInv = $sender->getInventory();
-							$pHealth = $sender->getHealth();
-							$theOne = "Blank";
+						    $theOne = "Blank";
 							$nameToSay = "Human";
 							$didMatch = "No";
 							foreach([
@@ -139,8 +138,7 @@ class main extends PluginBase implements Listener{
 								}
 							}
 							$typeToUse = "Nothing";
-							$subHeight = 0;
-							if($theOne === "Human"){ $typeToUse = "SlapperHuman";}
+	                        if($theOne === "Human"){ $typeToUse = "SlapperHuman";}
 							if($theOne === "Player"){ $typeToUse = "SlapperHuman";}
 							if($theOne === "Pig"){ $typeToUse = "SlapperPig";}
 							if($theOne === "Bat"){ $typeToUse = "SlapperBat";}
@@ -165,8 +163,14 @@ class main extends PluginBase implements Listener{
 							if($theOne === "MagmaCube"){ $typeToUse = "SlapperLavaSlime"; }
 							if($theOne === "ZombiePigman"){ $typeToUse = "SlapperPigZombie"; }
 							if($theOne === "PigZombie"){ $typeToUse = "SlapperPigZombie"; }
+                            if(strtolower($theOne) === "remove"){
+                                if($sender->hasPermission("slapper.remove")){
+                                    $this->hitSessions[$sender->getName()] = "on";
+                                    $sender->sendMessage(TextFormat::GREEN."[".TextFormat::YELLOW."Slapper".TextFormat::GREEN."]". "Hit an entity to remove it");
+                                }
+                            }
 							if(!($typeToUse === "Nothing") && !($theOne === "Blank")){
-								$nbt = $this->makeNBT($senderSkin,$isSlim,$name,$pHealth,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ,$type);
+								$nbt = $this->makeNBT($senderSkin,$isSlim,$name,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ);
 								$clonedHuman = Entity::createEntity($typeToUse, $sender->getLevel()->getChunk($playerX>>4, $playerZ>>4),$nbt);
 
 							$sender->sendMessage(TextFormat::GREEN."[". TextFormat::YELLOW . "Slapper" . TextFormat::GREEN . "] ".$theOne." entity spawned with name ".TextFormat::WHITE."\"".TextFormat::BLUE.$name.TextFormat::WHITE."\"");
@@ -206,15 +210,22 @@ class main extends PluginBase implements Listener{
 		if($event instanceof EntityDamageByEntityEvent){
 			$hitter = $event->getDamager();
 			if(!$hitter instanceof Player){
-            $event->setCancelled(true);
+                $event->setCancelled(true);
 			}
 			if($hitter instanceof Player){
-			$takerName = str_replace("\n", "", TextFormat::clean(strtolower($taker->getName())));
-			$giverName = $hitter->getName();
-			if($hitter instanceof Player){
-					$configPart = strtolower($this->getConfig()->get($takerName));
+			    $takerName = str_replace("\n", "", TextFormat::clean(strtolower($taker->getName())));
+			    $giverName = $hitter->getName();
+			    if($hitter instanceof Player){
+				    if(isset($this->hitSessions[$giverName])){
+                        if($this->hitSessions[$giverName] = "on"){
+                            $taker->getInventory->clearAll();
+							$taker->kill();
+                            unset($this->hitSessions[$giverName]);
+                        }
+                    }
+                    $configPart = strtolower($this->getConfig()->get($takerName));
 					if(!($hitter->hasPermission("slapper.hit"))){ $event->setCancelled(true); $perm = "nah";}
-					if($configPart == null && $perm === "nah"){
+                    if($configPart == null && $perm === "nah"){
 						$configPart = $this->getConfig()->get("FallbackCommand");
 					}
 					if($perm == "nah"){
@@ -231,7 +242,7 @@ class main extends PluginBase implements Listener{
 	}
 
 
-	private function makeNBT($senderSkin, $isSlim, $name, $pHealth, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ, $type){
+	private function makeNBT($senderSkin, $isSlim, $name, $humanInv, $playerYaw, $playerPitch, $playerX, $playerY, $playerZ){
 	    $nbt = new Compound;
         $nbt->Pos = new Enum("Pos", [
            new Double("", $playerX),
@@ -253,7 +264,7 @@ class main extends PluginBase implements Listener{
         $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
         $nbt->Invulnerable = new Byte("Invulnerable", 1);
         $nbt->IsSlapper = new Byte("IsSlapper", 1);
-        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.5");
+        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.6");
         $nbt->Skin = new Compound("Skin", [
           "Data" => new String("Data", $senderSkin),
           "Slim" => new Byte("Slim", $isSlim)
