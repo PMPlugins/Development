@@ -160,9 +160,9 @@ class Main extends PluginBase implements Listener
             $i = 0;
             while ($i < (count($rankings))) {
                 $currentRanking = $rankings[$i];
+                $i++;
                 $gvars["{kr_top_name_".$i."}"] = $currentRanking["player_name"];
                 $gvars["{kr_top_score_".$i."}"] = $currentRanking["points"];
-                $i++;
             }
         }
         if (file_exists($this->getDataFolder()."placeholders.php")) {
