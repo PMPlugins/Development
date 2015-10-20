@@ -36,5 +36,5 @@
 83	Painting  
 84	Minecart  
 85	Ghast fireball  
-90	Boat 
+90	Boat     
 63 The Player
