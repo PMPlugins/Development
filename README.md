@@ -7,7 +7,7 @@
 <h3>Plugin Status:</h3>
 |Name|Version|Author|Active?|Completed?|Works?|
 |----|:-------:|:------:|:-------:|:----------:|:------:|
-|Slapper|1.2.6|jojoe77777|Yes|Yes|No|
+|Slapper|1.2.6|jojoe77777|Yes|Yes|Yes|
 |WorldStats|1.0.0|Legoboy0215|Yes|No|Yes|
 |CouponCode|1.0.0|Legoboy0215|Yes|No|Yes|
 |SignTools|1.0.0|Legoboy0215|Yes|No|No|
@@ -15,4 +15,4 @@
 |TellRaw|1.0.3|jojoe77777|Yes|Yes|Yes|
 |<i>Lookout(Abandoned)</i>|1.0.0|Legoboy0215|Yes|Half|Timer works, but not tested functions.|
 |<i>AccurateTimer (Abandoned)</i></i>|1.0.0|Legoboy0215 & PEMapModder|Abandoned|No|Not At All|
-|Placeholders|1.0.2|jojoe77777|Yes|No|Yes
+|Placeholders|1.0.2|jojoe77777|Yes|No|Yes|
