@@ -1,6 +1,7 @@
 <?php
 
 namespace slapper;
+
 use pocketmine\utils\TextFormat;
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\Command;
@@ -55,8 +56,12 @@ use slapper\entities\SlapperSheep;
 
 class main extends PluginBase implements Listener{
     public $hitSessions;
+    public $idSessions;
+    public $prefix = TextFormat::GREEN."[".TextFormat::YELLOW."Slapper".TextFormat::GREEN."] ";
+
     public function onEnable(){
 		$this->hitSessions = [];
+		$this->idSessions = [];
 		Entity::registerEntity(SlapperCreeper::class,true);
 		Entity::registerEntity(SlapperBat::class,true);
 		Entity::registerEntity(SlapperSheep::class,true);
@@ -163,17 +168,136 @@ class main extends PluginBase implements Listener{
 							if($theOne === "MagmaCube"){ $typeToUse = "SlapperLavaSlime"; }
 							if($theOne === "ZombiePigman"){ $typeToUse = "SlapperPigZombie"; }
 							if($theOne === "PigZombie"){ $typeToUse = "SlapperPigZombie"; }
-                            if(strtolower($theOne) === "remove"){
+							if(strtolower($type) === "edit"){
+                                if($sender->hasPermission("slapper.edit")){
+                                    if(isset($args[0])){
+                                        $entity = $sender->getLevel()->getEntity($args[0]);
+                                        if(!($entity == null)){
+                                            if(
+                                            $entity instanceof SlapperHuman ||
+                                            $entity instanceof SlapperSheep ||
+                                            $entity instanceof SlapperPigZombie ||
+                                            $entity instanceof SlapperVillager ||
+                                            $entity instanceof SlapperCaveSpider ||
+                                            $entity instanceof SlapperZombie ||
+                                            $entity instanceof SlapperChicken ||
+                                            $entity instanceof SlapperSpider ||
+                                            $entity instanceof SlapperSilverfish ||
+                                            $entity instanceof SlapperPig ||
+                                            $entity instanceof SlapperCow ||
+                                            $entity instanceof SlapperSlime ||
+                                            $entity instanceof SlapperLavaSlime ||
+                                            $entity instanceof SlapperEnderman ||
+                                            $entity instanceof SlapperMushroomCow ||
+                                            $entity instanceof SlapperBat ||
+                                            $entity instanceof SlapperCreeper ||
+                                            $entity instanceof SlapperSkeleton ||
+                                            $entity instanceof SlapperSquid ||
+                                            $entity instanceof SlapperWolf
+                                            ){
+                                                if(isset($args[1])){
+                                                    switch($args[1]){
+                                                        case "skin":
+                                                            if($entity instanceof SlapperHuman){
+                                                                $entity->setSkin($sender->getSkinData(), $sender->isSkinSlim());
+                                                                $sender->sendMessage($this->prefix."Skin updated.");
+                                                            } else {
+                                                                $sender->sendMessage($this->prefix."That entity can't have a skin.");
+                                                            }
+                                                        case "name":
+                                                            if(isset($args[2])){
+                                                                array_shift($args);
+                                                                array_shift($args);
+                                                                $entity->setDataProperty(2, Entity::DATA_TYPE_STRING, trim(implode(" ", $args)));
+                                                                $sender->sendMessage($this->prefix."Name updated.");
+                                                            } else {
+                                                                $sender->sendMessage($this->prefix."Please enter a name.");
+                                                            }
+                                                        case "addcommand":
+                                                            if(isset($args[2])){
+                                                                array_shift($args);
+                                                                array_shift($args);
+                                                                $input = trim(implode(" ", $args));
+                                                                $entity->addCommand($input);
+                                                                $sender->sendMessage($this->prefix."Command added.");
+                                                            } else {
+                                                                $sender->sendMessage($this->prefix."Please enter a command.");
+                                                            }
+                                                }
+                                                }
+                                            } else {
+                                                $sender->sendMessage($this->prefix."That entity is not handled by Slapper.");
+                                            }
+                                        } else {
+                                            $sender->sendMessage($this->prefix."Entity does not exist.");
+                                        }
+                                        return true;
+                                    }
+                                    $this->hitSessions[$sender->getName()] = true;
+                                    $sender->sendMessage($this->prefix."Hit an entity to remove it.");
+                                } else {
+                                    $sender->sendMessage($this->prefix."You don't have permission.");
+                                }
+                                $spawn = false;
+                            }
+							$spawn = true;
+                            if(strtolower($type) === "remove"){
                                 if($sender->hasPermission("slapper.remove")){
-                                    $this->hitSessions[$sender->getName()] = "on";
-                                    $sender->sendMessage(TextFormat::GREEN."[".TextFormat::YELLOW."Slapper".TextFormat::GREEN."]". "Hit an entity to remove it");
+                                    if(isset($args[0])){
+                                        $entity = $sender->getLevel()->getEntity($args[0]);
+                                        if(!($entity == null)){
+                                            if(
+                                            $entity instanceof SlapperHuman ||
+                                            $entity instanceof SlapperSheep ||
+                                            $entity instanceof SlapperPigZombie ||
+                                            $entity instanceof SlapperVillager ||
+                                            $entity instanceof SlapperCaveSpider ||
+                                            $entity instanceof SlapperZombie ||
+                                            $entity instanceof SlapperChicken ||
+                                            $entity instanceof SlapperSpider ||
+                                            $entity instanceof SlapperSilverfish ||
+                                            $entity instanceof SlapperPig ||
+                                            $entity instanceof SlapperCow ||
+                                            $entity instanceof SlapperSlime ||
+                                            $entity instanceof SlapperLavaSlime ||
+                                            $entity instanceof SlapperEnderman ||
+                                            $entity instanceof SlapperMushroomCow ||
+                                            $entity instanceof SlapperBat ||
+                                            $entity instanceof SlapperCreeper ||
+                                            $entity instanceof SlapperSkeleton ||
+                                            $entity instanceof SlapperSquid ||
+                                            $entity instanceof SlapperWolf
+                                            ){
+                                                if($entity instanceof SlapperHuman){ $entity->getInventory()->clearAll(); }
+                                                $entity->kill();
+                                                $sender->sendMessage($this->prefix."Entity removed.");
+                                            } else {
+                                                $sender->sendMessage($this->prefix."That entity is not handled by Slapper.");
+                                            }
+                                        } else {
+                                            $sender->sendMessage($this->prefix."Entity does not exist.");
+                                        }
+                                        return true;
+                                    }
+                                    $this->hitSessions[$sender->getName()] = true;
+                                    $sender->sendMessage($this->prefix."Hit an entity to remove it.");
+                                } else {
+                                    $sender->sendMessage($this->prefix."You don't have permission.");
+                                }
+                                $spawn = false;
+                            }
+                            if(strtolower($type) === "info" || strtolower($type) === "id"){
+                                if($sender->hasPermission("slapper.id")){
+                                    $this->idSessions[$sender->getName()] = true;
+                                    $sender->sendMessage($this->prefix."Hit an entity to get its ID!");
+                                    $spawn = false;
                                 }
                             }
 							if(!($typeToUse === "Nothing") && !($theOne === "Blank")){
 								$nbt = $this->makeNBT($senderSkin,$isSlim,$name,$humanInv,$playerYaw,$playerPitch,$playerX,$playerY,$playerZ);
 								$clonedHuman = Entity::createEntity($typeToUse, $sender->getLevel()->getChunk($playerX>>4, $playerZ>>4),$nbt);
 
-							$sender->sendMessage(TextFormat::GREEN."[". TextFormat::YELLOW . "Slapper" . TextFormat::GREEN . "] ".$theOne." entity spawned with name ".TextFormat::WHITE."\"".TextFormat::BLUE.$name.TextFormat::WHITE."\"");
+							$sender->sendMessage($this->prefix.$theOne." entity spawned with name ".TextFormat::WHITE."\"".TextFormat::BLUE.$name.TextFormat::WHITE."\"");
 							}
 								if($typeToUse === "SlapperHuman"){
 									$Inv = $clonedHuman->getInventory();
@@ -189,24 +313,45 @@ class main extends PluginBase implements Listener{
 									$clonedHuman->getInventory()->setHeldItemSlot($sender->getInventory()->getHeldItemSlot());
 									$clonedHuman->getInventory()->setItemInHand($sender->getInventory()->getItemInHand());
 								}
-							if(!($theOne == "Blank")) {
-                                $clonedHuman->spawnToAll();
-                            }
-							if($typeToUse === "Nothing" || $theOne === "Blank"){ $sender->sendMessage("Invalid entity."); }
+							if(!($theOne == "Blank")) $clonedHuman->spawnToAll();
+							if($typeToUse === "Nothing" || $theOne === "Blank"){
+							    if($spawn) $sender->sendMessage($this->prefix."Invalid entity.");
+							}
 							return true;
 				}else{
-					$sender->sendMessage("This command only works in game.");
+					$sender->sendMessage($this->prefix."This command only works in game.");
 					return true;
 				}
 		}
 	}
 
-	public function onEntityInteract(EntityDamageEvent $event) {
-		$perm = "yeah";
+	public function onEntityDamage(EntityDamageEvent $event) {
+		$perm = true;
 		if ($event->isCancelled()) return;
 		$taker = $event->getEntity();
-		if($taker instanceof SlapperHuman || $taker instanceof SlapperSheep || $taker instanceof SlapperPigZombie || $taker instanceof SlapperVillager || $taker instanceof SlapperCaveSpider || $taker instanceof SlapperZombie || $taker instanceof SlapperChicken || $taker instanceof SlapperSpider || $taker instanceof SlapperSilverfish || $taker instanceof SlapperPig || $taker instanceof SlapperCow || $taker instanceof SlapperSlime || $taker instanceof SlapperLavaSlime || $taker instanceof SlapperEnderman || $taker instanceof SlapperMushroomCow || $taker instanceof SlapperBat || $taker instanceof SlapperCreeper || $taker instanceof SlapperSkeleton || $taker instanceof SlapperSquid || $taker instanceof SlapperWolf){
-		if(!($event instanceof EntityDamageByEntityEvent)){ $event->setCancelled(true); }
+		if(
+		$taker instanceof SlapperHuman ||
+		$taker instanceof SlapperSheep ||
+		$taker instanceof SlapperPigZombie ||
+		$taker instanceof SlapperVillager ||
+		$taker instanceof SlapperCaveSpider ||
+		$taker instanceof SlapperZombie ||
+		$taker instanceof SlapperChicken ||
+		$taker instanceof SlapperSpider ||
+		$taker instanceof SlapperSilverfish ||
+		$taker instanceof SlapperPig ||
+		$taker instanceof SlapperCow ||
+		$taker instanceof SlapperSlime ||
+		$taker instanceof SlapperLavaSlime ||
+		$taker instanceof SlapperEnderman ||
+		$taker instanceof SlapperMushroomCow ||
+		$taker instanceof SlapperBat ||
+		$taker instanceof SlapperCreeper ||
+		$taker instanceof SlapperSkeleton ||
+		$taker instanceof SlapperSquid ||
+		$taker instanceof SlapperWolf
+		){
+		if(!($event instanceof EntityDamageByEntityEvent)) $event->setCancelled(true);
 		if($event instanceof EntityDamageByEntityEvent){
 			$hitter = $event->getDamager();
 			if(!$hitter instanceof Player){
@@ -217,21 +362,27 @@ class main extends PluginBase implements Listener{
 			    $giverName = $hitter->getName();
 			    if($hitter instanceof Player){
 				    if(isset($this->hitSessions[$giverName])){
-                        if($this->hitSessions[$giverName] = "on"){
-                            $taker->getInventory->clearAll();
+                            if($taker instanceof SlapperHuman) $taker->getInventory()->clearAll();
 							$taker->kill();
                             unset($this->hitSessions[$giverName]);
-                        }
+                            $hitter->sendMessage($this->prefix."Entity removed.");
+                            return;
                     }
-                    $configPart = strtolower($this->getConfig()->get($takerName));
-					if(!($hitter->hasPermission("slapper.hit"))){ $event->setCancelled(true); $perm = "nah";}
-                    if($configPart == null && $perm === "nah"){
-						$configPart = $this->getConfig()->get("FallbackCommand");
+                    if(isset($this->idSessions[$giverName])){
+							$hitter->sendMessage($this->prefix."Entity ID: ".$taker->getId());
+                            unset($this->idSessions[$giverName]);
+                            $event->setCancelled();
+                            return;
+                    }
+					if(!($hitter->hasPermission("slapper.hit"))){
+					    $event->setCancelled(true);
+					    $perm = false;
 					}
-					if($perm == "nah"){
-					foreach($configPart as $commandNew){
-						$this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $giverName, $commandNew));
-					}
+					if($perm == false){
+					    var_dump($taker->namedtag);
+					    foreach($taker->namedtag->Commands as $entityCommand){
+						    $this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_replace("{player}", $giverName, $entityCommand));
+					    }
 					}
 				}
 
@@ -253,22 +404,21 @@ class main extends PluginBase implements Listener{
             new Float("", $playerYaw),
             new Float("", $playerPitch)
 		]);
-        $nbt->Rotation = new Enum("Rotation", [
-            new Float("", $playerYaw),
-            new Float("", $playerPitch)
-        ]);
+		$nbt->Age = new Short("Age", 1);
         $nbt->Health = new Short("Health", 1);
         $nbt->Inventory = new Enum("Inventory", $humanInv);
-        $nbt->NameTag = new String("name",$name);
         $nbt->CustomName = new String("CustomName",$name);
         $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
         $nbt->Invulnerable = new Byte("Invulnerable", 1);
-        $nbt->IsSlapper = new Byte("IsSlapper", 1);
-        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.6");
         $nbt->Skin = new Compound("Skin", [
           "Data" => new String("Data", $senderSkin),
           "Slim" => new Byte("Slim", $isSlim)
         ]);
+        /* Slapper NBT info */
+        $nbt->Commands = new Compound("Commands", []);
+        $nbt->IsSlapper = new Byte("IsSlapper", 1);
+        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.7");
+
 		return $nbt;
     }
 }

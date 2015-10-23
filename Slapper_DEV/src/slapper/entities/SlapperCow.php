@@ -8,22 +8,28 @@ use pocketmine\network\Network;
 use pocketmine\Player;
 use pocketmine\entity\Animal;
 use pocketmine\entity\Entity;
-
+use pocketmine\nbt\tag\String;
 
 class SlapperCow extends Animal{
 	const NETWORK_ID = 11;
 
-
-	public function getName(){
-		$name = $this->getDataProperty(2);
-		return $name;
-	}
-
 	public $width = 1;
 	public $length = 1;
 	public $height = 0;
-	public $motionY = 1;
 
+
+	public function getName(){
+		return $this->getDataProperty(2);
+	}
+
+	public function setAge($age){
+		$this->namedtag->Age($age);
+	}
+
+	public function addCommand($command){
+		$this->namedtag->Commands[$command] = new String($command, $command);
+		$this->saveNBT();
+	}
 
 	public function spawnTo(Player $player){
 
@@ -33,9 +39,9 @@ class SlapperCow extends Animal{
 		$pk->x = $this->x;
 		$pk->y = $this->y;
 		$pk->z = $this->z;
-		$pk->speedX = $this->motionX;
-		$pk->speedY = 1.5;
-		$pk->speedZ = $this->motionZ;
+		$pk->speedX = 0;
+		$pk->speedY = 0;
+		$pk->speedZ = 0;
 		$pk->yaw = $this->yaw;
 		$pk->pitch = $this->pitch;
 		$pk->metadata = [

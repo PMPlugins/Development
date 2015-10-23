@@ -1,5 +1,7 @@
 <?php
+
 namespace slapper\entities;
+
 use pocketmine\nbt\tag\Int;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\Network;
@@ -25,15 +27,14 @@ class SlapperVillager extends Creature implements NPC, Ageable{
 	public $height = 0;
 
 	public function getName(){
-		return "SlapperVillager";
+		return $this->getDataProperty(2);
 	}
-	public function isBaby() { return false;} // Needed for 1.5
+	public function isBaby(){ return false; }
 
 	protected function initEntity(){
 		parent::initEntity();
 		if(!isset($this->namedtag->Profession)){
 			$this->setProfession(mt_rand(0,5));
-			//$this->setProfession(self::PROFESSION_GENERIC);
 		}
 	}
 
@@ -59,11 +60,6 @@ class SlapperVillager extends Creature implements NPC, Ageable{
 		parent::spawnTo($player);
 	}
 
-	/**
-	 * Sets the villager profession
-	 *
-	 * @param $profession
-	 */
 	public function setProfession($profession){
 		$this->namedtag->Profession = new Int("Profession", $profession);
 	}
