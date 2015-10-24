@@ -269,7 +269,7 @@ class main extends PluginBase implements Listener{
                                             $entity instanceof SlapperWolf
                                             ){
                                                 if($entity instanceof SlapperHuman){ $entity->getInventory()->clearAll(); }
-                                                $entity->close();
+                                                $entity->kill();
                                                 $sender->sendMessage($this->prefix . "Entity removed.");
                                             } else {
                                                 $sender->sendMessage($this->prefix . "That entity is not handled by Slapper.");
