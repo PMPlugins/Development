@@ -214,16 +214,6 @@ class main extends PluginBase implements Listener{
                                                                 $sender->sendMessage($this->prefix."Please enter a name.");
                                                             }
                                                             return true;
-                                                        case "baby":
-                                                            if(isset($args[2])){
-                                                                if(strtolower($args[2]) === "true"){
-                                                                    $entity->namedtag->Age = new Short("Age", -32767);
-                                                                }
-                                                                $sender->sendMessage($this->prefix."Age updated.");
-                                                            } else {
-                                                                $sender->sendMessage($this->prefix."Please enter a value.");
-                                                            }
-                                                            return true;
                                                         case "addc":
                                                         case "addcmd":
                                                         case "addcommand":
@@ -237,7 +227,7 @@ class main extends PluginBase implements Listener{
                                                                 $sender->sendMessage($this->prefix."Please enter a command.");
                                                             }
                                                             return true;
-                                                        case "delcmd"
+                                                        case "delcmd":
                                                         case "removecommand":
                                                             if(isset($args[2])){
                                                                 array_shift($args);
@@ -250,7 +240,7 @@ class main extends PluginBase implements Listener{
                                                             }
                                                             return;
                                                         case "listcommands":
-                                                        case "listcmds"
+                                                        case "listcmds":
                                                         case "listcs":
                                                             if(isset($entity->namedtag->Commands)){
 																foreach($entity->namedtag->Commands as $cmd){
