@@ -1,33 +1,25 @@
 <?php
 namespace slapper\entities;
 
-use pocketmine\item\Item;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\Network;
 use pocketmine\Player;
 use pocketmine\entity\WaterAnimal;
 use pocketmine\entity\Entity;
 
-
 class SlapperSquid extends WaterAnimal{
+
 	const NETWORK_ID = 17;
 
-
 	public function getName(){
-		$name = $this->getDataProperty(2);
-		return $name;
-	}
+		return $this->getDataProperty(2);
+    }
 
+    public function addCommand($command){
+        $this->namedtag->Commands[$command] = new pocketmine\nbt\tag\String($command, $command);
+    }
 
-
-	public $width = 0;
-	public $length = 0;
-	public $height = -0.1;
-	public $motionY = 1.5;
-
-
-	public function spawnTo(Player $player){
+    public function spawnTo(Player $player){
 
 		$pk = new AddEntityPacket();
 		$pk->eid = $this->getId();
@@ -35,9 +27,9 @@ class SlapperSquid extends WaterAnimal{
 		$pk->x = $this->x;
 		$pk->y = $this->y;
 		$pk->z = $this->z;
-		$pk->speedX = $this->motionX;
-		$pk->speedY = 1.5;
-		$pk->speedZ = $this->motionZ;
+		$pk->speedX = 0;
+		$pk->speedY = 0;
+		$pk->speedZ = 0;
 		$pk->yaw = $this->yaw;
 		$pk->pitch = $this->pitch;
 		$pk->metadata = [

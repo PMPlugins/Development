@@ -7,6 +7,10 @@ use pocketmine\network\Network;
 
 class SlapperHuman extends HumanNPC{
 
+	public function addCommand($command){
+		$this->namedtag->Commands[$command] = new pocketmine\nbt\tag\String($command, $command);
+	}
+
 	public function spawnTo(Player $player){
 		if($player !== $this and !isset($this->hasSpawned[$player->getLoaderId()])){
 			$this->hasSpawned[$player->getLoaderId()] = $player;

@@ -1,31 +1,23 @@
 <?php
 namespace slapper\entities;
 
-use pocketmine\item\Item;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\Network;
 use pocketmine\Player;
 use pocketmine\entity\Monster;
 use pocketmine\entity\Entity;
 
-
 class SlapperEnderman extends Monster{
+
 	const NETWORK_ID = 38;
 
-
 	public function getName(){
-		$name = $this->getDataProperty(2);
-		return $name;
+		return $this->getDataProperty(2);
 	}
 
-
-
-	public $width = 0;
-	public $length = 0;
-	public $height = 0;
-	public $motionY = 1.5;
-
+	public function addCommand($command){
+		$this->namedtag->Commands[$command] = new pocketmine\nbt\tag\String($command, $command);
+	}
 
 	public function spawnTo(Player $player){
 
@@ -35,9 +27,9 @@ class SlapperEnderman extends Monster{
 		$pk->x = $this->x;
 		$pk->y = $this->y;
 		$pk->z = $this->z;
-		$pk->speedX = $this->motionX;
-		$pk->speedY = 1.5;
-		$pk->speedZ = $this->motionZ;
+		$pk->speedX = 0;
+		$pk->speedY = 0;
+		$pk->speedZ = 0;
 		$pk->yaw = $this->yaw;
 		$pk->pitch = $this->pitch;
 		$pk->metadata = [

@@ -6,13 +6,10 @@ use pocketmine\nbt\tag\Int;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\Network;
 use pocketmine\Player;
-use pocketmine\entity\Creature;
-use pocketmine\entity\NPC;
-use pocketmine\entity\Ageable;
 use pocketmine\entity\Entity;
 
+class SlapperVillager extends Entity{
 
-class SlapperVillager extends Creature implements NPC, Ageable{
 	const PROFESSION_FARMER = 0;
 	const PROFESSION_LIBRARIAN = 1;
 	const PROFESSION_PRIEST = 2;
@@ -22,21 +19,15 @@ class SlapperVillager extends Creature implements NPC, Ageable{
 
 	const NETWORK_ID = 15;
 
-	public $width = 0.6;
-	public $length = 0.6;
-	public $height = 0;
-
 	public function getName(){
 		return $this->getDataProperty(2);
 	}
-	public function isBaby(){ return false; }
 
-	protected function initEntity(){
-		parent::initEntity();
-		if(!isset($this->namedtag->Profession)){
-			$this->setProfession(mt_rand(0,5));
-		}
+	public function addCommand($command){
+		$this->namedtag->Commands[$command] = new pocketmine\nbt\tag\String($command, $command);
 	}
+
+	public function isBaby(){ return false; }
 
 	public function spawnTo(Player $player){
 
@@ -46,9 +37,9 @@ class SlapperVillager extends Creature implements NPC, Ageable{
 		$pk->x = $this->x;
 		$pk->y = $this->y;
 		$pk->z = $this->z;
-		$pk->speedX = $this->motionX;
-		$pk->speedY = $this->motionY;
-		$pk->speedZ = $this->motionZ;
+		$pk->speedX = 0;;
+		$pk->speedY = 0;
+		$pk->speedZ = 0;
 		$pk->yaw = $this->yaw;
 		$pk->pitch = $this->pitch;
 		$pk->metadata = [

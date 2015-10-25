@@ -6,8 +6,8 @@ main: slapper\main
 api: [1.12.0]
 commands:
   slapper:
-    description: Create a slappable entity!
-    usage: "/slapper <type> [name]"
+    description: Create a slappable entity, or edits an existing one!
+    usage: "/slapper [args]..."
     permission: slapper.create
   rca:
     description: Run command as another player!
@@ -19,7 +19,10 @@ commands:
     permission: slapper.nothing
 permissions:
   slapper.create:
-    description: Allow using command /slapper
+    description: Allow using command /slapper create
+    default: op
+  slapper.edit:
+    description: Allow editing Slapper entity data with /slapper edit
     default: op
   slapper.nothing:
     description: Allow doing nothing
@@ -38,4 +41,10 @@ permissions:
     default: op
   slapper.id:
     description: Allow viewing entity ID
+    default: op
+  slapper.help:
+    description: Allow viewing Slapper help page
+    default: op
+  slapper.noargs:
+    description: Allow viewing Slapper main message
     default: op
