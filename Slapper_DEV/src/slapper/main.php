@@ -384,7 +384,7 @@ class main extends PluginBase implements Listener{
 
 	public function onEntityDamage(EntityDamageEvent $event) {
 		$perm = true;
-		if ($event->isCancelled()) return; //IDK why but I have a feeling this is wrong...
+		if ($event->isCancelled()) return;
 		$taker = $event->getEntity();
 		if(
 		    $taker instanceof SlapperHuman ||
