@@ -4,6 +4,10 @@ author: Legoboy0215
 main: Legoboy\WorldStats\WorldStats
 version: 1.0.0
 api: [1.12.0]
+commands:
+ ws:
+  usage: "/ws <update/info>"
+  description: "WorldStats Main command"
 permissions:
  worldstats:
   default: op
