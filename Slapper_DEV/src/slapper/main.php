@@ -432,6 +432,25 @@ class main extends PluginBase implements Listener{
                                                         }
                                                         return true;
                                                         break;
+                                                    case "teleporthere":
+                                                    case "tphere":
+                                                    case "movehere":
+                                                    case "bringhere":
+                                                        $entity->teleport($sender);
+                                                        $sender->sendMessage($this->prefix . "Teleported entity to you.");
+                                                        $entity->despawnFromAll();
+                                                        $entity->spawnToAll();
+                                                        return true;
+                                                        break;
+                                                    case "teleportto":
+                                                    case "tpto":
+                                                    case "goto":
+                                                    case "teleport":
+                                                    case "tp":
+                                                        $sender->teleport($entity);
+                                                        $sender->sendMessage($this->prefix . "Teleported you to entity.");
+                                                        return true;
+                                                        break;
                                                     default:
                                                         $sender->sendMessage($this->prefix . "Unknown command.");
                                                         return true;
