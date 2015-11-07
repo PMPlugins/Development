@@ -1,18 +1,20 @@
 <?php
-namespace slapper\entities;
+namespace slapper\entities\other;
 
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\Network;
 use pocketmine\Player;
 use pocketmine\entity\Entity;
 
-class SlapperChicken extends Entity{
+class SlapperPrimedTNT extends Entity{
 
-	const NETWORK_ID = 10;
+	const NETWORK_ID = 65;
+
+	public $height = 1.1;
 
 	public function getName(){
 		return $this->getDataProperty(2);
-    }
+	}
 
 	public function spawnTo(Player $player){
 
@@ -20,7 +22,7 @@ class SlapperChicken extends Entity{
 		$pk->eid = $this->getId();
 		$pk->type = self::NETWORK_ID;
 		$pk->x = $this->x;
-		$pk->y = $this->y;
+		$pk->y = $this->y + 0.5;
 		$pk->z = $this->z;
 		$pk->speedX = 0;
 		$pk->speedY = 0;

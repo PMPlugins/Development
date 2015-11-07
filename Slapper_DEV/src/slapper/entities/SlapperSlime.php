@@ -4,19 +4,13 @@ namespace slapper\entities;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\Network;
 use pocketmine\Player;
-use pocketmine\entity\Monster;
 use pocketmine\entity\Entity;
 
-class SlapperSlime extends Monster{
+class SlapperSlime extends Entity{
 	const NETWORK_ID = 37;
-	const DATA_SIZE = 1;
 
 	public function getName(){
 		return $this->getDataProperty(2);
-	}
-
-	public function addCommand($command){
-		$this->namedtag->Commands[$command] = new pocketmine\nbt\tag\String($command, $command);
 	}
 
 	public function spawnTo(Player $player){
@@ -32,13 +26,17 @@ class SlapperSlime extends Monster{
 		$pk->speedZ = 0;
 		$pk->yaw = $this->yaw;
 		$pk->pitch = $this->pitch;
-		$pk->metadata = [
-				Entity::DATA_NAMETAG => [Entity::DATA_TYPE_STRING, $this->getDataProperty(2)],
-				Entity::DATA_SHOW_NAMETAG => [Entity::DATA_TYPE_BYTE, 1],
-				Entity::DATA_NO_AI => [Entity::DATA_TYPE_BYTE, 1],
-				self::DATA_SIZE => [Entity::DATA_TYPE_BYTE, 3],
-        ];
-
+        $pk->metadata = [
+			2 => [4, $this->getDataProperty(2)],
+			3 => [0, 1],
+			15 => [0, 1],
+			1 => [0, 1]
+		];
+		if(isset($this->namedtag->CustomNameVisible)){
+			$pk->metadata[3] = [0, $this->namedtag->CustomNameVisible->getValue()];
+		} else {
+			$pk->metadata[3] = [0, 1];
+		}
 		$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
 		parent::spawnTo($player);
 	}

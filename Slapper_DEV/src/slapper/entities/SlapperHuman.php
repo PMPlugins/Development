@@ -7,10 +7,6 @@ use pocketmine\network\Network;
 
 class SlapperHuman extends HumanNPC{
 
-	public function addCommand($command){
-		$this->namedtag->Commands[$command] = new pocketmine\nbt\tag\String($command, $command);
-	}
-
 	public function spawnTo(Player $player){
 		if($player !== $this and !isset($this->hasSpawned[$player->getLoaderId()])){
 			$this->hasSpawned[$player->getLoaderId()] = $player;
@@ -36,8 +32,17 @@ class SlapperHuman extends HumanNPC{
 			    $pk->skin = $this->skin;
                 $pk->slim = $this->isSlim;
 			}
-            $pk->metadata = $this->dataProperties;
-			$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
+			$pk->metadata = [
+				2 => [4, $this->getDataProperty(2)],
+				3 => [0, 1],
+				15 => [0, 1]
+            ];
+			if(isset($this->namedtag->CustomNameVisible)){
+				$pk->metadata[3] = [0, $this->namedtag->CustomNameVisible->getValue()];
+			} else {
+				$pk->metadata[3] = [0, 1];
+			}
+            $player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
 
 			$this->inventory->sendArmorContents($player);
 		}

@@ -8,7 +8,7 @@ commands:
   slapper:
     description: Create a slappable entity, or edits an existing one!
     usage: "/slapper [args]..."
-    permission: slapper.create
+    permission: slapper.command
   rca:
     description: Run command as another player!
     usage: "/rca <player> <command>"
@@ -17,34 +17,52 @@ commands:
     description: Do nothing!
     usage: "/nothing"
     permission: slapper.nothing
+
 permissions:
+  slapper:
+    description: Allow using all Slapper OP commands
+    default: op
+
+  slapper.command:
+    description: Allow using /slapper
+    default: op
+
   slapper.create:
     description: Allow using command /slapper create
     default: op
+
   slapper.edit:
     description: Allow editing Slapper entity data with /slapper edit
     default: op
+
   slapper.nothing:
     description: Allow doing nothing
     default: op
-  slapper.hit:
-    description: Allow harming Slapper entites
-    default: false
+
   slapper.rca:
     description: Allow running commands as other players
     default: op
-  slapper.seeownskin:
-    description: Allow seeing your own skin on Slapper humans
-    default: false
+
   slapper.remove:
     description: Allow removing Slapper entities with /slapper remove [id]
     default: op
+
   slapper.id:
     description: Allow viewing entity ID
     default: op
+
   slapper.help:
     description: Allow viewing Slapper help page
     default: op
-  slapper.noargs:
-    description: Allow viewing Slapper main message
+
+  slapper.nothing:
+    description: Allow doing nothing
     default: op
+
+  slapper.hit:
+    description: Allow harming Slapper entites
+    default: false
+
+  slapper.seeownskin:
+    description: Allow seeing your own skin on Slapper humans
+    default: false

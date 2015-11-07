@@ -6,13 +6,13 @@ use pocketmine\network\Network;
 use pocketmine\Player;
 use pocketmine\entity\Entity;
 
-class SlapperChicken extends Entity{
+class SlapperOcelot extends Entity{
 
-	const NETWORK_ID = 10;
+	const NETWORK_ID = 22;
 
-	public function getName(){
+    public function getName(){
 		return $this->getDataProperty(2);
-    }
+	}
 
 	public function spawnTo(Player $player){
 
