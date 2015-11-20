@@ -33,3 +33,7 @@ Data packet extracts:
       [1]=>
       int(1 /* 1 = true, 0 = false */)
     }
+
+AnimatePacket ID actions:
+1: hit
+4: critical hit particles

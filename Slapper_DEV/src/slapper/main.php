@@ -47,6 +47,7 @@ use slapper\entities\SlapperPig;
 use slapper\entities\SlapperWolf;
 use slapper\entities\SlapperSheep;
 use slapper\entities\SlapperZombieVillager;
+use slapper\entities\SlapperBlaze;
 
 use slapper\entities\other\SlapperMinecart;
 use slapper\entities\other\SlapperBoat;
@@ -70,7 +71,8 @@ class main extends PluginBase implements Listener{
         "spawn: /slapper spawn <type> [name]",
         "id: /slapper id",
         "remove: /slapper remove [id]",
-        "version: /slapper version"
+        "version: /slapper version",
+        "cancel: /slapper cancel"
     ];
     public $editArgs = [
         "helmet: /slapper edit <eid> helmet <id>",
@@ -83,7 +85,9 @@ class main extends PluginBase implements Listener{
         "delcommand: /slapper edit <eid> delcommand <command>",
         "listcommands: /slapper edit <eid> listcommands",
         "fix: /slapper edit <eid> fix",
-        "block: /slapper edit <eid> block <id>"
+        "block: /slapper edit <eid> block <id>",
+        "tphere: /slapper edit <eid> tphere",
+        "tpto: /slapper edit <eid> tpto"
     ];
 
     public function onEnable(){
@@ -96,6 +100,7 @@ class main extends PluginBase implements Listener{
 		Entity::registerEntity(SlapperPigZombie::class,true);
 		if($this->supports_0_12){
 		    Entity::registerEntity(SlapperGhast::class,true);
+            Entity::registerEntity(SlapperBlaze::class,true);
 		    Entity::registerEntity(SlapperIronGolem::class,true);
 		    Entity::registerEntity(SlapperSnowman::class,true);
 		    Entity::registerEntity(SlapperOcelot::class,true);
@@ -127,7 +132,6 @@ class main extends PluginBase implements Listener{
 	    $this->getLogger()->debug("Entities have been registered!");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getLogger()->debug("Events have been registered!");
-        $this->getLogger()->info("Slapper is enabled!");
    }
 
     public function onCommand(CommandSender $sender, Command $command, $label, array $args){
@@ -170,7 +174,7 @@ class main extends PluginBase implements Listener{
                             } else {
                                 $sender->sendMessage($this->noperm);
                             }
-                        break;
+                            break;
                         case "version":
                             if($sender->hasPermission("slapper.version") || $sender->hasPermission("slapper")){
                                 $desc = $this->getDescription();
@@ -179,6 +183,14 @@ class main extends PluginBase implements Listener{
                             } else {
                                 $sender->sendMessage($this->noperm);
                             }
+                            break;
+                        case "cancel":
+                        case "stopremove":
+                        case "stopid":
+                            unset($this->hitSessions[$sender->getName()]);
+                            unset($this->idSessions[$sender->getName()]);
+                            $sender->sendMessage($this->prefix . "Cancelled.");
+                            return true;
                             break;
                         case "remove":
                             if($sender->hasPermission("slapper.remove") || $sender->hasPermission("slapper")){
@@ -206,7 +218,12 @@ class main extends PluginBase implements Listener{
                                             $entity instanceof SlapperSkeleton ||
                                             $entity instanceof SlapperSquid ||
                                             $entity instanceof SlapperWolf ||
-
+                                            $entity instanceof SlapperGhast ||
+                                            $entity instanceof SlapperZombieVillager ||
+                                            $entity instanceof SlapperBlaze ||
+                                            $entity instanceof SlapperOcelot ||
+                                            $entity instanceof SlapperIronGolem ||
+                                            $entity instanceof SlapperSnowman ||
                                             $entity instanceof SlapperBoat ||
                                             $entity instanceof SlapperPrimedTNT ||
                                             $entity instanceof SlapperFallingSand ||
@@ -255,7 +272,12 @@ class main extends PluginBase implements Listener{
                                             $entity instanceof SlapperSkeleton ||
                                             $entity instanceof SlapperSquid ||
                                             $entity instanceof SlapperWolf ||
-
+                                            $entity instanceof SlapperGhast ||
+                                            $entity instanceof SlapperZombieVillager ||
+                                            $entity instanceof SlapperBlaze ||
+                                            $entity instanceof SlapperOcelot ||
+                                            $entity instanceof SlapperIronGolem ||
+                                            $entity instanceof SlapperSnowman ||
                                             $entity instanceof SlapperMinecart ||
                                             $entity instanceof SlapperBoat ||
                                             $entity instanceof SlapperFallingSand ||
@@ -364,8 +386,10 @@ class main extends PluginBase implements Listener{
                                                     case "custom_name_visible":
                                                     case "tag_visible":
                                                         if (isset($args[2])) {
-                                                            $entity->namedtag->CustomNameVisible = new Byte("CustomNameVisible", $args[2]);
-                                                            $sender->sendMessage($this->prefix . "Name visibility updated. Please relog to see the change.");
+                                                            $entity->setDataProperty(3, 0, intval($args[2]));
+                                                            $entity->despawnFromAll();
+                                                            $entity->spawnToAll();
+                                                            $sender->sendMessage($this->prefix . "Name visibility updated.");
                                                          } else {
                                                             $sender->sendMessage($this->prefix . "Please enter a value, 1 or 0.");
                                                         }
@@ -622,7 +646,8 @@ class main extends PluginBase implements Listener{
 							}
 							return true;
                         default:
-                            $sender->sendMessage($this->prefix . "Unknown command.");
+                            $sender->sendMessage($this->prefix . "Unknown command. Type '/slapper help' for help.");
+                            return true;
                     }
                 }else{
 					$sender->sendMessage($this->prefix . "This command only works in game.");
@@ -658,8 +683,13 @@ class main extends PluginBase implements Listener{
 		    $taker instanceof SlapperSkeleton ||
 		    $taker instanceof SlapperSquid ||
 		    $taker instanceof SlapperWolf ||
-
-		    $taker instanceof SlapperBoat ||
+            $taker instanceof SlapperGhast ||
+            $taker instanceof SlapperZombieVillager ||
+            $taker instanceof SlapperBlaze ||
+            $taker instanceof SlapperOcelot ||
+            $taker instanceof SlapperIronGolem ||
+            $taker instanceof SlapperSnowman ||
+            $taker instanceof SlapperBoat ||
 		    $taker instanceof SlapperPrimedTNT ||
 		    $taker instanceof SlapperFallingSand ||
 		    $taker instanceof SlapperMinecart

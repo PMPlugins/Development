@@ -26,17 +26,11 @@ class SlapperSlime extends Entity{
 		$pk->speedZ = 0;
 		$pk->yaw = $this->yaw;
 		$pk->pitch = $this->pitch;
-        $pk->metadata = [
+		$pk->metadata = [
 			2 => [4, $this->getDataProperty(2)],
-			3 => [0, 1],
-			15 => [0, 1],
-			1 => [0, 1]
+			3 => [0, $this->getDataProperty(3)],
+			15 => [0, 1]
 		];
-		if(isset($this->namedtag->CustomNameVisible)){
-			$pk->metadata[3] = [0, $this->namedtag->CustomNameVisible->getValue()];
-		} else {
-			$pk->metadata[3] = [0, 1];
-		}
 		$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
 		parent::spawnTo($player);
 	}

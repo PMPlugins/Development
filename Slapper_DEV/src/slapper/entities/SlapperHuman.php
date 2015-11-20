@@ -33,16 +33,11 @@ class SlapperHuman extends HumanNPC{
                 $pk->slim = $this->isSlim;
 			}
 			$pk->metadata = [
-				2 => [4, $this->getDataProperty(2)],
-				3 => [0, 1],
+                2 => [4, $this->getDataProperty(2)],
+				3 => [0, $this->getDataProperty(3)],
 				15 => [0, 1]
             ];
-			if(isset($this->namedtag->CustomNameVisible)){
-				$pk->metadata[3] = [0, $this->namedtag->CustomNameVisible->getValue()];
-			} else {
-				$pk->metadata[3] = [0, 1];
-			}
-            $player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
+			$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
 
 			$this->inventory->sendArmorContents($player);
 		}
