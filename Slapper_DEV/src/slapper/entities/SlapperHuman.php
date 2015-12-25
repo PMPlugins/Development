@@ -3,7 +3,7 @@ namespace slapper\entities;
 
 use pocketmine\Player;
 use pocketmine\network\protocol\AddPlayerPacket;
-use pocketmine\network\Network;
+use pocketmine\network\protocol\PlayerListPacket;
 
 class SlapperHuman extends HumanNPC{
 
@@ -11,10 +11,13 @@ class SlapperHuman extends HumanNPC{
 		if($player !== $this and !isset($this->hasSpawned[$player->getLoaderId()])){
 			$this->hasSpawned[$player->getLoaderId()] = $player;
 
+            $uuid = $this->getUniqueId();
+            $entityId = $this->getId();
+
             $pk = new AddPlayerPacket();
-			$pk->uuid = $this->getUniqueId();
+			$pk->uuid = $uuid;
 			$pk->username = $this->getName();
-			$pk->eid = $this->getId();
+			$pk->eid = $entityId;
 			$pk->x = $this->x;
 			$pk->y = $this->y;
 			$pk->z = $this->z;
@@ -23,23 +26,27 @@ class SlapperHuman extends HumanNPC{
 			$pk->speedZ = 0;
 			$pk->yaw = $this->yaw;
 			$pk->pitch = $this->pitch;
-			$item = $this->getInventory()->getItemInHand();
-			$pk->item = $item;
-            if($player->hasPermission("slapper.seeownskin")){
-                $pk->skin = $player->getSkinData();
-			    $pk->slim = $player->isSkinSlim();
-			} else {
-			    $pk->skin = $this->skin;
-                $pk->slim = $this->isSlim;
-			}
+			$pk->item = $this->getInventory()->getItemInHand();
 			$pk->metadata = [
                 2 => [4, $this->getDataProperty(2)],
 				3 => [0, $this->getDataProperty(3)],
 				15 => [0, 1]
             ];
-			$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
+			$player->dataPacket($pk);
 
 			$this->inventory->sendArmorContents($player);
+
+			$add = new PlayerListPacket();
+            $add->type = 0;
+			$add->entries[] = [$uuid, $entityId, isset($this->namedtag->MenuName) ? $this->namedtag->MenuName : "", $this->skinName, $this->skin];
+			$player->dataPacket($add);
+
+			if(isset($this->namedtag->MenuName)) {
+				$remove = new PlayerListPacket();
+				$remove->type = 1;
+				$remove->entries[] = [$uuid];
+				$player->dataPacket($remove);
+			}
 		}
 	}
 
