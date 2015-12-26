@@ -5,14 +5,13 @@
 --- <b>jojoe77777 & Legoboy0215</b>
 
 <h3>Plugin Status:</h3>
-|Name|Version|Author|Active?|Completed?|Works?|
+|Name|Version|Author|Active?|Completed?|Status|
 |----|:-------:|:------:|:-------:|:----------:|:------:|
-|Slapper|1.2.6|jojoe77777|Yes|Yes|Yes|
-|WorldStats|1.0.0|Legoboy0215|Yes|No|Yes|
-|CouponCode|1.0.0|Legoboy0215|Yes|No|Yes|
-|SignTools|1.0.0|Legoboy0215|Yes|No|No|
-|SuperAPI|1.0.0|Legoboy0215|Yes|No|Yes|
-|TellRaw|1.0.3|jojoe77777|Yes|Yes|Yes|
+|Slapper|1.2.8|jojoe77777|Yes|No|May crash|
+|WorldStats|1.0.0|Legoboy0215|Yes|No|Works|
+|CouponCode|1.0.0|Legoboy0215|Yes|No|Works|
+|SignTools|1.0.0|Legoboy0215|Yes|No|Does not work|
+|SuperAPI|1.0.0|Legoboy0215|Yes|No|Works|
+|TellRaw|1.0.3|jojoe77777|Yes|Yes|Works|
 |<i>Lookout(Abandoned)</i>|1.0.0|Legoboy0215|Yes|Half|Timer works, but not tested functions.|
-|<i>AccurateTimer (Abandoned)</i></i>|1.0.0|Legoboy0215 & PEMapModder|Abandoned|No|Not At All|
-|Placeholders|1.0.2|jojoe77777|Yes|No|Yes|
+|Placeholders|1.0.2|jojoe77777|No|No|Should work|
