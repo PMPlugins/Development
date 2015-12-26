@@ -43,7 +43,7 @@ class SlapperVillager extends Entity{
 			3 => [0, $this->getDataProperty(3)],
 			15 => [0, 1]
 		];
-		$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
+		$player->dataPacket($pk);
 		parent::spawnTo($player);
 	}
 

@@ -37,7 +37,7 @@ class SlapperFallingSand extends Entity{
         } else {
             $pk->metadata[20] = [2, 1];
         }
-		$player->dataPacket($pk->setChannel(Network::CHANNEL_ENTITY_SPAWNING));
+		$player->dataPacket($pk);
 		parent::spawnTo($player);
 	}
 
