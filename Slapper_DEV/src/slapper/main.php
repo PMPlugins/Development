@@ -144,22 +144,19 @@ class main extends PluginBase implements Listener{
 			case 'rca':
             	if (count($args) < 2){
 					$sender->sendMessage("Please enter a player and a command.");
-					return true;
             	}
 				$player = $this->getServer()->getPlayer(array_shift($args));
 				if(!($player === null)){
 					$this->getServer()->dispatchCommand($player, trim(implode(" ", $args)));
-					return true;
-					break;
 				}
-                $sender->sendMessage(TextFormat::RED."Player not found.");
+                $sender->sendMessage(TextFormat::RED . "Player not found.");
                 return true;
                 break;
 			case "slapper":
           		if($sender instanceof Player){
           			if(!(isset($args[0]))){
 			    		if($sender->hasPermission("slapper.command") || $sender->hasPermission("slapper")){
-                            $sender->sendMessage($this->prefix."Please type '/slapper help'.");
+                            $sender->sendMessage($this->prefix . "Please type '/slapper help'.");
                             return true;
 			            } else {
 			                $sender->sendMessage($this->noperm);
@@ -171,7 +168,7 @@ class main extends PluginBase implements Listener{
                         case "id":
                             if($sender->hasPermission("slapper.id") || $sender->hasPermission("slapper")){
                                 $this->idSessions[$sender->getName()] = true;
-                                $sender->sendMessage($this->prefix."Hit an entity to get its ID!");
+                                $sender->sendMessage($this->prefix . "Hit an entity to get its ID!");
                                 return true;
                             } else {
                                 $sender->sendMessage($this->noperm);
