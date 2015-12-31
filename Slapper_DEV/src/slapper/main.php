@@ -853,6 +853,39 @@ class main extends PluginBase implements Listener
         }
     }
 
+    private function makeNBT($skin, $skinName, $name, $inv, $yaw, $pitch, $x, $y, $z)
+    {
+        $nbt = new Compound;
+        $nbt->Pos = new Enum("Pos", [
+            new Double("", $x),
+            new Double("", $y),
+            new Double("", $z)
+        ]);
+        $nbt->Rotation = new Enum("Rotation", [
+            new Float("", $yaw),
+            new Float("", $pitch)
+        ]);
+        $nbt->Health = new Short("Health", 1);
+        $nbt->Inventory = new Enum("Inventory", $inv);
+        $nbt->CustomName = new String("CustomName", $name);
+        $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
+        $nbt->Invulnerable = new Byte("Invulnerable", 1);
+        $nbt->Skin = new Compound("Skin", [
+            "Data" => new String("Data", $skin),
+            "Name" => new String("Name", $skinName)
+        ]);
+        /* Slapper NBT info */
+        $nbt->Commands = new Compound("Commands", []);
+        $nbt->MenuName = new String("MenuName", "");
+        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.8");
+        /* FallingSand Block ID */
+        $nbt->BlockID = new Int("BlockID", 1);
+        /* Name visible */
+        $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
+
+        return $nbt;
+    }
+
     /**
      * @ignoreCancelled true
      */
@@ -934,39 +967,5 @@ class main extends PluginBase implements Listener
             }
         }
 
-    }
-
-
-    private function makeNBT($skin, $skinName, $name, $inv, $yaw, $pitch, $x, $y, $z)
-    {
-        $nbt = new Compound;
-        $nbt->Pos = new Enum("Pos", [
-            new Double("", $x),
-            new Double("", $y),
-            new Double("", $z)
-        ]);
-        $nbt->Rotation = new Enum("Rotation", [
-            new Float("", $yaw),
-            new Float("", $pitch)
-        ]);
-        $nbt->Health = new Short("Health", 1);
-        $nbt->Inventory = new Enum("Inventory", $inv);
-        $nbt->CustomName = new String("CustomName", $name);
-        $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
-        $nbt->Invulnerable = new Byte("Invulnerable", 1);
-        $nbt->Skin = new Compound("Skin", [
-            "Data" => new String("Data", $skin),
-            "Name" => new String("Name", $skinName)
-        ]);
-        /* Slapper NBT info */
-        $nbt->Commands = new Compound("Commands", []);
-        $nbt->MenuName = new String("MenuName", "");
-        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.8");
-        /* FallingSand Block ID */
-        $nbt->BlockID = new Int("BlockID", 1);
-        /* Name visible */
-        $nbt->CustomNameVisible = new Byte("CustomNameVisible", 1);
-
-        return $nbt;
     }
 }
