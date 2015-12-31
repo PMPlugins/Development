@@ -136,6 +136,7 @@ class main extends PluginBase implements Listener
         $this->getLogger()->debug("Events have been registered!");
     }
 
+    /** @noinspection PhpInconsistentReturnPointsInspection */
     public function onCommand(CommandSender $sender, Command $command, $label, array $args)
     {
         switch (strtolower($command->getName())) {
@@ -851,6 +852,7 @@ class main extends PluginBase implements Listener
                     return true;
                 }
         }
+        return true;
     }
 
     private function makeNBT($skin, $skinName, $name, $inv, $yaw, $pitch, $x, $y, $z)
