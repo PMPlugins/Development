@@ -1,7 +1,7 @@
 <?php
 
 namespace slapper;
-
+//test
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
