@@ -2,57 +2,55 @@
 
 namespace slapper;
 
-use pocketmine\utils\TextFormat;
-use pocketmine\plugin\PluginBase;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\entity\Entity;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\Listener;
 use pocketmine\Item\Item;
+use pocketmine\nbt\tag\Byte;
 use pocketmine\nbt\tag\Compound;
 use pocketmine\nbt\tag\Double;
 use pocketmine\nbt\tag\Enum;
 use pocketmine\nbt\tag\Float;
+use pocketmine\nbt\tag\Int;
 use pocketmine\nbt\tag\Short;
 use pocketmine\nbt\tag\String;
-use pocketmine\nbt\tag\Byte;
-use pocketmine\nbt\tag\Int;
 use pocketmine\Player;
-use pocketmine\event\Listener;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-
-use slapper\entities\SlapperHuman;
+use pocketmine\plugin\PluginBase;
+use pocketmine\utils\TextFormat;
+use slapper\entities\other\SlapperBoat;
+use slapper\entities\other\SlapperFallingSand;
+use slapper\entities\other\SlapperMinecart;
+use slapper\entities\other\SlapperPrimedTNT;
 use slapper\entities\SlapperBat;
-use slapper\entities\SlapperZombie;
-use slapper\entities\SlapperSkeleton;
-use slapper\entities\SlapperCreeper;
-use slapper\entities\SlapperEnderman;
-use slapper\entities\SlapperLavaSlime;
-use slapper\entities\SlapperSilverfish;
-use slapper\entities\SlapperSpider;
-use slapper\entities\SlapperVillager;
-use slapper\entities\SlapperSquid;
+use slapper\entities\SlapperBlaze;
 use slapper\entities\SlapperCaveSpider;
-use slapper\entities\SlapperGhast;
-use slapper\entities\SlapperIronGolem;
-use slapper\entities\SlapperSnowman;
-use slapper\entities\SlapperOcelot;
-use slapper\entities\SlapperPigZombie;
-use slapper\entities\SlapperSlime;
-use slapper\entities\SlapperMushroomCow;
 use slapper\entities\SlapperChicken;
 use slapper\entities\SlapperCow;
+use slapper\entities\SlapperCreeper;
+use slapper\entities\SlapperEnderman;
+use slapper\entities\SlapperGhast;
+use slapper\entities\SlapperHuman;
+use slapper\entities\SlapperIronGolem;
+use slapper\entities\SlapperLavaSlime;
+use slapper\entities\SlapperMushroomCow;
+use slapper\entities\SlapperOcelot;
 use slapper\entities\SlapperPig;
-use slapper\entities\SlapperWolf;
+use slapper\entities\SlapperPigZombie;
 use slapper\entities\SlapperSheep;
+use slapper\entities\SlapperSilverfish;
+use slapper\entities\SlapperSkeleton;
+use slapper\entities\SlapperSlime;
+use slapper\entities\SlapperSnowman;
+use slapper\entities\SlapperSpider;
+use slapper\entities\SlapperSquid;
+use slapper\entities\SlapperVillager;
+use slapper\entities\SlapperWolf;
+use slapper\entities\SlapperZombie;
 use slapper\entities\SlapperZombieVillager;
-use slapper\entities\SlapperBlaze;
-
-use slapper\entities\other\SlapperMinecart;
-use slapper\entities\other\SlapperBoat;
-use slapper\entities\other\SlapperPrimedTNT;
-use slapper\entities\other\SlapperFallingSand;
 
 
 class main extends PluginBase implements Listener
