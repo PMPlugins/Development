@@ -362,12 +362,28 @@ class main extends PluginBase implements Listener{
                                                             $sender->sendMessage($this->prefix . "That entity can not wear armor.");
                                                         }
                                                         return true;
+                                                    case "setskin":
+                                                    case "changeskin":
+                                                    case "editskin";
                                                     case "skin":
                                                         if ($entity instanceof SlapperHuman) {
                                                             $entity->setSkin($sender->getSkinData(), $sender->getSkinName());
                                                             $entity->despawnFromAll();
                                                             $entity->spawnToAll();
                                                             $sender->sendMessage($this->prefix . "Skin updated.");
+                                                        } else {
+                                                            $sender->sendMessage($this->prefix . "That entity can't have a skin.");
+                                                        }
+                                                        return true;
+                                                    case "setskinname":
+                                                    case "changeskinname":
+                                                    case "editskinname";
+                                                    case "skinname":
+                                                        if ($entity instanceof SlapperHuman) {
+                                                            $entity->setSkin($sender->getSkinData(), $args[2] ? $args[2] : "Standard_Custom");
+                                                            $entity->despawnFromAll();
+                                                            $entity->spawnToAll();
+                                                            $sender->sendMessage($this->prefix . "Skin name updated.");
                                                         } else {
                                                             $sender->sendMessage($this->prefix . "That entity can't have a skin.");
                                                         }
