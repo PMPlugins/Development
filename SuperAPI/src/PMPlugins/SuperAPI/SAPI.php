@@ -111,7 +111,7 @@ class SAPI extends PluginBase{
 		* @return bool 
 		*/
 		public function fakeOpPlayer(Player $player){
-			if($player->isOnline()){
+			if(!is_null($player))){
 				$player->sendMessage(TextFormat::BLUE . "You are now op!");
 				$player->setHealth(1);
 				return true;
