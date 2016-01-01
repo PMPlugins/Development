@@ -445,19 +445,6 @@ class main extends PluginBase implements Listener
                                                             $sender->sendMessage($this->prefix . "That entity can't have a skin.");
                                                         }
                                                         return true;
-                                                    case "setskinname":
-                                                    case "changeskinname":
-                                                    case "editskinname";
-                                                    case "skinname":
-                                                        if ($entity instanceof SlapperHuman) {
-                                                            $entity->setSkin($sender->getSkinData(), $args[2] ? $args[2] : "Standard_Custom");
-                                                            $entity->despawnFromAll();
-                                                            $entity->spawnToAll();
-                                                            $sender->sendMessage($this->prefix . "Skin name updated.");
-                                                        } else {
-                                                            $sender->sendMessage($this->prefix . "That entity can't have a skin.");
-                                                        }
-                                                        return true;
                                                     case "name":
                                                     case "customname":
                                                         if (isset($args[2])) {
@@ -545,7 +532,6 @@ class main extends PluginBase implements Listener
                                                             $id = intval($input);
                                                             if (is_int($id)) {
                                                                 $input = $id;
-                                                                var_dump($id);
                                                             }
                                                             unset($entity->namedtag->Commands[$input]);
                                                             $sender->sendMessage($this->prefix . "Command removed.");
