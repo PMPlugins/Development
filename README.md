@@ -7,7 +7,7 @@
 <h3>Plugin Statuses:</h3>
 |Name|Version|Author|Active?|Completed?|Status|
 |----|:-------:|:------:|:-------:|:----------:|:------:|
-|Slapper|1.2.8|jojoe77777|Yes|No|May crash|
+|Slapper|1.2.8|jojoe77777|Yes|No|Works|
 |WorldStats|1.0.0|Legoboy0215|Yes|No|Works|
 |CouponCode|1.0.0|Legoboy0215|Yes|No|Works|
 |SignTools|1.0.0|Legoboy0215|Yes|No|Does not work|
