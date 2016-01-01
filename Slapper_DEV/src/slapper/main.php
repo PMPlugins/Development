@@ -1,7 +1,7 @@
 <?php
 
 namespace slapper;
-//test
+
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
@@ -136,7 +136,6 @@ class main extends PluginBase implements Listener
         $this->getLogger()->debug("Events have been registered!");
     }
 
-    /** @noinspection PhpInconsistentReturnPointsInspection */
     public function onCommand(CommandSender $sender, Command $command, $label, array $args)
     {
         switch (strtolower($command->getName())) {
