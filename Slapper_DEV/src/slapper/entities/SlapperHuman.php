@@ -18,7 +18,7 @@ class SlapperHuman extends HumanNPC
 
             $pk = new AddPlayerPacket();
             $pk->uuid = $uuid;
-            $pk->username = $this->getName();
+            $pk->username = "";
             $pk->eid = $entityId;
             $pk->x = $this->x;
             $pk->y = $this->y;
