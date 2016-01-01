@@ -70,6 +70,7 @@ class main extends PluginBase implements Listener
     public $mainArgs = [
         "help: /slapper help",
         "spawn: /slapper spawn <type> [name]",
+        "edit: /slapper edit [id] [args...]",
         "id: /slapper id",
         "remove: /slapper remove [id]",
         "version: /slapper version",
