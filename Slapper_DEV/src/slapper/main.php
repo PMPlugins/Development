@@ -294,7 +294,7 @@ class main extends PluginBase implements Listener
                                                     case "head":
                                                     case "hat":
                                                     case "cap":
-                                                    if ($entity instanceof SlapperHuman) {
+                                                        if ($entity instanceof SlapperHuman) {
                                                             if (isset($args[2])) {
                                                                 $entity->getInventory()->setHelmet(Item::fromString($args[2]));
                                                                 $sender->sendMessage($this->prefix . "Helmet updated.");
@@ -403,7 +403,7 @@ class main extends PluginBase implements Listener
                                                     case "listname":
                                                     case "nameonlist":
                                                     case "menuname":
-                                                    if ($entity instanceof SlapperHuman) {
+                                                        if ($entity instanceof SlapperHuman) {
                                                             if (isset($args[2])) {
                                                                 $type = 0;
                                                                 array_shift($args);
@@ -452,7 +452,7 @@ class main extends PluginBase implements Listener
                                                     case "addc":
                                                     case "addcmd":
                                                     case "addcommand":
-                                                    if (isset($args[2])) {
+                                                        if (isset($args[2])) {
                                                             array_shift($args);
                                                             array_shift($args);
                                                             $input = trim(implode(" ", $args));
@@ -465,7 +465,7 @@ class main extends PluginBase implements Listener
                                                     case "delc":
                                                     case "delcmd":
                                                     case "removecommand":
-                                                    if (isset($args[2])) {
+                                                        if (isset($args[2])) {
                                                             array_shift($args);
                                                             array_shift($args);
                                                             $input = trim(implode(" ", $args));
@@ -478,8 +478,8 @@ class main extends PluginBase implements Listener
                                                     case "listcommands":
                                                     case "listcmds":
                                                     case "listcs":
-                                                    if (isset($entity->namedtag->Commands)) {
-                                                        foreach ($entity->namedtag->Commands as $cmd) {
+                                                        if (isset($entity->namedtag->Commands)) {
+                                                            foreach ($entity->namedtag->Commands as $cmd) {
                                                                 $sender->sendMessage(TextFormat::GREEN . "[" . TextFormat::YELLOW . "S" . TextFormat::GREEN . "] " . "$cmd\n");
                                                             }
                                                         } else {
@@ -489,8 +489,8 @@ class main extends PluginBase implements Listener
                                                     case "update":
                                                     case "fix":
                                                     case "migrate":
-                                                    if ($this->getConfig()->get($entity->getName()) !== false) {
-                                                        foreach ($this->getConfig()->get($entity->getName()) as $cmd) {
+                                                        if ($this->getConfig()->get($entity->getName()) !== false) {
+                                                            foreach ($this->getConfig()->get($entity->getName()) as $cmd) {
                                                                 $entity->namedtag->Commands[$cmd] = new String($cmd, $cmd);
                                                             }
                                                             $sender->sendMessage($this->prefix . "Commands migrated.");
@@ -503,9 +503,9 @@ class main extends PluginBase implements Listener
                                                     case "migrateall":
                                                         $server = $this->getServer();
                                                         $count = 0;
-                                                    foreach ($server->getLevels() as $level) {
-                                                        foreach ($level->getEntities() as $entity) {
-                                                            if (
+                                                        foreach ($server->getLevels() as $level) {
+                                                            foreach ($level->getEntities() as $entity) {
+                                                                if (
                                                                     $entity instanceof SlapperHuman ||
                                                                     $entity instanceof SlapperSheep ||
                                                                     $entity instanceof SlapperPigZombie ||
@@ -536,29 +536,29 @@ class main extends PluginBase implements Listener
                                                                     $entity instanceof SlapperBoat ||
                                                                     $entity instanceof SlapperFallingSand ||
                                                                     $entity instanceof SlapperPrimedTNT
-                                                            ) {
+                                                                ) {
                                                                     $count++;
-                                                                if (!($entity->namedtag->Commands)) {
+                                                                    if (!($entity->namedtag->Commands)) {
                                                                         $entity->namedtag->Commands = new Compound("Commands", []);
                                                                     }
                                                                     $oldCmds = $this->getConfig()->get($entity->getName());
-                                                                if ($oldCmds) {
-                                                                    foreach ($oldCmds as $oldCmd) {
+                                                                    if ($oldCmds) {
+                                                                        foreach ($oldCmds as $oldCmd) {
                                                                             $entity->namedtag->Commands[$oldCmd] = new String($oldCmd, $oldCmd);
                                                                         }
                                                                     }
                                                                 }
-                                                            if ($entity instanceof SlapperHuman) {
-                                                                if ($entity->getSkinName() === "") {
-                                                                    $entity->setSkin($entity->getSkinData(), "Standard_Custom");
-                                                                    $entity->despawnFromAll();
-                                                                    $entity->spawnToAll();
-                                                                }
+                                                                if ($entity instanceof SlapperHuman) {
+                                                                    if ($entity->getSkinName() === "") {
+                                                                        $entity->setSkin($entity->getSkinData(), "Standard_Custom");
+                                                                        $entity->despawnFromAll();
+                                                                        $entity->spawnToAll();
+                                                                    }
                                                                 }
                                                             }
                                                         }
 
-                                                    $sender->sendMessage($this->prefix . "Updated " . $count . " Slapper entities.");
+                                                        $sender->sendMessage($this->prefix . "Updated " . $count . " Slapper entities.");
                                                         return true;
                                                         break;
                                                     case "block":
@@ -628,7 +628,7 @@ class main extends PluginBase implements Listener
                         case "help":
                         case "?":
                             $sender->sendMessage($this->helpHeader);
-                        foreach ($this->mainArgs as $msgArg) {
+                            foreach ($this->mainArgs as $msgArg) {
                                 $sender->sendMessage(TextFormat::GREEN . " - " . $msgArg . "\n");
                             }
                             return true;
