@@ -13,4 +13,4 @@
 |SignTools|1.0.0|Legoboy0215|Yes|No|Does not work|
 |SuperAPI|1.0.0|Legoboy0215|Yes|No|Works|
 |TellRaw|1.0.3|jojoe77777|Yes|Yes|Works|
-|Placeholders|1.0.2|jojoe77777|No|No|Should work|
+|Placeholders|1.0.3|jojoe77777|No|No|Should work|
