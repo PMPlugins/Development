@@ -1,0 +1,4 @@
+worlds:
+- hub
+- lobby
+stopCrashes: true
