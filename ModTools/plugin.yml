@@ -1,0 +1,74 @@
+name: ModTools
+main: jojoe77777\modtools\ModTools
+version: 1.0.0
+api: [1.12.0]
+author: jojoe77777
+description: Moderation tools!
+
+commands:
+ mute:
+  description: Mute players!
+  permission: modtools.mute
+ unmute:
+  description: Unmute players!
+  permission: modtools.unmute
+ listmutes:
+  aliases: [mutelist, mutes, seemutes]
+  description: See who is muted!
+  permission: modtools.listmutes
+ listbans:
+  aliases: [banlist, bans, seebans]
+  description: See who is banned!
+  permission: modtools.listbans
+ ismuted:
+  description: Check if someone is muted
+  permission: modtools.ismuted
+ isbanned:
+  description: Check if someone is banned
+  permission: modtools.isbanned
+ ban:
+  aliases: [permban]
+  description: Ban a player!
+  permission: modtools.ban
+ tempban:
+  description: Temp-ban a player!
+  permission: modtools.tempban
+ unban:
+  aliases: [pardon, removeban]
+  description: Unban a player!
+  permission: modtools.unban
+ kick:
+  description: Kick a player!
+  permission: modtools.kick
+
+permissions:
+ modtools.mute:
+  default: op
+  description: Use the /mute command
+ modtools.unmute:
+  default: op
+  description: Use the /unmute command
+ modtools.listmutes:
+  default: op
+  description: Use the /listmutes command
+ modtools.listbans:
+  default: op
+  description: Use the /listbans command
+ modtools.ismuted:
+  default: op
+  description: Use the /ismuted command
+ modtools.isbanned:
+  default: op
+  description: Use the /isbanned command
+ modtools.ban:
+  default: op
+  description: Use the /ban command
+ modtools.tempban:
+  default: op
+  description: Use the /tempban command
+ modtools.unban:
+  default: op
+  description: Use the /unban command
+ modtools.kick:
+  default: op
+  description: Use the /kick command

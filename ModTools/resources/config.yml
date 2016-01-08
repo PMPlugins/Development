@@ -1,0 +1,75 @@
+sql:
+  # Login details
+  host: "localhost"
+  user: "user"
+  pass: "pass"
+  port: 3306
+  # Where to store the info
+  database: "modtools"
+  # Tables
+  muteTable: "mutes"
+  banTable: "bans"
+
+bans:
+ hasBeenUnBanned: "§a{player}§4 has been unbanned."
+ hasBeenTempBanned: "§a{player}§4 has been temp-banned."
+ hasBeenBanned: "§a{player}§4 has been banned."
+ bannedMessage: "§4You are banned!"
+ notBanned: "§4{player} is not banned."
+ banMessage: "§4You have been banned!"
+ tempBanMessage: "§cYou have been temp-banned!"
+ alreadyBanned: "§4That player is already banned."
+ hasBeenBanned: "§a{player}§4 has been banned."
+ hasBeenUnBanned: "§a{player}§4 has been unbanned."
+ hasBeenTempBanned: "§a{player}§4 has been temp-banned."
+ banListHeader: "§6------ §aBanned Players §6------"
+ noPlayersBanned: "§aNo players are banned."
+ tempBannedListFormat: "§a - §a{player} §c|§a Banned until §b{end_format}§a."
+ permBannedListFormat: "§a - §4{player} §c|§a Banned forever (or until unbanned)."
+ # How to display the time for mutes
+ # Example output: "Monday, 5-10-2015"
+ banStartTimeFormat: "l, j-n-o"
+ banEndTimeFormat: "l, j-n-o at h:i:s"
+ isBannedMessageFormat: "§aThey were banned on §b{start_format}§a by §4{banner}§a.\nTheir ban ends on §b{end_format}§a."
+ bannedForeverMessageFormat: "§aThey were banned on §b{start_format}§a by §4{banner}§a.\nTheir ban lasts forever (or until unbanned)."
+
+mutes:
+ hasBeenMuted: "§a{player}§4 has been muted."
+ hasBeenUnMuted: "§a{player}§4 has been unmuted."
+ alreadyMuted: "§4That player is already muted."
+ notMuted: "§4{player}§a is not muted."
+ muteMessage: "§cYou have been muted!"
+ youAreMuted: "§cYou are muted!"
+ unMuted: "§aYou have been unmuted!"
+ muteListHeader: "§6------ §aMuted Players §6------"
+ noPlayersMuted: "§aNo players are muted."
+ tempMutedListFormat: "§a - §a{player} §c|§a Muted until §b{end_format}§a."
+ permMutedListFormat: "§a - §4{player} §c|§a Muted forever (or until unmuted)."
+ # How to display the time for mutes
+ # Example output: "Monday, 5-10-2015"
+ muteStartTimeFormat: "l, j-n-o"
+ muteEndTimeFormat: "l, j-n-o"
+ # How to display the message in /ismuted
+ isMutedMessageFormat: "§aThey were muted on §b{start_format}§a by §4{muter}§a.\nTheir mute ends on §b{end_format}§a."
+ mutedForeverMessageFormat: "§aThey were muted on §b{start_format}§a by §4{muter}§a.\nTheir mute lasts forever (or until unmuted)."
+ # Commands to block while a player is muted
+ blockedCommandsWhileMuted:
+ - tell
+ - msg
+ - w
+ - whisper
+ - pocketmine:tell
+ - pocketmine:w
+ - pocketmine:msg
+ - pocketmine:whisper
+ - me
+ - pocketmine:me
+ - say
+ - afk
+
+general:
+ playerNotOnline: "§4That player is not online."
+ noPlayerSpecified: "§4Please enter a player name."
+ invalidTimeValue: "§aInvalid time value!"
+ muteTickDelayInSeconds: 1
+ banTickDelayInSeconds: 2
