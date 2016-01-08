@@ -1,0 +1,16 @@
+name: AnySlab
+author: jojoe77777
+version: 1.0.0
+description: Transform any block into a slab!
+main: anyslab\main
+api: [1.12.0]
+commands:
+  anyslab:
+    description: Transform any block into a slab!
+    usage: "/anyslab create"
+    permission: anyslab.create
+
+permissions:
+  anyslab.create:
+    description: Allow creating slabs
+    default: op
