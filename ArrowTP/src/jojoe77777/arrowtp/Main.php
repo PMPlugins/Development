@@ -35,7 +35,6 @@ class Main extends PluginBase implements Listener
         $lvlname = $e->getLevel()->getName();
         if (in_array(strtolower($lvlname), $this->getConfig()->get("worlds"))){
 		    if ($en instanceof Player and $en->hasPermission("arrowtp.tp")) {
-                var_dump(strlen($en->getSkinData()));
                 $this->arrowSessions[$e->getId()] = [$e->getId(), $en->getName()];
             }
         }
