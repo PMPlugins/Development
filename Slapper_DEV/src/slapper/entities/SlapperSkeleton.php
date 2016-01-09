@@ -34,7 +34,7 @@ class SlapperSkeleton extends Entity
             3 => [0, $this->getDataProperty(3)],
             15 => [0, 1]
         ];
-        $player->dataPacket($pkZ);
+        $player->dataPacket($pk);
         parent::spawnTo($player);
     }
 
