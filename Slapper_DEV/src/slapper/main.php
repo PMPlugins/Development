@@ -452,6 +452,8 @@ class main extends PluginBase implements Listener
                                                             array_shift($args);
                                                             array_shift($args);
                                                             $entity->setDataProperty(2, Entity::DATA_TYPE_STRING, trim(implode(" ", $args)));
+                                                            $entity->despawnFromAll();
+                                                            $entity->spawnToAll();
                                                             $sender->sendMessage($this->prefix . "Name updated.");
                                                         } else {
                                                             $sender->sendMessage($this->prefix . "Please enter a name.");
@@ -530,10 +532,6 @@ class main extends PluginBase implements Listener
                                                             array_shift($args);
                                                             array_shift($args);
                                                             $input = trim(implode(" ", $args));
-                                                            $id = intval($input);
-                                                            if (is_int($id)) {
-                                                                $input = $id;
-                                                            }
                                                             unset($entity->namedtag->Commands[$input]);
                                                             $sender->sendMessage($this->prefix . "Command removed.");
                                                         } else {
@@ -543,7 +541,7 @@ class main extends PluginBase implements Listener
                                                     case "listcommands":
                                                     case "listcmds":
                                                     case "listcs":
-                                                        if (isset($entity->namedtag->Commands)) {
+                                                        if (!(empty($entity->namedtag->Commands))) {
                                                             $id = 0;
                                                             foreach ($entity->namedtag->Commands as $cmd) {
                                                                 $id++;
@@ -877,7 +875,7 @@ class main extends PluginBase implements Listener
         /* Slapper NBT info */
         $nbt->Commands = new Compound("Commands", []);
         $nbt->MenuName = new String("MenuName", "");
-        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.8");
+        $nbt->SlapperVersion = new String("SlapperVersion", "1.2.9");
         /* FallingSand Block ID */
         $nbt->BlockID = new Int("BlockID", 1);
         /* Name visible */
@@ -957,7 +955,7 @@ class main extends PluginBase implements Listener
                                     $this->getServer()->dispatchCommand(new ConsoleCommandSender(), str_ireplace("{player}", $giverName, $cmd));
                                 }
                             } else {
-                                $this->getLogger()->debug("Outdated entity; adding blank commands compound. Please restore commands manually with '/slapper edit" . $taker->getId() . "fix'");
+                                $this->getLogger()->debug("Outdated entity; adding blank commands compound. Please restore commands manually with '/slapper edit " . $taker->getId() . " fix'");
                                 $taker->namedtag->Commands = new Compound("Commands", []);
                             }
                         }

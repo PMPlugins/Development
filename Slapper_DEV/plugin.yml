@@ -1,6 +1,6 @@
 name: Slapper
 author: jojoe77777
-version: 1.2.8
+version: 1.2.9
 description: Adds entities into your world that you can slap to run commands!
 main: slapper\main
 api: [1.12.0]
@@ -63,6 +63,6 @@ permissions:
     description: Allow harming Slapper entites
     default: false
 
-  slapper.seeownskin:
-    description: Allow seeing your own skin on Slapper humans
-    default: false
+  slapper.seeId:
+    description: Allow seeing entity IDs under Slapper entities' names
+    default: op
