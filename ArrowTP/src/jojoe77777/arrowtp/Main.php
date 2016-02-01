@@ -45,7 +45,7 @@ class Main extends PluginBase implements Listener
         $id = $e->getId();
         if(isset($this->arrowSessions[$id])){
             $p = $this->getServer()->getPlayer($this->arrowSessions[$id][1]);
-            if($p != null){
+            if($p !== null){
                 $p->teleport($e, $p->getYaw(), $p->getPitch());
             }
 
