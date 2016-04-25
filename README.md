@@ -1,5 +1,5 @@
-# <b><i>PMPlugins</i></b>
-# Development
+# <b><i>INACTIVE</i></b>
+# ABANDONED. Newer Slapper versions are at http://github.com/PMPlugins/Slapper
 
 > This is where we upload code under development!
 --- <b>jojoe77777 & Legoboy0215</b>
